@@ -31,18 +31,18 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "jugador")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jugador.findAll", query = "SELECT j FROM Jugador j"),
-    @NamedQuery(name = "Jugador.findByIdJugador", query = "SELECT j FROM Jugador j WHERE j.idJugador = :idJugador"),
-    @NamedQuery(name = "Jugador.findByNombre", query = "SELECT j FROM Jugador j WHERE j.nombre = :nombre"),
-    @NamedQuery(name = "Jugador.findByApellido", query = "SELECT j FROM Jugador j WHERE j.apellido = :apellido"),
-    @NamedQuery(name = "Jugador.findByFechaNac", query = "SELECT j FROM Jugador j WHERE j.fechaNac = :fechaNac"),
-    @NamedQuery(name = "Jugador.findByDni", query = "SELECT j FROM Jugador j WHERE j.dni = :dni")})
+    @NamedQuery(name = "Jugador.findAll", query = "SELECT j FROM Jugador j")
+    , @NamedQuery(name = "Jugador.findByIdJugador", query = "SELECT j FROM Jugador j WHERE j.idJugador = :idJugador")
+    , @NamedQuery(name = "Jugador.findByNombre", query = "SELECT j FROM Jugador j WHERE j.nombre = :nombre")
+    , @NamedQuery(name = "Jugador.findByApellido", query = "SELECT j FROM Jugador j WHERE j.apellido = :apellido")
+    , @NamedQuery(name = "Jugador.findByFechaNac", query = "SELECT j FROM Jugador j WHERE j.fechaNac = :fechaNac")
+    , @NamedQuery(name = "Jugador.findByDni", query = "SELECT j FROM Jugador j WHERE j.dni = :dni")})
 public class Jugador implements Serializable {
 
     private static final long serialVersionUID = 1L;

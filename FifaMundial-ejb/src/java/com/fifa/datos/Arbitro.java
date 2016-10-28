@@ -27,17 +27,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "arbitro")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Arbitro.findAll", query = "SELECT a FROM Arbitro a"),
-    @NamedQuery(name = "Arbitro.findByIdArbitro", query = "SELECT a FROM Arbitro a WHERE a.idArbitro = :idArbitro"),
-    @NamedQuery(name = "Arbitro.findByNombre", query = "SELECT a FROM Arbitro a WHERE a.nombre = :nombre"),
-    @NamedQuery(name = "Arbitro.findByApellido", query = "SELECT a FROM Arbitro a WHERE a.apellido = :apellido"),
-    @NamedQuery(name = "Arbitro.findByDni", query = "SELECT a FROM Arbitro a WHERE a.dni = :dni")})
+    @NamedQuery(name = "Arbitro.findAll", query = "SELECT a FROM Arbitro a")
+    , @NamedQuery(name = "Arbitro.findByIdArbitro", query = "SELECT a FROM Arbitro a WHERE a.idArbitro = :idArbitro")
+    , @NamedQuery(name = "Arbitro.findByNombre", query = "SELECT a FROM Arbitro a WHERE a.nombre = :nombre")
+    , @NamedQuery(name = "Arbitro.findByApellido", query = "SELECT a FROM Arbitro a WHERE a.apellido = :apellido")
+    , @NamedQuery(name = "Arbitro.findByDni", query = "SELECT a FROM Arbitro a WHERE a.dni = :dni")})
 public class Arbitro implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -20,16 +20,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "goles")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Goles.findAll", query = "SELECT g FROM Goles g"),
-    @NamedQuery(name = "Goles.findByPartidoidPartido", query = "SELECT g FROM Goles g WHERE g.golesPK.partidoidPartido = :partidoidPartido"),
-    @NamedQuery(name = "Goles.findByJugadoridJugador", query = "SELECT g FROM Goles g WHERE g.golesPK.jugadoridJugador = :jugadoridJugador"),
-    @NamedQuery(name = "Goles.findByCantGoles", query = "SELECT g FROM Goles g WHERE g.cantGoles = :cantGoles")})
+    @NamedQuery(name = "Goles.findAll", query = "SELECT g FROM Goles g")
+    , @NamedQuery(name = "Goles.findByPartidoidPartido", query = "SELECT g FROM Goles g WHERE g.golesPK.partidoidPartido = :partidoidPartido")
+    , @NamedQuery(name = "Goles.findByJugadoridJugador", query = "SELECT g FROM Goles g WHERE g.golesPK.jugadoridJugador = :jugadoridJugador")
+    , @NamedQuery(name = "Goles.findByCantGoles", query = "SELECT g FROM Goles g WHERE g.cantGoles = :cantGoles")})
 public class Goles implements Serializable {
 
     private static final long serialVersionUID = 1L;

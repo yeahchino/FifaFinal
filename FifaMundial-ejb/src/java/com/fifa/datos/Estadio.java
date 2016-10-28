@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "estadio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estadio.findAll", query = "SELECT e FROM Estadio e"),
-    @NamedQuery(name = "Estadio.findByIdEstadio", query = "SELECT e FROM Estadio e WHERE e.idEstadio = :idEstadio"),
-    @NamedQuery(name = "Estadio.findByNombre", query = "SELECT e FROM Estadio e WHERE e.nombre = :nombre"),
-    @NamedQuery(name = "Estadio.findByAforo", query = "SELECT e FROM Estadio e WHERE e.aforo = :aforo")})
+    @NamedQuery(name = "Estadio.findAll", query = "SELECT e FROM Estadio e")
+    , @NamedQuery(name = "Estadio.findByIdEstadio", query = "SELECT e FROM Estadio e WHERE e.idEstadio = :idEstadio")
+    , @NamedQuery(name = "Estadio.findByNombre", query = "SELECT e FROM Estadio e WHERE e.nombre = :nombre")
+    , @NamedQuery(name = "Estadio.findByAforo", query = "SELECT e FROM Estadio e WHERE e.aforo = :aforo")})
 public class Estadio implements Serializable {
 
     private static final long serialVersionUID = 1L;

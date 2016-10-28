@@ -26,17 +26,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "cuerpotecnico")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cuerpotecnico.findAll", query = "SELECT c FROM Cuerpotecnico c"),
-    @NamedQuery(name = "Cuerpotecnico.findByIdCuerpoTecnico", query = "SELECT c FROM Cuerpotecnico c WHERE c.idCuerpoTecnico = :idCuerpoTecnico"),
-    @NamedQuery(name = "Cuerpotecnico.findByNombre", query = "SELECT c FROM Cuerpotecnico c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Cuerpotecnico.findByApellido", query = "SELECT c FROM Cuerpotecnico c WHERE c.apellido = :apellido"),
-    @NamedQuery(name = "Cuerpotecnico.findByDni", query = "SELECT c FROM Cuerpotecnico c WHERE c.dni = :dni")})
+    @NamedQuery(name = "Cuerpotecnico.findAll", query = "SELECT c FROM Cuerpotecnico c")
+    , @NamedQuery(name = "Cuerpotecnico.findByIdCuerpoTecnico", query = "SELECT c FROM Cuerpotecnico c WHERE c.idCuerpoTecnico = :idCuerpoTecnico")
+    , @NamedQuery(name = "Cuerpotecnico.findByNombre", query = "SELECT c FROM Cuerpotecnico c WHERE c.nombre = :nombre")
+    , @NamedQuery(name = "Cuerpotecnico.findByApellido", query = "SELECT c FROM Cuerpotecnico c WHERE c.apellido = :apellido")
+    , @NamedQuery(name = "Cuerpotecnico.findByDni", query = "SELECT c FROM Cuerpotecnico c WHERE c.dni = :dni")})
 public class Cuerpotecnico implements Serializable {
 
     private static final long serialVersionUID = 1L;

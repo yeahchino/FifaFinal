@@ -29,20 +29,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "partido")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Partido.findAll", query = "SELECT p FROM Partido p"),
-    @NamedQuery(name = "Partido.findByIdPartido", query = "SELECT p FROM Partido p WHERE p.idPartido = :idPartido"),
-    @NamedQuery(name = "Partido.findByFecha", query = "SELECT p FROM Partido p WHERE p.fecha = :fecha"),
-    @NamedQuery(name = "Partido.findByHora", query = "SELECT p FROM Partido p WHERE p.hora = :hora"),
-    @NamedQuery(name = "Partido.findByRdoA", query = "SELECT p FROM Partido p WHERE p.rdoA = :rdoA"),
-    @NamedQuery(name = "Partido.findByRdoB", query = "SELECT p FROM Partido p WHERE p.rdoB = :rdoB"),
-    @NamedQuery(name = "Partido.findByPenalesA", query = "SELECT p FROM Partido p WHERE p.penalesA = :penalesA"),
-    @NamedQuery(name = "Partido.findByPenalesB", query = "SELECT p FROM Partido p WHERE p.penalesB = :penalesB")})
+    @NamedQuery(name = "Partido.findAll", query = "SELECT p FROM Partido p")
+    , @NamedQuery(name = "Partido.findByIdPartido", query = "SELECT p FROM Partido p WHERE p.idPartido = :idPartido")
+    , @NamedQuery(name = "Partido.findByFecha", query = "SELECT p FROM Partido p WHERE p.fecha = :fecha")
+    , @NamedQuery(name = "Partido.findByHora", query = "SELECT p FROM Partido p WHERE p.hora = :hora")
+    , @NamedQuery(name = "Partido.findByRdoA", query = "SELECT p FROM Partido p WHERE p.rdoA = :rdoA")
+    , @NamedQuery(name = "Partido.findByRdoB", query = "SELECT p FROM Partido p WHERE p.rdoB = :rdoB")
+    , @NamedQuery(name = "Partido.findByPenalesA", query = "SELECT p FROM Partido p WHERE p.penalesA = :penalesA")
+    , @NamedQuery(name = "Partido.findByPenalesB", query = "SELECT p FROM Partido p WHERE p.penalesB = :penalesB")})
 public class Partido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,27 +72,27 @@ public class Partido implements Serializable {
     private Collection<Jugadoresxpartido> jugadoresxpartidoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "partido")
     private Collection<Goles> golesCollection;
-    @JoinColumn(name = "Mundial_idMundial", referencedColumnName = "idMundial")
-    @ManyToOne(optional = false)
-    private Mundial mundialidMundial;
-    @JoinColumn(name = "Ronda_idRonda", referencedColumnName = "idRonda")
-    @ManyToOne(optional = false)
-    private Ronda rondaidRonda;
-    @JoinColumn(name = "Estadio_idEstadio", referencedColumnName = "idEstadio")
-    @ManyToOne(optional = false)
-    private Estadio estadioidEstadio;
     @JoinColumn(name = "Equipo_idEquipoA", referencedColumnName = "idEquipo")
     @ManyToOne(optional = false)
     private Equipo equipoidEquipoA;
     @JoinColumn(name = "Equipo_idEquipoB", referencedColumnName = "idEquipo")
     @ManyToOne(optional = false)
     private Equipo equipoidEquipoB;
+    @JoinColumn(name = "Estadio_idEstadio", referencedColumnName = "idEstadio")
+    @ManyToOne(optional = false)
+    private Estadio estadioidEstadio;
     @JoinColumn(name = "Jugador_capitanA", referencedColumnName = "idJugador")
     @ManyToOne(optional = false)
     private Jugador jugadorcapitanA;
     @JoinColumn(name = "Jugador_capitanB", referencedColumnName = "idJugador")
     @ManyToOne(optional = false)
     private Jugador jugadorcapitanB;
+    @JoinColumn(name = "Mundial_idMundial", referencedColumnName = "idMundial")
+    @ManyToOne(optional = false)
+    private Mundial mundialidMundial;
+    @JoinColumn(name = "Ronda_idRonda", referencedColumnName = "idRonda")
+    @ManyToOne(optional = false)
+    private Ronda rondaidRonda;
 
     public Partido() {
     }
@@ -184,30 +184,6 @@ public class Partido implements Serializable {
         this.golesCollection = golesCollection;
     }
 
-    public Mundial getMundialidMundial() {
-        return mundialidMundial;
-    }
-
-    public void setMundialidMundial(Mundial mundialidMundial) {
-        this.mundialidMundial = mundialidMundial;
-    }
-
-    public Ronda getRondaidRonda() {
-        return rondaidRonda;
-    }
-
-    public void setRondaidRonda(Ronda rondaidRonda) {
-        this.rondaidRonda = rondaidRonda;
-    }
-
-    public Estadio getEstadioidEstadio() {
-        return estadioidEstadio;
-    }
-
-    public void setEstadioidEstadio(Estadio estadioidEstadio) {
-        this.estadioidEstadio = estadioidEstadio;
-    }
-
     public Equipo getEquipoidEquipoA() {
         return equipoidEquipoA;
     }
@@ -224,6 +200,14 @@ public class Partido implements Serializable {
         this.equipoidEquipoB = equipoidEquipoB;
     }
 
+    public Estadio getEstadioidEstadio() {
+        return estadioidEstadio;
+    }
+
+    public void setEstadioidEstadio(Estadio estadioidEstadio) {
+        this.estadioidEstadio = estadioidEstadio;
+    }
+
     public Jugador getJugadorcapitanA() {
         return jugadorcapitanA;
     }
@@ -238,6 +222,22 @@ public class Partido implements Serializable {
 
     public void setJugadorcapitanB(Jugador jugadorcapitanB) {
         this.jugadorcapitanB = jugadorcapitanB;
+    }
+
+    public Mundial getMundialidMundial() {
+        return mundialidMundial;
+    }
+
+    public void setMundialidMundial(Mundial mundialidMundial) {
+        this.mundialidMundial = mundialidMundial;
+    }
+
+    public Ronda getRondaidRonda() {
+        return rondaidRonda;
+    }
+
+    public void setRondaidRonda(Ronda rondaidRonda) {
+        this.rondaidRonda = rondaidRonda;
     }
 
     @Override

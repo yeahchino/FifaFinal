@@ -25,16 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "jugadoresxpartido")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jugadoresxpartido.findAll", query = "SELECT j FROM Jugadoresxpartido j"),
-    @NamedQuery(name = "Jugadoresxpartido.findByIdJugadorXpartido", query = "SELECT j FROM Jugadoresxpartido j WHERE j.idJugadorXpartido = :idJugadorXpartido"),
-    @NamedQuery(name = "Jugadoresxpartido.findByTitular", query = "SELECT j FROM Jugadoresxpartido j WHERE j.titular = :titular"),
-    @NamedQuery(name = "Jugadoresxpartido.findBySuplente", query = "SELECT j FROM Jugadoresxpartido j WHERE j.suplente = :suplente")})
+    @NamedQuery(name = "Jugadoresxpartido.findAll", query = "SELECT j FROM Jugadoresxpartido j")
+    , @NamedQuery(name = "Jugadoresxpartido.findByIdJugadorXpartido", query = "SELECT j FROM Jugadoresxpartido j WHERE j.idJugadorXpartido = :idJugadorXpartido")
+    , @NamedQuery(name = "Jugadoresxpartido.findByTitular", query = "SELECT j FROM Jugadoresxpartido j WHERE j.titular = :titular")
+    , @NamedQuery(name = "Jugadoresxpartido.findBySuplente", query = "SELECT j FROM Jugadoresxpartido j WHERE j.suplente = :suplente")})
 public class Jugadoresxpartido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,15 +48,15 @@ public class Jugadoresxpartido implements Serializable {
     private Boolean titular;
     @Column(name = "suplente")
     private Boolean suplente;
-    @JoinColumn(name = "Jugador_idJugador", referencedColumnName = "idJugador")
-    @ManyToOne(optional = false)
-    private Jugador jugadoridJugador;
-    @JoinColumn(name = "Equipo_idEquipo", referencedColumnName = "idEquipo")
-    @ManyToOne(optional = false)
-    private Equipo equipoidEquipo;
     @JoinColumn(name = "Partido_idPartido", referencedColumnName = "idPartido")
     @ManyToOne(optional = false)
     private Partido partidoidPartido;
+    @JoinColumn(name = "Equipo_idEquipo", referencedColumnName = "idEquipo")
+    @ManyToOne(optional = false)
+    private Equipo equipoidEquipo;
+    @JoinColumn(name = "Jugador_idJugador", referencedColumnName = "idJugador")
+    @ManyToOne(optional = false)
+    private Jugador jugadoridJugador;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jugadoresxpartido")
     private Collection<Tarjeta> tarjetaCollection;
 
@@ -91,12 +91,12 @@ public class Jugadoresxpartido implements Serializable {
         this.suplente = suplente;
     }
 
-    public Jugador getJugadoridJugador() {
-        return jugadoridJugador;
+    public Partido getPartidoidPartido() {
+        return partidoidPartido;
     }
 
-    public void setJugadoridJugador(Jugador jugadoridJugador) {
-        this.jugadoridJugador = jugadoridJugador;
+    public void setPartidoidPartido(Partido partidoidPartido) {
+        this.partidoidPartido = partidoidPartido;
     }
 
     public Equipo getEquipoidEquipo() {
@@ -107,12 +107,12 @@ public class Jugadoresxpartido implements Serializable {
         this.equipoidEquipo = equipoidEquipo;
     }
 
-    public Partido getPartidoidPartido() {
-        return partidoidPartido;
+    public Jugador getJugadoridJugador() {
+        return jugadoridJugador;
     }
 
-    public void setPartidoidPartido(Partido partidoidPartido) {
-        this.partidoidPartido = partidoidPartido;
+    public void setJugadoridJugador(Jugador jugadoridJugador) {
+        this.jugadoridJugador = jugadoridJugador;
     }
 
     @XmlTransient

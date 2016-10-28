@@ -18,18 +18,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "tarjeta")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tarjeta.findAll", query = "SELECT t FROM Tarjeta t"),
-    @NamedQuery(name = "Tarjeta.findByIdTarjeta", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaPK.idTarjeta = :idTarjeta"),
-    @NamedQuery(name = "Tarjeta.findByCantTarjAmariila", query = "SELECT t FROM Tarjeta t WHERE t.cantTarjAmariila = :cantTarjAmariila"),
-    @NamedQuery(name = "Tarjeta.findByTarjetaRoja", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaRoja = :tarjetaRoja"),
-    @NamedQuery(name = "Tarjeta.findBySancion", query = "SELECT t FROM Tarjeta t WHERE t.sancion = :sancion"),
-    @NamedQuery(name = "Tarjeta.findByJugadoresXPartidoidJugadorXpartido", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaPK.jugadoresXPartidoidJugadorXpartido = :jugadoresXPartidoidJugadorXpartido")})
+    @NamedQuery(name = "Tarjeta.findAll", query = "SELECT t FROM Tarjeta t")
+    , @NamedQuery(name = "Tarjeta.findByIdTarjeta", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaPK.idTarjeta = :idTarjeta")
+    , @NamedQuery(name = "Tarjeta.findByCantTarjAmariila", query = "SELECT t FROM Tarjeta t WHERE t.cantTarjAmariila = :cantTarjAmariila")
+    , @NamedQuery(name = "Tarjeta.findByTarjetaRoja", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaRoja = :tarjetaRoja")
+    , @NamedQuery(name = "Tarjeta.findBySancion", query = "SELECT t FROM Tarjeta t WHERE t.sancion = :sancion")
+    , @NamedQuery(name = "Tarjeta.findByJugadoresXPartidoidJugadorXpartido", query = "SELECT t FROM Tarjeta t WHERE t.tarjetaPK.jugadoresXPartidoidJugadorXpartido = :jugadoresXPartidoidJugadorXpartido")})
 public class Tarjeta implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -26,17 +26,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "organizador")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Organizador.findAll", query = "SELECT o FROM Organizador o"),
-    @NamedQuery(name = "Organizador.findByIdOrganizador", query = "SELECT o FROM Organizador o WHERE o.idOrganizador = :idOrganizador"),
-    @NamedQuery(name = "Organizador.findByNombre", query = "SELECT o FROM Organizador o WHERE o.nombre = :nombre"),
-    @NamedQuery(name = "Organizador.findByApellido", query = "SELECT o FROM Organizador o WHERE o.apellido = :apellido"),
-    @NamedQuery(name = "Organizador.findByDni", query = "SELECT o FROM Organizador o WHERE o.dni = :dni")})
+    @NamedQuery(name = "Organizador.findAll", query = "SELECT o FROM Organizador o")
+    , @NamedQuery(name = "Organizador.findByIdOrganizador", query = "SELECT o FROM Organizador o WHERE o.idOrganizador = :idOrganizador")
+    , @NamedQuery(name = "Organizador.findByNombre", query = "SELECT o FROM Organizador o WHERE o.nombre = :nombre")
+    , @NamedQuery(name = "Organizador.findByApellido", query = "SELECT o FROM Organizador o WHERE o.apellido = :apellido")
+    , @NamedQuery(name = "Organizador.findByDni", query = "SELECT o FROM Organizador o WHERE o.dni = :dni")})
 public class Organizador implements Serializable {
 
     private static final long serialVersionUID = 1L;

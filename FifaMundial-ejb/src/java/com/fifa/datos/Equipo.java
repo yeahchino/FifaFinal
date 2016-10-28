@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Usuario
+ * @author dfeitt
  */
 @Entity
 @Table(name = "equipo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e"),
-    @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")})
+    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e")
+    , @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")})
 public class Equipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,15 +52,15 @@ public class Equipo implements Serializable {
     private Collection<Cuerpotecnico> cuerpotecnicoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipoidEquipo")
     private Collection<Jugadoresxpartido> jugadoresxpartidoCollection;
+    @JoinColumn(name = "Mundial_idMundial", referencedColumnName = "idMundial")
+    @ManyToOne(optional = false)
+    private Mundial mundialidMundial;
     @JoinColumn(name = "Pais_idPais", referencedColumnName = "idPais")
     @ManyToOne(optional = false)
     private Pais paisidPais;
     @JoinColumn(name = "Zona_idZona", referencedColumnName = "idZona")
     @ManyToOne
     private Zona zonaidZona;
-    @JoinColumn(name = "Mundial_idMundial", referencedColumnName = "idMundial")
-    @ManyToOne(optional = false)
-    private Mundial mundialidMundial;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipoidEquipoA")
     private Collection<Partido> partidoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "equipoidEquipoB")
@@ -108,6 +108,14 @@ public class Equipo implements Serializable {
         this.jugadoresxpartidoCollection = jugadoresxpartidoCollection;
     }
 
+    public Mundial getMundialidMundial() {
+        return mundialidMundial;
+    }
+
+    public void setMundialidMundial(Mundial mundialidMundial) {
+        this.mundialidMundial = mundialidMundial;
+    }
+
     public Pais getPaisidPais() {
         return paisidPais;
     }
@@ -122,14 +130,6 @@ public class Equipo implements Serializable {
 
     public void setZonaidZona(Zona zonaidZona) {
         this.zonaidZona = zonaidZona;
-    }
-
-    public Mundial getMundialidMundial() {
-        return mundialidMundial;
-    }
-
-    public void setMundialidMundial(Mundial mundialidMundial) {
-        this.mundialidMundial = mundialidMundial;
     }
 
     @XmlTransient
