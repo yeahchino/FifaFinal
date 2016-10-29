@@ -140,17 +140,17 @@ public class JugadorJSFManagedBean implements Serializable {
     public String eliminar(int idJugador) {
         this.jugadorSessionBean.borrarJugador(getIdJugador());
         this.setJugador(null); //revisar
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminada con exito", ""));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador eliminada con exito", ""));
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarJugador() {
         if (this.getIdJugador()== -1) {
             this.jugadorSessionBean.agregarJugador(idJugador, nombre, apellido, dni, fechaNac);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregada con exito", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador agregada con exito", ""));
         } else {
             this.jugadorSessionBean.modificarJugador(idJugador, nombre, apellido, dni, fechaNac);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais modificada con exito", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificada con exito", ""));
         }
         this.setEditar(false);
         this.setJugador(null);//revisar

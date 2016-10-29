@@ -6,7 +6,7 @@
 package com.fifa.controlador;
 
 import com.fifa.datos.Estadio;
-import com.fifa.datos.Jugador;
+
 import com.fifa.negocio.EstadioSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -125,12 +125,12 @@ public class EstadioJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarEstadio() {
         if (this.getIdEstadio()== -1) {
-            this.estadioSessionBean.agregarEstadio( nombre, aforo);
+            this.estadioSessionBean.agregarEstadio(nombre, aforo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estadio agregada con exito", ""));
         } else {
-            this.estadioSessionBean.modificarEstadio(nombre, aforo);
+            this.estadioSessionBean.modificarEstadio(idEstadio,nombre, aforo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estadio modificada con exito", ""));
         }
         this.setEditar(false);

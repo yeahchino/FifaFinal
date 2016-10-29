@@ -24,7 +24,7 @@ public class EstadioSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-public boolean agregarEstadio(int idEstadio, String nombre, int aforo) {
+public boolean agregarEstadio(String nombre, int aforo) {
         try {
             Estadio e = new Estadio();
             e.setNombre(nombre);
@@ -37,10 +37,11 @@ public boolean agregarEstadio(int idEstadio, String nombre, int aforo) {
         }
     }
      
-     public boolean modificarEstadio(int idUsuario, String nombre, int aforo) {
+     public boolean modificarEstadio(int idEstadio, String nombre, int aforo) {
         try {
             Estadio e = em.find(Estadio.class, idEstadio);
             e.setNombre(nombre);
+            e.setAforo(aforo);
             em.merge(e);
             em.flush();
             return true;
@@ -49,7 +50,7 @@ public boolean agregarEstadio(int idEstadio, String nombre, int aforo) {
         }
     }
      
-     public boolean borrarZona(int idEstadio) {
+     public boolean borrarEstadio(int idEstadio) {
         try {
             em.getEntityManagerFactory().getCache().evict(Estadio.class);
             Estadio e = em.find(Estadio.class, idEstadio);

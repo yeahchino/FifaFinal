@@ -42,7 +42,7 @@ public class ArbitroSessionBean {
         }
     }
     
-    public boolean modificarUsuario(int idArbitro, String nombre, String apellido, int dni) {
+    public boolean modificarArbitro(int idArbitro, String nombre, String apellido, int dni) {
         try {
             Arbitro a = em.find(Arbitro.class, idArbitro);
             a.setNombre(nombre);
@@ -97,7 +97,7 @@ public class ArbitroSessionBean {
          }
      }
     
-     public List<Arbitro> obtenerUsuarioApellido ()
+     public List<Arbitro> obtenerArbitroApellido ()
             {
          try {
              javax.persistence.Query q= em.createNamedQuery("Arbitro.findByApellido");
