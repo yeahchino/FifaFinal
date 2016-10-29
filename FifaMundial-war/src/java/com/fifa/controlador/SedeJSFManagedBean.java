@@ -31,6 +31,7 @@ public class SedeJSFManagedBean implements Serializable {
     private int idSede = -1;
     private String nombre;
     
+    
      public SedeJSFManagedBean() {
     }
 
