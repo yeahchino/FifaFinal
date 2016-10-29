@@ -2,39 +2,38 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                      xmlns:h="http://xmlns.jcp.org/jsf/html"
-                  xmlns:p="http://primefaces.org/ui"
-                 xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                class=""  xmlns:h="http://xmlns.jcp.org/jsf/html"
+                    xmlns:p="http://primefaces.org/ui"
+                   xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
+      
      <h:head>
-        <title>Listado Zona</title>
+        <title>Listado Organizador</title>
     </h:head>
 <p:growl id="msj" />
 
         <h:form prependId="false">
-            <p:panelGrid columns="3">
+            <p:panelGrid columns="2">
                 <f:facet name="header">
-                        Buscar Zona
+                        Buscar Organizador
                     </f:facet>
-                    <h:outputLabel value="Zona " for="txtBuscarZona"/>
-                    <p:inputText value="#{zonaJSFManagedBean.zona}" id="txtBuscarZona"/>
+                    <h:outputLabel value="Sede " for="txtBuscarSede"/>
+                    <p:inputText value="#{organizadorJSFManagedBean.organizador}" id="txtBuscarOrganizador"/>
                     <p:commandButton value="Buscar" 
                                      icon="ui-icon-search" 
-                                     update="tablaZo"
+                                     update="tablaOr"
                                      >
-                        <f:setPropertyActionListener value="#{null}" target="#{zonaJSFManagedBean.zona}" />                                         
+                        <f:setPropertyActionListener value="#{null}" target="#{organizadorJSFManagedBean.organizador}" />                                         
                     </p:commandButton>
             </p:panelGrid>
             
             <br />
             
             
-            <p:dataTable value="#{zonaJSFManagedBean.zona}" 
+            <p:dataTable value="#{organizadorJSFManagedBean.organizador}" 
                          var="item"
-                         id="tablaZo"
+                         id="tablaOr"
                          paginator="true"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
@@ -46,40 +45,40 @@
         
                 <p:column headerText="">
                     <p:commandButton value="Eliminar"
-                                     action="#{zonaJSFManagedBean.eliminar(idZona)}"
-                                     update="tablaZo msj"/>
+                                     action="#{organizadorJSFManagedBean.eliminar(idOrganizador)}"
+                                     update="tablaOr msj"/>
                     
-                    <p:commandButton action="#{zonaJSFManagedBean.verEditar(true, idZona, nombre)}"
+                    <p:commandButton action="#{organizadorJSFManagedBean.verEditar(true, idOrganizador, nombre)}"
                                      value="Editar"
                                      icon="ui-icon-search" 
-                                     update="panelEditarZona"
+                                     update="panelEditarOrganizador"
                                      />
                     
                     
                 </p:column>
             </p:dataTable>  
             <p:commandButton value="Agregar"
-                             action="#{zonaJSFManagedBean.verEditar(true, idZona, nombre)}"
-                             update="panelEditarZona"
+                             action="#{organizadorJSFManagedBean.verEditar(true, idOrganizador, nombre)}"
+                             update="panelEditarOrganizador"
                              icon="ui-icon-check" />
 
 
-            <h:panelGroup id="panelEditarZona">
-                <p:panelGrid columns="2" rendered="#{zonaJSFManagedBean.editar}">
+            <h:panelGroup id="panelEditarOrganizador">
+                <p:panelGrid columns="2" rendered="#{organizadorJSFManagedBean.organizador}">
                     <f:facet name="header">
-                        Editar Zona
+                        Editar Organizador
                     </f:facet>
                     <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{zonaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
+                    <p:inputText value="#{organizadorJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Organizador Nombre"/>
                     
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
-                                         action="#{zonaJSFManagedBean.guardarZona()}"
-                                         update="tablaZo panelEditarZona msj"
+                                         action="#{organizadorJSFManagedBean.guardarOrganizador()}"
+                                         update="tablaZo panelEditarOrganizador msj"
                                          />
                         <p:commandButton value="Cerrar" 
-                                         action="#{zonaJSFManagedBean.verEditar(false, idZona, nombre)}"
-                                         update="panelEditarZona"
+                                         action="#{organizadorJSFManagedBean.verEditar(false, idOrganizador, nombre)}"
+                                         update="panelEditarOrganizador"
                                          immediate="true"
                                          />
                                          
@@ -97,26 +96,6 @@
 
         </h:form>
 
-
-        
-        
-            
-    <body>
-
-        <ui:composition template="./TemplateBase.xhtml">
-
-            <ui:define name="right">
-                right
-            </ui:define>
-
-            <ui:define name="content">
-                content
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
-</html>
     <ui:define name="right">
         right
     </ui:define>

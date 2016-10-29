@@ -46,7 +46,7 @@ public class OrganizadorJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String eliminar(int idZona) {
+    public String eliminar(int idOrganizador) {
         this.organizadorSessionBean.borrarOrganizador(idOrganizador);
         this.setOrganizador(null);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Organizador eliminada con exito", ""));
