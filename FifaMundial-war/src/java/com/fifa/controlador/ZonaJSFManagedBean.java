@@ -116,7 +116,7 @@ public class ZonaJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarZona() {
         if (this.getIdZona() == -1) {
             this.zonaSessionBean.agregarZona(getNombre());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zona agregada con exito", ""));
