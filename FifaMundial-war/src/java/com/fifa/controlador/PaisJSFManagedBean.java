@@ -106,7 +106,7 @@ public class PaisJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String eliminar(int idZona) {
+    public String eliminar(int idPais) {
         this.paisSessionBean.borrarPais(getIdPais());
         this.setPais(null);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminada con exito", ""));
