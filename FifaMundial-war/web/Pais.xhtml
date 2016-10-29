@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./TemplateBase.xhtml"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+            xmlns:h="http://xmlns.jcp.org/jsf/html"
+            xmlns:p="http://primefaces.org/ui"
+            xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Listado Paises</title>
+    </h:head>
+<p:growl id="msj" />
+
+        <h:form prependId="false">
+            <p:panelGrid columns="3">
+                <f:facet name="header">
+                        Buscar Paises
+                    </f:facet>
+                    <h:outputLabel value="Paises: " for="txtBuscarPais"/>
+                    <p:inputText value="#{paisJSFManagedBean.pais}" id="txtBuscarPais"/>
+                    <p:commandButton value="Buscar" 
+                                     icon="ui-icon-search" 
+                                     update="tablaPa"
+                                     >
+                        <f:setPropertyActionListener value="#{null}" target="#{paisJSFManagedBean.pais}" />                                         
+                    </p:commandButton>
+            </p:panelGrid>
+            
+            <br />
+            
+            
+            <p:dataTable value="#{paisJSFManagedBean.pais}" 
+                         var="item"
+                         id="tablaPa"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         emptyMessage="Sin datos"
+                         >
+                <p:column headerText="Nombre">
+                    #{item.nombre}
+                </p:column>
+        
+                <p:column headerText="">
+                    <p:commandButton value="Eliminar"
+                                     action="#{paisJSFManagedBean.eliminar(item.nombre)}"
+                                     update="tablaPa msj"/>
+                    
+                    <p:commandButton action="#{paisJSFManagedBean.verEditar(true, idPais, nombre)}"
+                                     value="Editar"
+                                     icon="ui-icon-search" 
+                                     update="panelEditarAlumno"
+                                     />
+                    
+                    
+                </p:column>
+            </p:dataTable>  
+            <p:commandButton value="Agregar"
+                             action="#{paisJSFManagedBean.verEditar(true, -1, null)}"
+                             update="panelEditarPais"
+                             icon="ui-icon-check" />
+
+
+            <h:panelGroup id="panelEditarPais">
+                <p:panelGrid columns="1" rendered="#{paisJSFManagedBean.editar}">
+                    <f:facet name="header">
+                        Editar Paises
+                    </f:facet>
+                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
+                    <p:inputText value="#{paisJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
+                    
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar"
+                                         action="#{paisJSFManagedBean.guardarPais()}"
+                                         update="tablaPa panelEditarPais msj"
+                                         />
+                        <p:commandButton value="Cerrar" 
+                                         action="#{paisJSFManagedBean.verEditar(false, -1, null)}"
+                                         update="panelEditarPais"
+                                         immediate="true"
+                                         />
+                                         
+                    </f:facet>
+                </p:panelGrid>
+            </h:panelGroup>
+
+
+
+
+
+
+
+
+
+        </h:form>
+
+    <ui:define name="right">
+        right
+    </ui:define>
+
+    <ui:define name="content">
+        content
+    </ui:define>
+
+</ui:composition>
