@@ -3,36 +3,36 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+         xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
      <h:head>
-        <title>Listado Estadio</title>
+        <title>Listado Ronda</title>
     </h:head>
 <p:growl id="msj" />
 
         <h:form prependId="false">
             <p:panelGrid columns="3">
                 <f:facet name="header">
-                        Buscar Estadio
+                        Buscar Ronda
                     </f:facet>
-                    <h:outputLabel value="Estadio " for="txtBuscarEstadio"/>
-                    <p:inputText value="#{estadioJSFManagedBean.estadio}" id="txtBuscarEstadio"/>
+                    <h:outputLabel value="Ronda " for="txtBuscarRonda"/>
+                    <p:inputText value="#{rondaJSFManagedBean.ronda}" id="txtBuscarRonda"/>
                     <p:commandButton value="Buscar" 
                                      icon="ui-icon-search" 
-                                     update="tablaEs"
+                                     update="tablaRo"
                                      >
-                        <f:setPropertyActionListener value="#{null}" target="#{estadioJSFManagedBean.estadio}" />                                         
+                        <f:setPropertyActionListener value="#{null}" target="#{rondaJSFManagedBean.ronda}" />                                         
                     </p:commandButton>
             </p:panelGrid>
             
             <br />
             
             
-            <p:dataTable value="#{estadioJSFManagedBean.estadio}" 
+            <p:dataTable value="#{rondaJSFManagedBean.ronda}" 
                          var="item"
-                         id="tablaEs"
+                         id="tablaRo"
                          paginator="true"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
@@ -44,43 +44,43 @@
         
                 <p:column headerText="">
                     <p:commandButton value="Eliminar"
-                                     action="#{estadioJSFManagedBean.eliminar(idEstadio)}"
-                                     update="tablaEs msj"/>
+                                     action="#{rondaJSFManagedBean.eliminar(idRonda)
+                                             }"
+                                     update="tablaRo msj"/>
                     
-                    <p:commandButton action="#{estadioJSFManagedBean.verEditar(true, idEstadio, nombre, aforo)}"
+                    <p:commandButton action="#{rondaJSFManagedBean.verEditar(true, idRonda, nombre)}"
                                      value="Editar"
                                      icon="ui-icon-search" 
-                                     update="panelEditarEstadio"
+                                     update="panelEditarRonda"
                                      />
                     
                     
                 </p:column>
             </p:dataTable>  
             <p:commandButton value="Agregar"
-                             action="#{estadioJSFManagedBean.verEditar(true, idEstadio, nombre, aforo)}"
-                             update="panelEditarEstadio"
+                             action="#{rondaJSFManagedBean.verEditar(true, idRonda, nombre)}"
+                             update="panelEditarRonda"
                              icon="ui-icon-check" />
 
 
-            <h:panelGroup id="panelEditarZona">
+            <h:panelGroup id="panelEditarRonda">
                 <p:panelGrid columns="2" rendered="#{estadioJSFManagedBean.editar}">
                     <f:facet name="header">
                         Editar Estadio
                     </f:facet>
                     <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{estadioJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
-                    <h:outputLabel value="Apellido *" for="txtNombre"/>
-                    <p:inputText value="#{estadioJSFManagedBean.aforo}" id="txtAforo" required="true" requiredMessage="Ingrese Aforo"/>
+                    <p:inputText value="#{rondaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
+              
 
                     
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
-                                         action="#{estadioJSFManagedBean.guardarEstadio()}"
-                                         update="tablaEs panelEditarEstadio msj"
+                                         action="#{rondaJSFManagedBean.guardarRonda()}"
+                                         update="tablaRo panelEditarRonda msj"
                                          />
                         <p:commandButton value="Cerrar" 
-                                         action="#{estadioJSFManagedBean.verEditar(false, idEstadio, nombre, aforo)}"
-                                         update="panelEditarEstadio"
+                                         action="#{rondaJSFManagedBean.verEditar(false, idRonda, nombre)}"
+                                         update="panelEditarRonda"
                                          immediate="true"
                                          />
                                          
@@ -102,6 +102,16 @@
         
         
         
+    <ui:define name="right">
+        right
+    </ui:define>
+
+    <ui:define name="content">
+        content
+    </ui:define>
+
+</ui:composition>
+
     <ui:define name="right">
         right
     </ui:define>
