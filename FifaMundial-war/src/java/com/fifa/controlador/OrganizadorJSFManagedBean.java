@@ -53,7 +53,7 @@ public class OrganizadorJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarOrganizador() {
         if (this.getIdOrganizador()== -1) {
             this.organizadorSessionBean.agregarOrganizador(nombre, apellido, dni);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Organizador agregada con exito", ""));
