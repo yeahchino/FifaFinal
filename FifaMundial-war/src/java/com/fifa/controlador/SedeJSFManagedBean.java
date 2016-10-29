@@ -105,7 +105,7 @@ public class SedeJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarSede() {
         if (this.getIdSede() == -1) {
             this.sedeSessionBean.agregarSede(nombre);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sede agregada con exito", ""));
