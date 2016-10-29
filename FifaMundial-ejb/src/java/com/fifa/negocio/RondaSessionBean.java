@@ -5,8 +5,9 @@
  */
 package com.fifa.negocio;
 
-
+import com.fifa.datos.Jugador;
 import com.fifa.datos.Organizador;
+import com.fifa.datos.Ronda;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -19,22 +20,19 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class OrganizadorSessionBean {
+public class RondaSessionBean {
 
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-    
-
-    
-    public boolean agregarOrganizador( String nombre,String apellido, int dni) {
+       
+    public boolean agregarRonda ( String nombre) {
         try {
-            Organizador o = new Organizador();
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
+            Ronda r = new Ronda();
+            r.setNombre(nombre);
           
-            em.persist(o);
+          
+            em.persist(r);
             em.flush();
             return true;
         } catch (Exception e) {
@@ -42,14 +40,12 @@ public class OrganizadorSessionBean {
         }
     }
      
-     public boolean modificarOrganizador(int idOrganizador,String nombre,String apellido, int dni) {
+     public boolean modificarRonda(int idRonda, String nombre) {
         try {
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
-           
-            em.merge(o);
+            Ronda r = em.find(Ronda.class, idRonda);
+            r.setNombre(nombre);
+                   
+            em.merge(r);
             em.flush();
             return true;
         } catch (Exception e) {
@@ -57,46 +53,51 @@ public class OrganizadorSessionBean {
         }
     }
      
-     public boolean borrarOrganizador(int idOrganizador) {
+     public boolean borrarRonda(int idRonda) {
         try {
-            em.getEntityManagerFactory().getCache().evict(Organizador.class);
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            em.remove(o); 
+            em.getEntityManagerFactory().getCache().evict(Ronda.class);
+            Ronda r = em.find(Ronda.class, idRonda);
+            em.remove(r); 
             return true;
         } catch (Exception e) {
             return false;
         }
     }
      
-    public List<Organizador> obtenerOrganizador()
+    public List<Ronda> obtenerRonda()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findAll");
+             javax.persistence.Query q= em.createNamedQuery("Ronda.findAll");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Organizador> obtenerOrganizadorNombre()
+    public List<Ronda> obtenerRondaNombre()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findByNombre");
+             javax.persistence.Query q= em.createNamedQuery("Ronda.findByNombre");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Organizador> obtenerOrganizadorId()
+    public List<Ronda> obtenerRondaId()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findByIdJugador");
+             javax.persistence.Query q= em.createNamedQuery("Ronda.findByIdJugador");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
+    
+    
+    
+    
+    
     public void persist(Object object) {
         em.persist(object);
     }

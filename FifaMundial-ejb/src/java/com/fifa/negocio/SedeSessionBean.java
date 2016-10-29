@@ -6,7 +6,8 @@
 package com.fifa.negocio;
 
 
-import com.fifa.datos.Organizador;
+import com.fifa.datos.Ronda;
+import com.fifa.datos.Sede;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -19,22 +20,23 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class OrganizadorSessionBean {
+public class SedeSessionBean {
 
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
     
-
     
-    public boolean agregarOrganizador( String nombre,String apellido, int dni) {
+    
+    
+       
+    public boolean agregarSede ( String nombre) {
         try {
-            Organizador o = new Organizador();
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
+            Sede s = new Sede ();
+            s.setNombre(nombre);
           
-            em.persist(o);
+          
+            em.persist(s);
             em.flush();
             return true;
         } catch (Exception e) {
@@ -42,14 +44,12 @@ public class OrganizadorSessionBean {
         }
     }
      
-     public boolean modificarOrganizador(int idOrganizador,String nombre,String apellido, int dni) {
+     public boolean modificarSede (int idSede , String nombre) {
         try {
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
-           
-            em.merge(o);
+            Sede  s = em.find(Sede.class, idSede);
+            s.setNombre(nombre);
+                   
+            em.merge(s);
             em.flush();
             return true;
         } catch (Exception e) {
@@ -57,50 +57,51 @@ public class OrganizadorSessionBean {
         }
     }
      
-     public boolean borrarOrganizador(int idOrganizador) {
+     public boolean borrarSede(int idSede) {
         try {
-            em.getEntityManagerFactory().getCache().evict(Organizador.class);
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            em.remove(o); 
+            em.getEntityManagerFactory().getCache().evict(Sede.class);
+            Sede s = em.find(Sede.class, idSede);
+            em.remove(s); 
             return true;
         } catch (Exception e) {
             return false;
         }
     }
      
-    public List<Organizador> obtenerOrganizador()
+    public List<Sede> obtenerSede()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findAll");
+             javax.persistence.Query q= em.createNamedQuery("Sede.findAll");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Organizador> obtenerOrganizadorNombre()
+    public List<Sede> obtenerSedeNombre()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findByNombre");
+             javax.persistence.Query q= em.createNamedQuery("Sede.findByNombre");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Organizador> obtenerOrganizadorId()
+    public List<Ronda> obtenerSedeId()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findByIdJugador");
+             javax.persistence.Query q= em.createNamedQuery("Sede.findByIdJugador");
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
+    
+    
+    
     public void persist(Object object) {
         em.persist(object);
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }
