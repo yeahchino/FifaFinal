@@ -25,5 +25,5 @@ public class UsuarioJSFManagedBean implements Serializable {
     
     public UsuarioJSFManagedBean() {
     }
-    
+    //observar las creaciones de los objetos, no se como se hace para crear dos objetos en la misma clase
 }
