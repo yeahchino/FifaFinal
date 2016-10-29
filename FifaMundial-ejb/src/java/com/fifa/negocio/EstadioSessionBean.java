@@ -70,7 +70,7 @@ public boolean agregarEstadio(int idEstadio, String nombre, int aforo) {
          }
      }
     
-    public List<Estadio> obtenerZonaNombre()
+    public List<Estadio> obtenerEstadioNombre()
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Estadio.findByNombre");
