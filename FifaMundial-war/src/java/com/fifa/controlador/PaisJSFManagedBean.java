@@ -113,7 +113,7 @@ public class PaisJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String guardarRonda() {
+    public String guardarPais() {
         if (this.getIdPais() == -1) {
             this.paisSessionBean.agregarPais(getNombre());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregada con exito", ""));

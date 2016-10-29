@@ -129,7 +129,7 @@ public class ArbitroJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String eliminar(int idZona) {
+    public String eliminar(int idArbitro) {
         this.arbitroSessionBean.borrarArbitro(idArbitro);
         this.setApellido(null);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro eliminada con exito", ""));
