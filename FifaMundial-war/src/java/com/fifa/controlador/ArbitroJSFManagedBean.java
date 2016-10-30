@@ -39,10 +39,18 @@ public class ArbitroJSFManagedBean implements Serializable {
     /**
      * @return the arbitro
      */
-    public List<Arbitro> getArbitro() {
+    public List<Arbitro> getArbitro()
+    {
+               
+        if(this.arbitro == null)
+        {
+            this.arbitro = this.arbitroSessionBean.obtenerArbitro();
+       }
         return arbitro;
     }
-
+        
+        
+ 
     /**
      * @param arbitro the arbitro to set
      */

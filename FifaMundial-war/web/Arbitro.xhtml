@@ -7,10 +7,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-     <h:head>
-        <title>Listado Arbitro</title>
-    </h:head>
-<p:growl id="msj" />
+  
+        
+  
+
+
+
+            <ui:define name="content">
+           <p:growl id="msj" />
 
         <h:form prependId="false">
             <p:panelGrid columns="3">
@@ -101,24 +105,8 @@
 
         
         
-        
-  
-
-    
-    
-    <body>
-
-        <ui:composition template="./TemplateBase.xhtml">
-
-            <ui:define name="right">
-                right
             </ui:define>
 
-            <ui:define name="content">
-                content
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
+     
+    
 </ui:composition>
