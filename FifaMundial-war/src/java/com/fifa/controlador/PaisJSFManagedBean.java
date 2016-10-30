@@ -26,7 +26,7 @@ public class PaisJSFManagedBean implements Serializable {
     @EJB
     private PaisSessionBean paisSessionBean;
     
- private List<Pais> pais;
+    private List<Pais> pais;
     private boolean editar = false;
     private int idPais = -1;
     private String nombre;
@@ -44,13 +44,20 @@ public class PaisJSFManagedBean implements Serializable {
      * @return the pais
      */
     public List<Pais> getPais() {
+         
+        if(this.pais == null)
+        {
+            this.pais = this.paisSessionBean.obtenerPais();
+       }
         return pais;
     }
+     
 
     /**
      * @param pais the pais to set
      */
     public void setPais(List<Pais> pais) {
+       
         this.pais = pais;
     }
 
@@ -98,7 +105,7 @@ public class PaisJSFManagedBean implements Serializable {
   
     
     
-    public String verEditar(boolean ver, int idZona, String nombre) {
+    public String verEditar(boolean ver, int idPais, String nombre) {
         this.setEditar(ver);
         this.idPais = idPais;
         this.setNombre(nombre);
