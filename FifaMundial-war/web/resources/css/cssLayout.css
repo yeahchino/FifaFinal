@@ -3,57 +3,57 @@
     position: relative;
     background-color: #FFFFFF;
     color: white;
-    padding: 5px;
-    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 #bottom {
     position: relative;
     background-color: #c2dfef;
-    padding: 5px;
-    margin: 10px 0px 0px 0px;
+    padding: 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 #left {
     float: left;
     background-color: #FFFFFF;
-    padding: 5px;
-    width: 150px;
+    padding: 0px;
+    width:0px;
 }
 
 #right {
     float: right;
     background-color: #FFFFFF;
-    padding: 5px;
-    width: 150px;
+    padding: 0px;
+    width:0px;
 }
 
 .center_content {
     position: relative;
     background-color: #dddddd;
-    padding: 5px;
+    padding: 0px;
 }
 
 .left_content {
     background-color: #dddddd;
-    padding: 5px;
-    margin-left: 170px;
+    padding: 0px;
+    margin-left: 0px;
 }
 
 .right_content {
     background-color: #dddddd;
     padding: 5px;
-    margin: 0px 170px 0px 170px;
+    margin: 0px 00px 0px 00px;
 }
 
 #top a:link, #top a:visited {
-  color: white;
+  color: grey;
   font-weight : bold;
   text-decoration: none;
 }
 
 #top a:link:hover, #top a:visited:hover  {
-  color: black;
+  color: blue;
   font-weight : bold;
   text-decoration : underline;
 }

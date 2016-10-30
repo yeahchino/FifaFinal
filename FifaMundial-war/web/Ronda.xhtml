@@ -7,117 +7,14 @@
                    xmlns:p="http://primefaces.org/ui"
                    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-        <h:head>
-           <title>Listado Ronda</title>
-       </h:head>
-   <p:growl id="msj" />
-
-           <h:form prependId="false">
-               <p:panelGrid columns="3">
-                   <f:facet name="header">
-                           Buscar Ronda
-                       </f:facet>
-                       <h:outputLabel value="Ronda " for="txtBuscarRonda"/>
-                       <p:inputText value="#{rondaJSFManagedBean.ronda}" id="txtBuscarRonda"/>
-                       <p:commandButton value="Buscar" 
-                                        icon="ui-icon-search" 
-                                        update="tablaRo"
-                                     >
-                        <f:setPropertyActionListener value="#{null}" target="#{rondaJSFManagedBean.ronda}" />                                         
-                    </p:commandButton>
-            </p:panelGrid>
-            
-            <br />
-            
-            
-            <p:dataTable value="#{rondaJSFManagedBean.ronda}" 
-                         var="item"
-                         id="tablaRo"
-                         paginator="true"
-                         paginatorPosition="bottom"
-                         rowsPerPageTemplate="5,10,15"
-                         emptyMessage="Sin datos"
-                         >
-                <p:column headerText="Nombre">
-                    #{item.nombre}
-                </p:column>
-        
-                <p:column headerText="">
-                    <p:commandButton value="Eliminar"
-                                     action="#{rondaJSFManagedBean.eliminar(idRonda)
-                                             }"
-                                     update="tablaRo msj"/>
-                    
-                    <p:commandButton action="#{rondaJSFManagedBean.verEditar(true, idRonda, nombre)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarRonda"
-                                     />
-                    
-                    
-                </p:column>
-            </p:dataTable>  
-            <p:commandButton value="Agregar"
-                             action="#{rondaJSFManagedBean.verEditar(true, idRonda, nombre)}"
-                             update="panelEditarRonda"
-                             icon="ui-icon-check" />
-
-
-            <h:panelGroup id="panelEditarRonda">
-                <p:panelGrid columns="2" rendered="#{estadioJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Estadio
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{rondaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
-              
-
-                    
-                    <f:facet name="footer">
-                        <p:commandButton value="Guardar"
-                                         action="#{rondaJSFManagedBean.guardarRonda()}"
-                                         update="tablaRo panelEditarRonda msj"
-                                         />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{rondaJSFManagedBean.verEditar(false, idRonda, nombre)}"
-                                         update="panelEditarRonda"
-                                         immediate="true"
-                                         />
-                                         
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
-
-
-
-
-
-
-
-
-
+    <ui:define name="content">
+         <h:form prependId="false">
+             <p:dataTable value="#{rondaJSFManagedBean.ronda}" var="pais" reflow="true">
+                <p:column headerText="Rondas">
+                    #{rondaJSFManagedBean.nombre}
+                </p:column> 
+        </p:dataTable>
         </h:form>
-
-
-        
-        
-        
-    <ui:define name="right">
-        right
-    </ui:define>
-
-    <ui:define name="content">
-        content
-    </ui:define>
-
-</ui:composition>
-
-    <ui:define name="right">
-        right
-    </ui:define>
-
-    <ui:define name="content">
-        content
     </ui:define>
 
 </ui:composition>
