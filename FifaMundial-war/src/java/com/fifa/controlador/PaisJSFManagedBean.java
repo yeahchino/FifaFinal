@@ -26,7 +26,7 @@ public class PaisJSFManagedBean implements Serializable {
     @EJB
     private PaisSessionBean paisSessionBean;
     
-    private List<Pais> pais;
+    private List<Pais> paislist;
     private boolean editar = false;
     private int idPais = -1;
     private String nombre;
@@ -45,34 +45,20 @@ public class PaisJSFManagedBean implements Serializable {
      */
     public List<Pais> getPais() {
          
-        if(this.pais == null)
+        if(this.paislist == null)
         {
-            this.pais = this.paisSessionBean.obtenerPais();
+            this.paislist = this.paisSessionBean.obtenerPais();
        }
-        return pais;
+        return paislist;
     }
      
 
     /**
-     * @param pais the pais to set
+     * @param paislist
      */
-    public void setPais(List<Pais> pais) {
+    public void setPais(List<Pais> paislist) {
        
-        this.pais = pais;
-    }
-
-    /**
-     * @return the editar
-     */
-    public boolean isEditar() {
-        return editar;
-    }
-
-    /**
-     * @param editar the editar to set
-     */
-    public void setEditar(boolean editar) {
-        this.editar = editar;
+        this.paislist = paislist;
     }
 
     /**
@@ -88,8 +74,8 @@ public class PaisJSFManagedBean implements Serializable {
     public void setIdPais(int idPais) {
         this.idPais = idPais;
     }
-
-    /**
+    
+     /**
      * @return the nombre
      */
     public String getNombre() {
@@ -102,36 +88,49 @@ public class PaisJSFManagedBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-  
     
-    
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
     public String verEditar(boolean ver, int idPais, String nombre) {
-        this.setEditar(ver);
+        this.editar = ver;
+        this.nombre = nombre;
         this.idPais = idPais;
-        this.setNombre(nombre);
-       
         return null;
     }
-
-    public String eliminar(int idPais) {
-        this.paisSessionBean.borrarPais(getIdPais());
-        this.setPais(null);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminada con exito", ""));
-        return null;
-    }
-
-    public String guardarPais() {
-        if (this.getIdPais() == -1) {
-            this.paisSessionBean.agregarPais(getNombre());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregada con exito", ""));
+    
+    public String guardar() {
+        if (this.idPais != -1) {
+            this.paisSessionBean.modificarPais(idPais, nombre);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais modificado con exito", ""));
         } else {
-            this.paisSessionBean.modificarPais(getNombre());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais modificada con exito", ""));
+            this.paisSessionBean.agregarPais(nombre);
+            this.nombre = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregado con exito", ""));
         }
-        this.setEditar(false);
-        this.setPais(null);
+        this.paislist = null;
         return null;
     }
+
+    public String eliminar(int id) {
+        this.paisSessionBean.borrarPais(id);
+        this.paislist = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminado con exito", ""));
+        return null;
+    }
+
+    
 
 
 }
