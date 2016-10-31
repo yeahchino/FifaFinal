@@ -5,18 +5,16 @@
  */
 package com.fifa.negocio;
 
-import com.fifa.datos.Jugador;
-import com.fifa.datos.Organizador;
-import com.fifa.datos.Ronda;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.fifa.datos.Ronda;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Stateless
 @LocalBean
@@ -25,45 +23,7 @@ public class RondaSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-       
-    public boolean agregarRonda ( String nombre) {
-        try {
-            Ronda r = new Ronda();
-            r.setNombre(nombre);
-          
-          
-            em.persist(r);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean modificarRonda(int idRonda, String nombre) {
-        try {
-            Ronda r = em.find(Ronda.class, idRonda);
-            r.setNombre(nombre);
-                   
-            em.merge(r);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean borrarRonda(int idRonda) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Ronda.class);
-            Ronda r = em.find(Ronda.class, idRonda);
-            em.remove(r); 
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
+    
     public List<Ronda> obtenerRonda()
      {
          try {
@@ -74,34 +34,67 @@ public class RondaSessionBean {
          }
      }
     
-    public List<Ronda> obtenerRondaNombre()
+    public List<Ronda> obtenerRondaNombre(String nombre)
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Ronda.findByNombre");
+             q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Ronda> obtenerRondaId()
+    public Ronda obtenerRondaId(int idRonda)
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Ronda.findByIdJugador");
-             return q.getResultList();
-         } catch (Exception e) {
+            em.getEntityManagerFactory().getCache().evict(Ronda.class);
+            Ronda a = em.find(Ronda.class, idRonda);
+            return a;
+        } catch (Exception e) {
              return null;
          }
      }
     
-    
-    
-    
-    
-    public void persist(Object object) {
-        em.persist(object);
+    public boolean borrarRonda(int idRonda) {
+        try {
+            em.getEntityManagerFactory().getCache().evict(Ronda.class);
+            Ronda p = em.find(Ronda.class, idRonda);
+            em.remove(p); 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+
+    public boolean agregarRonda( String nombre) {
+        try {
+            Ronda p = new Ronda();
+            p.setNombre(nombre);
+            em.persist(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+     public boolean modificarRonda(int idRonda, String nombre) {
+        try {
+            Ronda p = em.find(Ronda.class, idRonda);
+            p.setNombre(nombre);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+          
+     public void persist(Object object) {
+        em.persist(object);
+    }
+         
 }

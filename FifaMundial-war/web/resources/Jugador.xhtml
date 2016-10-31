@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Listado Arbitros</title>
+        <title>Listado Jugadores</title>
     </h:head>
     <h:body>
 
@@ -15,22 +15,22 @@
         <h:form prependId="false">
             <p:panelGrid columns="3">
                 <f:facet name="header">
-                        Buscar Arbitros
+                        Buscar Jugadores
                     </f:facet>
-                    <h:outputLabel value="Nombre: " for="txtBuscarArbitros"/>
-                    <p:inputText value="#{arbitroJSFManagedBean.nombre}" id="txtBuscarArbitro"/>
+                    <h:outputLabel value="Nombre: " for="txtBuscarJugadores"/>
+                    <p:inputText value="#{jugadorJSFManagedBean.nombre}" id="txtBuscarJugador"/>
                     <p:commandButton value="Buscar" 
                                      icon="ui-icon-search" 
                                      update="tablaAl"
                                      >
-                        <f:setPropertyActionListener value="#{null}" target="#{arbitroJSFManagedBean.arbitro}" />                                         
+                        <f:setPropertyActionListener value="#{null}" target="#{jugadorJSFManagedBean.jugador}" />                                         
                     </p:commandButton>
             </p:panelGrid>
             
             <br />
             
             
-            <p:dataTable value="#{arbitroJSFManagedBean.arbitro}" 
+            <p:dataTable value="#{jugadorJSFManagedBean.jugador}" 
                          var="item"
                          id="tablaAl"
                          paginator="true"
@@ -45,44 +45,47 @@
                     #{item.apellido}
                 </p:column>
                 <p:column headerText="Dni">
+                    #{item.fechaNac}
+                </p:column>
+                <p:column headerText="Fecha de Nacimiento">
                     #{item.dni}
                 </p:column>
                            
                 <p:column headerText="">
                     <p:commandButton value="Eliminar"
-                                     action="#{arbitroJSFManagedBean.eliminar(item.idArbitro)}"
+                                     action="#{jugadorJSFManagedBean.eliminar(item.idJugador)}"
                                      update="tablaAl msj"/>
                     
-                    <p:commandButton action="#{arbitroJSFManagedBean.verEditar(true, item.idArbitro, item.nombre, item.apellido, item.dni)}"
+                    <p:commandButton action="#{jugadorJSFManagedBean.verEditar(true, item.idJugador, item.nombre, item.apellido, item.fechaNac, item.dni)}"
                                      value="Editar"
                                      icon="ui-icon-search" 
-                                     update="panelEditarArbitro"
+                                     update="panelEditarJugador"
                                      />
                     
                     
                 </p:column>
             </p:dataTable>  
             <p:commandButton value="Agregar"
-                             action="#{arbitroJSFManagedBean.verEditar(true, -1, null, null, null)}"
-                             update="panelEditarArbitro"
+                             action="#{jugadorJSFManagedBean.verEditar(true, -1, null, null, null,null)}"
+                             update="panelEditarJugador"
                              icon="ui-icon-check" />
 
 
-            <h:panelGroup id="panelEditarArbitro">
-                <p:panelGrid columns="2" rendered="#{arbitroJSFManagedBean.editar}">
+            <h:panelGroup id="panelEditarJugador">
+                <p:panelGrid columns="2" rendered="#{jugadorJSFManagedBean.editar}">
                     <f:facet name="header">
-                        Editar Arbitros
+                        Editar Jugadores
                     </f:facet>
                     <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{arbitroJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Arbitro"/>
+                    <p:inputText value="#{jugadorJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Jugador"/>
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
-                                         action="#{arbitroJSFManagedBean.guardar()}"
-                                         update="tablaAl panelEditarArbitro msj"
+                                         action="#{jugadorJSFManagedBean.guardar()}"
+                                         update="tablaAl panelEditarJugador msj"
                                          />
                         <p:commandButton value="Cerrar" 
-                                         action="#{arbitroJSFManagedBean.verEditar(false, -1, null, null, null)}"
-                                         update="panelEditarArbitro"
+                                         action="#{jugadorJSFManagedBean.verEditar(false, -1, null, null, null,null)}"
+                                         update="panelEditarJugador"
                                          immediate="true"
                                          />
                                          

@@ -6,7 +6,6 @@
 package com.fifa.controlador;
 
 import com.fifa.datos.Jugador;
-import com.fifa.datos.Pais;
 import com.fifa.negocio.JugadorSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -19,7 +18,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Named(value = "jugadorJSFManagedBean")
 @SessionScoped
@@ -27,34 +26,67 @@ public class JugadorJSFManagedBean implements Serializable {
 
     @EJB
     private JugadorSessionBean jugadorSessionBean;
-
-  
- 
-    private List<Jugador> jugador;
+    
+    private List<Jugador> jugadorlist;
     private boolean editar = false;
     private int idJugador = -1;
-     private String nombre;
-     private String apellido;
-     private int dni;
-     private Date fechaNac;
+    private String nombre;
+    private String apellido;
+    private Date fechaNac;
+    private int dni;
 
-  
-   public JugadorJSFManagedBean() {
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Date getFechaNac() {
+        return fechaNac;
+    }
+
+    public void setFechaNac(Date fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+   
+
+    /**
+     * Creates a new instance of AlumnoBean
+     */
+    public JugadorJSFManagedBean() {
     }
 
     
-  /**
-     * @return the editar
-     */
-    public boolean isEditar() {
-        return editar;
-    }
 
     /**
-     * @param editar the editar to set
+     * @return the jugador
      */
-    public void setEditar(boolean editar) {
-        this.editar = editar;
+    public List<Jugador> getJugador() {
+         
+        if(this.jugadorlist == null)
+        {
+            this.jugadorlist = this.jugadorSessionBean.obtenerJugador();
+       }
+        return jugadorlist;
+    }
+     
+
+    /**
+     * @param jugadorlist
+     */
+    public void setJugador(List<Jugador> jugadorlist) {
+       
+        this.jugadorlist = jugadorlist;
     }
 
     /**
@@ -70,8 +102,8 @@ public class JugadorJSFManagedBean implements Serializable {
     public void setIdJugador(int idJugador) {
         this.idJugador = idJugador;
     }
-
-    /**
+    
+     /**
      * @return the nombre
      */
     public String getNombre() {
@@ -84,93 +116,52 @@ public class JugadorJSFManagedBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     /**
-     * @return the apellido
+     * @return the editar
      */
-    public String getApellido() {
-        return apellido;
+    public boolean isEditar() {
+        return editar;
     }
 
     /**
-     * @param apellido the apellido to set
+     * @param editar the editar to set
      */
-    public void setApellido(String apellido) {
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
+    public String verEditar(boolean ver, int idJugador, String nombre, String apellido, Date fechaNac, int dni) {
+        this.editar = ver;
+        this.nombre = nombre;
         this.apellido = apellido;
-    }
-
-    /**
-     * @return the dni
-     */
-    public int getDni() {
-        return dni;
-    }
-
-    /**
-     * @param dni the dni to set
-     */
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
-    /**
-     * @return the fechaNac
-     */
-    public Date getFechaNac() {
-        return fechaNac;
-    }
-
-    /**
-     * @param fechaNac the fechaNac to set
-     */
-    public void setFechaNac(Date fechaNac) {
         this.fechaNac = fechaNac;
-    }
-
-    
-    
-    public String verEditar(boolean ver, int idZona, String nombre) {
-        this.setEditar(ver);
+        this.dni = dni;
         this.idJugador = idJugador;
-        this.setNombre(nombre);
-       
         return null;
     }
-
-    public String eliminar(int idJugador) {
-        this.jugadorSessionBean.borrarJugador(getIdJugador());
-        this.setJugador(null); //revisar
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador eliminada con exito", ""));
-        return null;
-    }
-
-    public String guardarJugador() {
-        if (this.getIdJugador()== -1) {
-            this.jugadorSessionBean.agregarJugador(idJugador, nombre, apellido, dni, fechaNac);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador agregada con exito", ""));
+    
+    public String guardar() {
+        if (this.idJugador != -1) {
+            this.jugadorSessionBean.modificarJugador(idJugador, nombre, apellido, fechaNac, dni);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificado con exito", ""));
         } else {
-            this.jugadorSessionBean.modificarJugador(idJugador, nombre, apellido, dni, fechaNac);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificada con exito", ""));
+            this.jugadorSessionBean.agregarJugador(nombre, apellido, fechaNac, dni);
+            this.nombre = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador agregado con exito", ""));
         }
-        this.setEditar(false);
-        this.setJugador(null);//revisar
+        this.jugadorlist = null;
         return null;
     }
 
-    /**
-     * @return the jugador
-     */
-    public List<Jugador> getJugador() {
-        return jugador;
+    public String eliminar(int id) {
+        this.jugadorSessionBean.borrarJugador(id);
+        this.jugadorlist = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador eliminado con exito", ""));
+        return null;
     }
 
-    /**
-     * @param jugador the jugador to set
-     */
-    public void setJugador(List<Jugador> jugador) {
-        this.jugador = jugador;
-    }
+    
 
- 
-  
+
 }

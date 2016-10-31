@@ -6,7 +6,6 @@
 package com.fifa.controlador;
 
 import com.fifa.datos.Arbitro;
-import com.fifa.datos.Estadio;
 import com.fifa.negocio.ArbitroSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -18,58 +17,66 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Named(value = "arbitroJSFManagedBean")
 @SessionScoped
 public class ArbitroJSFManagedBean implements Serializable {
 
     @EJB
-    private ArbitroSessionBean arbitroSessionBean;
+    private ArbitroSessionBean ArbitroSessionBean;
     
-    public ArbitroJSFManagedBean() {
-    }
-       private List<Arbitro> arbitro;
+    private List<Arbitro> arbitrolist;
     private boolean editar = false;
     private int idArbitro = -1;
-     private String nombre;
-     private String apellido;
-     private int dni;
+    private String nombre;
+    private String apellido;
+    private int dni;
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+   
+
+    /**
+     * Creates a new instance of AlumnoBean
+     */
+    public ArbitroJSFManagedBean() {
+    }
+
+    
 
     /**
      * @return the arbitro
      */
-    public List<Arbitro> getArbitro()
-    {
-               
-        if(this.arbitro == null)
+    public List<Arbitro> getArbitro() {
+         
+        if(this.arbitrolist == null)
         {
-            this.arbitro = this.arbitroSessionBean.obtenerArbitro();
+            this.arbitrolist = this.ArbitroSessionBean.obtenerArbitro();
        }
-        return arbitro;
+        return arbitrolist;
     }
-        
-        
- 
-    /**
-     * @param arbitro the arbitro to set
-     */
-    public void setArbitro(List<Arbitro> arbitro) {
-        this.arbitro = arbitro;
-    }
+     
 
     /**
-     * @return the editar
+     * @param arbitrolist
      */
-    public boolean isEditar() {
-        return editar;
-    }
-
-    /**
-     * @param editar the editar to set
-     */
-    public void setEditar(boolean editar) {
-        this.editar = editar;
+    public void setArbitro(List<Arbitro> arbitrolist) {
+       
+        this.arbitrolist = arbitrolist;
     }
 
     /**
@@ -85,8 +92,8 @@ public class ArbitroJSFManagedBean implements Serializable {
     public void setIdArbitro(int idArbitro) {
         this.idArbitro = idArbitro;
     }
-
-    /**
+    
+     /**
      * @return the nombre
      */
     public String getNombre() {
@@ -99,65 +106,51 @@ public class ArbitroJSFManagedBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-   /**
-     * @return the apellido
+    
+    /**
+     * @return the editar
      */
-    public String getApellido() {
-        return apellido;
+    public boolean isEditar() {
+        return editar;
     }
 
     /**
-     * @param apellido the apellido to set
+     * @param editar the editar to set
      */
-    public void setApellido(String apellido) {
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+
+    public String verEditar(boolean ver, int idArbitro, String nombre, String apellido, int dni) {
+        this.editar = ver;
+        this.nombre = nombre;
         this.apellido = apellido;
-    }
-     
-    /**
-     * @return the aforo
-     */
-    public int getDni() {
-        return dni;
-    }
-
-    /**
-     * @param aforo the aforo to set
-     */
-    public void setDni(int aforo) {
-        this.dni = aforo;
-    }
-     
-      public String verEditar(boolean ver, int idArbitros, String nombre,String apellido, int dni) {
-        this.setEditar(ver);
-        this.idArbitro = idArbitros;
-        this.setNombre(nombre);
-        this.setApellido(apellido);
-        this.setDni(dni);
-       
+        this.dni = dni;
+        this.idArbitro = idArbitro;
         return null;
     }
-
-    public String eliminar(int idArbitro) {
-        this.arbitroSessionBean.borrarArbitro(idArbitro);
-        this.setApellido(null);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro eliminada con exito", ""));
-        return null;
-    }
-
-    public String guardarArbitro() {
-        if (this.getIdArbitro()== -1) {
-            this.arbitroSessionBean.agregarArbitro(nombre, apellido, dni);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro agregada con exito", ""));
+    
+    public String guardar() {
+        if (this.idArbitro != -1) {
+            this.ArbitroSessionBean.modificarArbitro(idArbitro, nombre, apellido, dni);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro modificado con exito", ""));
         } else {
-            this.arbitroSessionBean.modificarArbitro(idArbitro, nombre, apellido, dni);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro modificada con exito", ""));
+            this.ArbitroSessionBean.agregarArbitro(nombre, apellido, dni);
+            this.nombre = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro agregado con exito", ""));
         }
-        this.setEditar(false);
-        this.setArbitro(null);
+        this.arbitrolist = null;
         return null;
     }
 
- 
-     
-     
+    public String eliminar(int id) {
+        this.ArbitroSessionBean.borrarArbitro(id);
+        this.arbitrolist = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro eliminado con exito", ""));
+        return null;
+    }
+
+    
+
+
 }

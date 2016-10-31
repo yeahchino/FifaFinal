@@ -5,17 +5,16 @@
  */
 package com.fifa.negocio;
 
-import com.fifa.datos.Estadio;
-import static com.fifa.datos.Estadio_.idEstadio;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.fifa.datos.Estadio;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Stateless
 @LocalBean
@@ -24,43 +23,7 @@ public class EstadioSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-public boolean agregarEstadio(String nombre, int aforo) {
-        try {
-            Estadio e = new Estadio();
-            e.setNombre(nombre);
-            e.setAforo(aforo);
-            em.persist(e);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean modificarEstadio(int idEstadio, String nombre, int aforo) {
-        try {
-            Estadio e = em.find(Estadio.class, idEstadio);
-            e.setNombre(nombre);
-            e.setAforo(aforo);
-            em.merge(e);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean borrarEstadio(int idEstadio) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Estadio.class);
-            Estadio e = em.find(Estadio.class, idEstadio);
-            em.remove(e);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
+    
     public List<Estadio> obtenerEstadio()
      {
          try {
@@ -71,29 +34,69 @@ public boolean agregarEstadio(String nombre, int aforo) {
          }
      }
     
-    public List<Estadio> obtenerEstadioNombre()
+    public List<Estadio> obtenerEstadioNombre(String nombre)
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Estadio.findByNombre");
+             q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Estadio> obtenerEstadioId()
+    public Estadio obtenerEstadioId(int idEstadio)
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Estadio.findByIdZona");
-             return q.getResultList();
-         } catch (Exception e) {
+            em.getEntityManagerFactory().getCache().evict(Estadio.class);
+            Estadio a = em.find(Estadio.class, idEstadio);
+            return a;
+        } catch (Exception e) {
              return null;
          }
      }
-    public void persist(Object object) {
-        em.persist(object);
+    
+    public boolean borrarEstadio(int idEstadio) {
+        try {
+            em.getEntityManagerFactory().getCache().evict(Estadio.class);
+            Estadio p = em.find(Estadio.class, idEstadio);
+            em.remove(p); 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+
+    public boolean agregarEstadio( String nombre, int aforo) {
+        try {
+            Estadio p = new Estadio();
+            p.setNombre(nombre);
+            p.setAforo(aforo);
+            em.persist(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+     public boolean modificarEstadio(int idEstadio, String nombre, int aforo) {
+        try {
+            Estadio p = em.find(Estadio.class, idEstadio);
+            p.setNombre(nombre);
+            p.setAforo(aforo);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+          
+     public void persist(Object object) {
+        em.persist(object);
+    }
+         
 }

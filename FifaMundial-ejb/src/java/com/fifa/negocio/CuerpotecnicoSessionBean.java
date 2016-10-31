@@ -5,12 +5,12 @@
  */
 package com.fifa.negocio;
 
-import com.fifa.datos.Cuerpotecnico;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.fifa.datos.Cuerpotecnico;
 
 /**
  *
@@ -23,48 +23,7 @@ public class CuerpotecnicoSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-    public void persist(Object object) {
-        em.persist(object);
-    }
-public boolean agregarCuerpotecnico(String nombre, String apellido, int dni) {
-        try {
-            Cuerpotecnico a = new Cuerpotecnico();
-            a.setNombre(nombre);
-            a.setApellido(apellido);
-            a.setDni(dni);
-            em.persist(a);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
     
-    public boolean modificarCuerpotecnico(int idCuerpotecnico, String nombre, String apellido, int dni) {
-        try {
-            Cuerpotecnico a = em.find(Cuerpotecnico.class, idCuerpotecnico);
-            a.setNombre(nombre);
-            a.setApellido(apellido);
-            a.setDni(dni);
-            em.merge(a);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    public boolean borrarCuerpotecnico(int idCuerpotecnico) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Cuerpotecnico.class);
-            Cuerpotecnico a = em.find(Cuerpotecnico.class, idCuerpotecnico);
-            em.remove(a);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public List<Cuerpotecnico> obtenerCuerpotecnico()
      {
          try {
@@ -75,45 +34,71 @@ public boolean agregarCuerpotecnico(String nombre, String apellido, int dni) {
          }
      }
     
-    public List<Cuerpotecnico> obtenerArbitroId ()
-            {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Cuerpotecnico.findByIdUsuario");
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public List<Cuerpotecnico> obtenerArbitroNombre ()
-            {
+    public List<Cuerpotecnico> obtenerCuerpotecnicoNombre(String nombre)
+     {
          try {
              javax.persistence.Query q= em.createNamedQuery("Cuerpotecnico.findByNombre");
+             q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-     public List<Cuerpotecnico> obtenerUsuarioApellido ()
-            {
+    public Cuerpotecnico obtenerCuerpotecnicoId(int idCuerpotecnico)
+     {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Cuerpotecnico.findByApellido");
-             return q.getResultList();
-         } catch (Exception e) {
+            em.getEntityManagerFactory().getCache().evict(Cuerpotecnico.class);
+            Cuerpotecnico a = em.find(Cuerpotecnico.class, idCuerpotecnico);
+            return a;
+        } catch (Exception e) {
              return null;
          }
      }
+    
+    public boolean borrarCuerpotecnico(int idCuerpotecnico) {
+        try {
+            em.getEntityManagerFactory().getCache().evict(Cuerpotecnico.class);
+            Cuerpotecnico p = em.find(Cuerpotecnico.class, idCuerpotecnico);
+            em.remove(p); 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public boolean agregarCuerpotecnico( String nombre, String apellido, int dni) {
+        try {
+            Cuerpotecnico p = new Cuerpotecnico();
+            p.setNombre(nombre);
+            p.setApellido(apellido);
+            p.setDni(dni);
+            em.persist(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
      
-      public List<Cuerpotecnico> obtenerArbitroDni ()
-            {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Cuerpotecnico.findByDni");
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
+     public boolean modificarCuerpotecnico(int idCuerpotecnico, String nombre, String apellido, int dni) {
+        try {
+            Cuerpotecnico p = em.find(Cuerpotecnico.class, idCuerpotecnico);
+            p.setNombre(nombre);
+            p.setApellido(apellido);
+            p.setDni(dni);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
           
-     
+     public void persist(Object object) {
+        em.persist(object);
+    }
+         
 }

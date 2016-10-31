@@ -5,17 +5,16 @@
  */
 package com.fifa.negocio;
 
-
-import com.fifa.datos.Organizador;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.fifa.datos.Organizador;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Stateless
 @LocalBean
@@ -25,49 +24,6 @@ public class OrganizadorSessionBean {
     private EntityManager em;
 
     
-
-    
-    public boolean agregarOrganizador( String nombre,String apellido, int dni) {
-        try {
-            Organizador o = new Organizador();
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
-          
-            em.persist(o);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean modificarOrganizador(int idOrganizador,String nombre,String apellido, int dni) {
-        try {
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            o.setNombre(nombre);
-            o.setApellido(nombre);
-            o.setDni(dni);
-           
-            em.merge(o);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean borrarOrganizador(int idOrganizador) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Organizador.class);
-            Organizador o = em.find(Organizador.class, idOrganizador);
-            em.remove(o); 
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
     public List<Organizador> obtenerOrganizador()
      {
          try {
@@ -78,29 +34,71 @@ public class OrganizadorSessionBean {
          }
      }
     
-    public List<Organizador> obtenerOrganizadorNombre()
+    public List<Organizador> obtenerOrganizadorNombre(String nombre)
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Organizador.findByNombre");
+             q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Organizador> obtenerOrganizadorId()
+    public Organizador obtenerOrganizadorId(int idOrganizador)
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Organizador.findByIdJugador");
-             return q.getResultList();
-         } catch (Exception e) {
+            em.getEntityManagerFactory().getCache().evict(Organizador.class);
+            Organizador a = em.find(Organizador.class, idOrganizador);
+            return a;
+        } catch (Exception e) {
              return null;
          }
      }
-    public void persist(Object object) {
-        em.persist(object);
+    
+    public boolean borrarOrganizador(int idOrganizador) {
+        try {
+            em.getEntityManagerFactory().getCache().evict(Organizador.class);
+            Organizador p = em.find(Organizador.class, idOrganizador);
+            em.remove(p); 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+
+    public boolean agregarOrganizador ( String nombre, String apellido, int dni) {
+        try {
+            Organizador p = new Organizador();
+            p.setNombre(nombre);
+            p.setApellido(apellido);
+            p.setDni(dni);
+            em.persist(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+     public boolean modificarOrganizador(int idOrganizador, String nombre, String apellido, int dni) {
+        try {
+            Organizador p = em.find(Organizador.class, idOrganizador);
+            p.setNombre(nombre);
+            p.setApellido(apellido);
+            p.setDni(dni);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+          
+     public void persist(Object object) {
+        em.persist(object);
+    }
+         
 }

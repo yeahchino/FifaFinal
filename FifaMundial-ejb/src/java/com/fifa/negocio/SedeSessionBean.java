@@ -5,18 +5,16 @@
  */
 package com.fifa.negocio;
 
-
-import com.fifa.datos.Ronda;
-import com.fifa.datos.Sede;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import com.fifa.datos.Sede;
 
 /**
  *
- * @author Adriana
+ * @author Usuario
  */
 @Stateless
 @LocalBean
@@ -26,48 +24,6 @@ public class SedeSessionBean {
     private EntityManager em;
 
     
-    
-    
-    
-       
-    public boolean agregarSede ( String nombre) {
-        try {
-            Sede s = new Sede ();
-            s.setNombre(nombre);
-          
-          
-            em.persist(s);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean modificarSede (int idSede , String nombre) {
-        try {
-            Sede  s = em.find(Sede.class, idSede);
-            s.setNombre(nombre);
-                   
-            em.merge(s);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean borrarSede(int idSede) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Sede.class);
-            Sede s = em.find(Sede.class, idSede);
-            em.remove(s); 
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
     public List<Sede> obtenerSede()
      {
          try {
@@ -78,30 +34,67 @@ public class SedeSessionBean {
          }
      }
     
-    public List<Sede> obtenerSedeNombre()
+    public List<Sede> obtenerSedeNombre(String nombre)
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Sede.findByNombre");
+             q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
              return null;
          }
      }
     
-    public List<Ronda> obtenerSedeId()
+    public Sede obtenerSedeId(int idSede)
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Sede.findByIdJugador");
-             return q.getResultList();
-         } catch (Exception e) {
+            em.getEntityManagerFactory().getCache().evict(Sede.class);
+            Sede a = em.find(Sede.class, idSede);
+            return a;
+        } catch (Exception e) {
              return null;
          }
      }
     
-    
-    
-    public void persist(Object object) {
-        em.persist(object);
+    public boolean borrarSede(int idSede) {
+        try {
+            em.getEntityManagerFactory().getCache().evict(Sede.class);
+            Sede p = em.find(Sede.class, idSede);
+            em.remove(p); 
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
+
+    public boolean agregarSede( String nombre) {
+        try {
+            Sede p = new Sede();
+            p.setNombre(nombre);
+            em.persist(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+     public boolean modificarSede(int idSede, String nombre) {
+        try {
+            Sede p = em.find(Sede.class, idSede);
+            p.setNombre(nombre);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+     
+          
+     public void persist(Object object) {
+        em.persist(object);
+    }
+         
 }
