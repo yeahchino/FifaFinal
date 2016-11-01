@@ -8,18 +8,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="css" name="cssLayout.css" />
         <h:outputStylesheet library="css" name="default.css" />
-        <title>Fifa Mundiales</title>
+        <title>FIFA Mundiales</title>
     </h:head>
 
     <h:body>
 
         <div id="top">
-            <ui:include src="./MenuTop.xhtml"/>
+           <ui:include src="./MenuTop.xhtml"/>
         </div>
         <div>
             <div id="left">
-               <ui:include src="./MenuLeft.xhtml"/>
-              <!--  <ui:insert name="left">leftt</ui:insert>-->
+                <ui:include src="./MenuLeft.xhtml"/>
             </div>
             <div>
                 <div id="right">
@@ -29,7 +28,11 @@
                     <ui:insert name="content">Content</ui:insert>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom"></ui:insert>
+        </div>
+
     </h:body>
 
 </html>
