@@ -11,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Pais;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,52 +24,47 @@ public class PaisSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-    
-    public List<Pais> obtenerPais()
-     {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Pais.findAll");
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public List<Pais> obtenerPaisNombre(String nombre)
-     {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Pais.findByNombre");
-             q.setParameter("nombre", "%" + nombre);
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public Pais obtenerPaisId(int idPais)
-     {
-         try {
+    public List<Pais> obtenerPais() {
+        try {
+            javax.persistence.Query q = em.createNamedQuery("Pais.findAll");
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Pais> obtenerPaisNombre(String nombre) {
+        try {
+            javax.persistence.Query q = em.createNamedQuery("Pais.findByNombre");
+            q.setParameter("nombre", "%" + nombre);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Pais obtenerPaisId(int idPais) {
+        try {
             em.getEntityManagerFactory().getCache().evict(Pais.class);
             Pais a = em.find(Pais.class, idPais);
             return a;
         } catch (Exception e) {
-             return null;
-         }
-     }
-    
+            return null;
+        }
+    }
+
     public boolean borrarPais(int idPais) {
         try {
             em.getEntityManagerFactory().getCache().evict(Pais.class);
             Pais p = em.find(Pais.class, idPais);
-            em.remove(p); 
+            em.remove(p);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-
-    public boolean agregarPais( String nombre) {
+    public boolean agregarPais(String nombre) {
         try {
             Pais p = new Pais();
             p.setNombre(nombre);
@@ -79,8 +75,8 @@ public class PaisSessionBean {
             return false;
         }
     }
-     
-     public boolean modificarPais(int idPais, String nombre) {
+
+    public boolean modificarPais(int idPais, String nombre) {
         try {
             Pais p = em.find(Pais.class, idPais);
             p.setNombre(nombre);
@@ -91,10 +87,23 @@ public class PaisSessionBean {
             return false;
         }
     }
-     
-          
-     public void persist(Object object) {
+
+    public void persist(Object object) {
         em.persist(object);
     }
-         
+
+    public List<Pais> PaisXnombre(String nombre) {
+        try {
+            Query q = em.createNamedQuery("Pais.buscarXnombre");
+
+            if (nombre != null) {
+                q.setParameter("nombre", nombre + "%");
+            } else {
+                q.setParameter("nombre", "%");
+            }
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./TemplateBase.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+        </script>
+
+        <h:form prependId="false"> 
+
+
+            <p:growl id="msgs" showDetail="true" />
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel value="Fecha de Inicio" for="txtIn"/>
+                <p:calendar id="german1" value="#{calendar.dateC}" locale="es" navigator="true" pattern="dd/MM/yyyy" />
+            </h:panelGrid>
+            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                    <h:outputText value="German:" />
+                    <h:outputText value="#{calendar.dateC}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:panelGrid>
+            </p:dialog>
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel value="Fecha de Inicio" for="txtIn"/>
+                <p:calendar id="german" value="#{calendar.dateC}" locale="es" navigator="true" pattern="dd/MM/yyyy" />
+            </h:panelGrid>
+            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                <p:panelGrid id="display1" columns="2" columnClasses="label,value">
+                    <h:outputText value="German:" />
+                    <h:outputText value="#{calendar.dateC}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:panelGrid>
+            </p:dialog>
+
+            <p:panelGrid columns="3">
+                <f:facet name="header">
+                    Buscar Alumnos
+                </f:facet>
+                <h:outputLabel value="Apellido: " for="txtBuscarApellido"/>
+                <p:inputText value="#{paisJSFManagedBean.nombre}" id="txtBuscarApellido"/>
+                <p:commandButton value="Buscar" 
+                                 icon="ui-icon-search" 
+                                 update="tablaAl"
+                                 ajax="true"
+                                 >
+                    <f:setPropertyActionListener value="#{null}" target="#{paisJSFManagedBean.paisXnom}" />                                         
+                </p:commandButton>
+            </p:panelGrid>
+
+            <br />
+
+
+            <p:dataTable value="#{paisJSFManagedBean.paisXnom}" 
+                         var="item"
+                         id="tablaAl"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         emptyMessage="Sin datos"                         
+                         selectionMode="single"
+                         rowKey="#{item.idPais}"
+                         >
+                <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msgs" />
+
+                <p:column headerText="Nombre">
+                    #{item.idPais}
+                </p:column>
+                <p:column headerText="Apellido">
+                    #{item.nombre}
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="ui-icon-circle-check"
+                                     action="#{paisJSFManagedBean.verMarcar(item.idPais)}"
+                                     update="msgs txtIdPais"/>
+                </p:column>
+            </p:dataTable> 
+            <p:inputText id="txtIdPais" value="#{paisJSFManagedBean.idPais}"/>
+            <p:commandButton value="Agregar"
+                             action="#{mundialJSFManagedBean.guardar()}"
+                             icon="ui-icon-check" />
+
+
+            <p:dataTable value="#{paisJSFManagedBean.paisXnom}" 
+                         var="item"
+                         id="tablaPais2"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         emptyMessage="Sin datos"   
+                         selection="#{paisJSFManagedBean.paisesSel}" 
+                         rowKey="#{item.idPais}"
+                         >
+
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="Nombre">
+                    #{item.idPais}
+                </p:column>
+                <p:column headerText="Apellido">
+                    #{item.nombre}
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton process="tablaPais2" 
+                                     update="msgs" 
+                                     icon="ui-icon-search" 
+                                     value="Ver Seleccion" 
+                                     action="#{paisJSFManagedBean.verPaisesSel()}"
+                                     ajax="false"
+                                      />
+                </f:facet>
+
+            </p:dataTable> 
+            
+
+        </h:form>
+    </ui:define>
+</ui:composition>

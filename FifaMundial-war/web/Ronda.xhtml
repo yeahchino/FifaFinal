@@ -9,10 +9,10 @@
 
     <ui:define name="content">
          <h:form prependId="false">
-             <p:dataTable value="#{rondaJSFManagedBean.ronda}" var="pais" reflow="true">
-                <p:column headerText="Rondas">
-                    #{rondaJSFManagedBean.nombre}
-                </p:column> 
+             <p:dataTable value="#{paisJSFManagedBean.paisesSel}" var="pais" reflow="true">
+                <p:column headerText="Apellido">
+                    #{pais.nombre}
+                </p:column>
         </p:dataTable>
         </h:form>
     </ui:define>

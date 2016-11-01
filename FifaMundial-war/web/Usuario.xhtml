@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./TemplateBase.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:growl id="msj" />
+        <h:form prependId="false"> 
+            <h3 style="margin-top:0">Usuarios</h3>
+            <p:tabView>
+                <p:tab title="Nuevo">
+                    <p:panelGrid columns="2" id="panel">
+                        <h:outputLabel value="Nombre: " for="txtNom"/>
+                        <p:inputText value="#{usuarioJSFManagedBean.nombre}" id="txtNom" required="true" requiredMessage="Ingrese un nombre" />
+                        <h:outputLabel for="pass1" value="Contraseña:" />
+                        <p:password id="pass1" value="#{usuarioJSFManagedBean.contraseña}" 
+                                    match="pass2" 
+                                    label="Contraseña" 
+                                    required="true"
+                                    requiredMessage="Ingrese una contraseña"
+                                    feedback="true" 
+                                    promptLabel="Ingrese su contraseña" 
+                                    weakLabel="Débil"  
+                                    goodLabel="Mediana" 
+                                    strongLabel="Fuerte"
+                                    validatorMessage="LAS CONTRASEÑAS NO COINCIDEN"/>
+                        <h:outputLabel for="pass2" value="Repetir contraseña:" />
+                        <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" requiredMessage="Debe repetir la contraseña" />
+                        <p:outputLabel value="Tipo:" for="tipo"/>
+                        <p:selectOneRadio id="tipo" value="#{usuarioJSFManagedBean.tipo}" required="true" requiredMessage="Seleccione un tipo">
+                            <f:selectItem itemLabel="Administrador" itemValue="Admin" />
+                            <f:selectItem itemLabel="Supervisor" itemValue="Super" />
+                        </p:selectOneRadio>
+                        <f:facet name="footer">
+                            <br/>
+                            <div align="center">
+                                <p:commandButton value="Guardar" action="#{usuarioJSFManagedBean.guardar()}"
+                                                 update="panel msj"/>
+                            </div>
+                            <br/>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:tab>
+
+                <p:tab title="Modificar o Eliminar">
+                    <p:panelGrid columns="3">
+                        <f:facet name="header">
+                            Buscar Usuario
+                        </f:facet>
+                        <h:outputLabel value="Nombre: " for="txtBuscarNom"/>
+                        <p:inputText value="#{usuarioJSFManagedBean.nombre}" id="txtBuscarNom"/>
+                        <p:commandButton value="Buscar" 
+                                         icon="ui-icon-search" 
+                                         update="tbUser"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{usuarioJSFManagedBean.nombre}" />                                         
+                        </p:commandButton>
+                    </p:panelGrid>
+                    <br/>
+                    <p:dataTable value="#{usuarioJSFManagedBean.usuarios}" 
+                                 var="us"
+                                 id="tbUser"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rowsPerPageTemplate="5,10,15"
+                                 emptyMessage="Sin datos"
+                                 >
+                        <p:column headerText="Nombre">
+                            #{us.nombre}
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash"
+                                             action="#{usuarioJSFManagedBean.eliminar(us.nombre)}"
+                                             update="tbUser msj"/>
+                        </p:column>
+
+                            <!--<p:commandButton action="#{alumno1Bean.verEditar(true, item.idAlumno, item.nombre, item.apellido, item.legajo)}"
+                                             value="Editar"
+                                             icon="ui-icon-search" 
+                                             update="panelEditarAlumno"
+                                             />-->
+                    </p:dataTable>
+
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+</ui:composition>

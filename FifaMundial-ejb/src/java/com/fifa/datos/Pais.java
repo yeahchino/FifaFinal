@@ -33,7 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p")
     , @NamedQuery(name = "Pais.findByIdPais", query = "SELECT p FROM Pais p WHERE p.idPais = :idPais")
-    , @NamedQuery(name = "Pais.findByNombre", query = "SELECT p FROM Pais p WHERE p.nombre = :nombre")})
+    , @NamedQuery(name = "Pais.findByNombre", query = "SELECT p FROM Pais p WHERE p.nombre = :nombre")
+    , @NamedQuery(name = "Pais.buscarXnombre", query = "SELECT p FROM Pais p WHERE p.nombre LIKE :nombre order by p.nombre")    
+    })
 public class Pais implements Serializable {
 
     private static final long serialVersionUID = 1L;

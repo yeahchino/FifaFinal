@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -25,12 +26,14 @@ public class PaisJSFManagedBean implements Serializable {
 
     @EJB
     private PaisSessionBean paisSessionBean;
-    
+
     private List<Pais> paislist;
+    private List<Pais> paisXnom;
     private boolean editar = false;
     private int idPais = -1;
     private String nombre;
-   
+
+    private List<Pais> paisesSel;
 
     /**
      * Creates a new instance of AlumnoBean
@@ -38,26 +41,22 @@ public class PaisJSFManagedBean implements Serializable {
     public PaisJSFManagedBean() {
     }
 
-    
-
     /**
      * @return the pais
      */
     public List<Pais> getPais() {
-         
-        if(this.paislist == null)
-        {
+
+        if (this.paislist == null) {
             this.paislist = this.paisSessionBean.obtenerPais();
-       }
+        }
         return paislist;
     }
-     
 
     /**
      * @param paislist
      */
     public void setPais(List<Pais> paislist) {
-       
+
         this.paislist = paislist;
     }
 
@@ -74,8 +73,8 @@ public class PaisJSFManagedBean implements Serializable {
     public void setIdPais(int idPais) {
         this.idPais = idPais;
     }
-    
-     /**
+
+    /**
      * @return the nombre
      */
     public String getNombre() {
@@ -88,7 +87,7 @@ public class PaisJSFManagedBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     /**
      * @return the editar
      */
@@ -109,7 +108,7 @@ public class PaisJSFManagedBean implements Serializable {
         this.idPais = idPais;
         return null;
     }
-    
+
     public String guardar() {
         if (this.idPais != -1) {
             this.paisSessionBean.modificarPais(idPais, nombre);
@@ -130,7 +129,59 @@ public class PaisJSFManagedBean implements Serializable {
         return null;
     }
 
-    
+    /**
+     * @return the paisXnom
+     */
+    public List<Pais> getPaisXnom() {
 
+        if (this.paisXnom == null) {
+            this.paisXnom = this.paisSessionBean.PaisXnombre(nombre);
+        }
+        return paisXnom;
+    }
+
+    /**
+     * @param paisXnom the paisXnom to set
+     */
+    public void setPaisXnom(List<Pais> paisXnom) {
+        this.paisXnom = paisXnom;
+    }
+
+    public String verMarcar(int idPaisSel) {
+        this.idPais = idPaisSel;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais: " + idPais, ""));
+        return null;
+    }
+
+    public void onRowSelect(SelectEvent event) {
+        Pais p = ((Pais) event.getObject());
+        this.idPais = p.getIdPais();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais: " + idPais, ""));
+    }
+
+    /**
+     * @return the paisesSel
+     */
+    public List<Pais> getPaisesSel() {
+        return paisesSel;
+    }
+
+    /**
+     * @param paisesSel the paisesSel to set
+     */
+    public void setPaisesSel(List<Pais> paisesSel) {
+        this.paisesSel = paisesSel;
+    }
+
+    public String verPaisesSel() {
+
+        StringBuilder sb = new StringBuilder();
+        for (Pais pais : paisesSel) {
+            sb.append(pais.getNombre()).append("-");
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Paises sel: " + sb.toString(), ""));
+        return "Ronda.xhtml?faces-redirect=true";
+        //return null;
+    }
 
 }

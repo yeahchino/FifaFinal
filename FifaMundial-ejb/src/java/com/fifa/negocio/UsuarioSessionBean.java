@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Tipousuario;
 import com.fifa.datos.Usuario;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,82 +25,10 @@ public class UsuarioSessionBean {
     @PersistenceContext(unitName = "FifaMundial-ejbPU")
     private EntityManager em;
 
-    //Tipousuario
-    
-    public List<Tipousuario> obtenerTipousuario()
-     {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Tipousuario.findAll");
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public List<Tipousuario> obtenerTipousuarioNombre(String nombre)
-     {
-         try {
-             javax.persistence.Query q= em.createNamedQuery("Tipousuario.findByNombre");
-             q.setParameter("nombre", "%" + nombre);
-             return q.getResultList();
-         } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public Tipousuario obtenerTipousuarioId(int idTipousuario)
-     {
-         try {
-            em.getEntityManagerFactory().getCache().evict(Tipousuario.class);
-            Tipousuario a = em.find(Tipousuario.class, idTipousuario);
-            return a;
-        } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public boolean borrarTipousuario(int idTipousuario) {
-        try {
-            em.getEntityManagerFactory().getCache().evict(Tipousuario.class);
-            Tipousuario p = em.find(Tipousuario.class, idTipousuario);
-            em.remove(p); 
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-
-    public boolean agregarTipousuario( String nombre) {
-        try {
-            Tipousuario p = new Tipousuario();
-            p.setNombre(nombre);
-            em.persist(p);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-     public boolean modificarTipousuario(int idTipousuario, String nombre) {
-        try {
-            Tipousuario p = em.find(Tipousuario.class, idTipousuario);
-            p.setNombre(nombre);
-            em.merge(p);
-            em.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-     
-    // Usuario
-     
      public List<Usuario> obtenerUsuario()
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Usuario.findAll");
+             Query q= em.createNamedQuery("Usuario.findAll");
              return q.getResultList();
          } catch (Exception e) {
              return null;
@@ -109,21 +38,10 @@ public class UsuarioSessionBean {
     public List<Usuario> obtenerUsuarioNombre(String nombre)
      {
          try {
-             javax.persistence.Query q= em.createNamedQuery("Usuario.findByNombre");
+             Query q= em.createNamedQuery("Usuario.findByNombre");
              q.setParameter("nombre", "%" + nombre);
              return q.getResultList();
          } catch (Exception e) {
-             return null;
-         }
-     }
-    
-    public Usuario obtenerUsuarioId(int idUsuario)
-     {
-         try {
-            em.getEntityManagerFactory().getCache().evict(Usuario.class);
-            Usuario a = em.find(Usuario.class, idUsuario);
-            return a;
-        } catch (Exception e) {
              return null;
          }
      }
@@ -140,14 +58,17 @@ public class UsuarioSessionBean {
     }
 
 
-    public boolean agregarUsuario(String nombre, String contraseña, Tipousuario tipoUsuarioidTipo) {
+    public boolean agregarUsuario(String nombre, String contraseña, int idTipoUsuario) {
         try {
+            Tipousuario tipo = em.find(Tipousuario.class, idTipoUsuario);
+            if (tipo != null) {
             Usuario p = new Usuario();
             p.setNombre(nombre);
             p.setContraseña(contraseña);
-            p.setTipoUsuarioidTipo(tipoUsuarioidTipo);
+            p.setTipoUsuarioidTipo(tipo);
             em.persist(p);
             em.flush();
+            }
             return true;
         } catch (Exception e) {
             return false;

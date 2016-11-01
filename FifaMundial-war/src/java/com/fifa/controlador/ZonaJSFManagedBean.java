@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,6 +27,9 @@ public class ZonaJSFManagedBean implements Serializable {
     @EJB
     private ZonaSessionBean zonaSessionBean;
 
+    @Inject 
+    PaisJSFManagedBean paisJSF;
+    
     
     private List<Zona> zona;
     private boolean editar = false;
