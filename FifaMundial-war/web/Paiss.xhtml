@@ -19,7 +19,7 @@
                 <p:inputText value="#{paisJSFManagedBean.nombre}" id="txtBuscarPais"/>
                 <p:commandButton value="Buscar" 
                                  icon="ui-icon-search" 
-                                 update="tablaAl"
+                                 update="tablap"
                                  >
                     <f:setPropertyActionListener value="#{null}" target="#{paisJSFManagedBean.pais}" />                                         
                 </p:commandButton>
@@ -30,7 +30,7 @@
 
             <p:dataTable value="#{paisJSFManagedBean.pais}" 
                          var="item"
-                         id="tablaAl"
+                         id="tablap"
                          paginator="true"
                          paginatorPosition="bottom"
                          rowsPerPageTemplate="5,10,15"
@@ -43,7 +43,7 @@
                 <p:column headerText="">
                     <p:commandButton value="Eliminar"
                                      action="#{paisJSFManagedBean.eliminar(item.idPais)}"
-                                     update="tablaAl msj"/>
+                                     update="tablap msj"/>
 
                     <p:commandButton action="#{paisJSFManagedBean.verEditar(true, item.idPais, item.nombre)}"
                                      value="Editar"
@@ -70,7 +70,7 @@
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
                                          action="#{paisJSFManagedBean.guardar()}"
-                                         update="tablaAl panelEditarPais msj"
+                                         update="tablap panelEditarPais msj"
                                          />
                         <p:commandButton value="Cerrar" 
                                          action="#{paisJSFManagedBean.verEditar(false, -1, null)}"
