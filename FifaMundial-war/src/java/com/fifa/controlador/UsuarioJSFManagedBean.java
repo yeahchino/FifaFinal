@@ -27,15 +27,12 @@ public class UsuarioJSFManagedBean implements Serializable {
 
     @EJB
     private UsuarioSessionBean usuarioSessionBean;
-    private final UsuarioSessionBean query = new UsuarioSessionBean();
     private Usuario usuario;
     private int idTipoUsuario;
     private String nombre;
     private String contraseña;
     private String tipo;
     private List<Usuario> usuarios;
-        private String username;
-private String password;
 
      
      @PostConstruct
