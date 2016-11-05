@@ -39,7 +39,9 @@ public class SedeJSFManagedBean implements Serializable {
      * @return the sede
      */
     public List<Sede> getSede() {
-        return sede;
+        if (this.sede == null) {
+            this.sede = this.sedeSessionBean.obtenerSede();
+        }return sede;
     }
 
     /**

@@ -7,71 +7,75 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div id="top" >
-        <img src="Imagenes/Menu-Top.jpg" alt=""   width="1345" height="70"/>
+        <img src="Imagenes/Menu-Top.jpg" alt=""   width="950" height="70"/>
         <h:form>
-        <p:megaMenu style="font-size: 13px">
-            <p:submenu label="Rondas">
+        <p:megaMenu style="font-size: 10px">
+             <p:submenu label="Noticias FIFA" style="font-size:10px">
+                <p:column>
+                    <p:submenu label="Ir a">
+                        <p:menuitem value="Home" action="index.xhtml"  style="font-size:10px" />
+                        <p:menuitem value="Noticias" url="http://es.fifa.com" style="font-size:10px" />
+                        
+                        
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
+            <p:submenu label="Rondas" >
                 <p:column>
                     <p:submenu label="Fase de grupos">
-                        <p:menuitem value="Grupo A" url="#"/>
-                        <p:menuitem value="Grupo B" url="#" />
-                        <p:menuitem value="Grupo C" url="#" />
-                        <p:menuitem value="Grupo D" url="#" />
-                        <p:menuitem value="Grupo E" url="#" />
-                        <p:menuitem value="Grupo F" url="#" />
-                        <p:menuitem value="Grupo G" url="#" />
-                        <p:menuitem value="Grupo H" url="#" />
+                        <p:menuitem value="Grupo A" action="Zona.xhtml" style="font-size:10px"/>
+                        <p:menuitem value="Grupo B" style="font-size:10px" />
+                        <p:menuitem value="Grupo C" style="font-size:10px" />
+                        <p:menuitem value="Grupo D" style="font-size:10px" />
+                        <p:menuitem value="Grupo E" style="font-size:10px" />
+                        <p:menuitem value="Grupo F" style="font-size:10px" />
+                        <p:menuitem value="Grupo G" style="font-size:10px" />
+                        <p:menuitem value="Grupo H" style="font-size:10px" />
                     </p:submenu>
                 </p:column>
                 <p:column>
                     <p:submenu label="Rondas Eliminatorias">
-                        <p:menuitem value="Octavos de final" url="#" />
-                        <p:menuitem value="Cuartos de final" url="#" />
-                        <p:menuitem value="Semifinal" url="#" />
-                        <p:menuitem value="Tercer Puesto" url="#" />
-                        <p:menuitem value="Final" url="#" />
+                        <p:menuitem value="Octavos de final" style="font-size:10px" />
+                        <p:menuitem value="Cuartos de final" style="font-size:10px" />
+                        <p:menuitem value="Semifinal" style="font-size:10px" />
+                        <p:menuitem value="Tercer Puesto" style="font-size:10px" />
+                        <p:menuitem value="Final" style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
-            <p:submenu label="Equipos" >
+            <p:submenu label="Equipos">
                 <p:column>
-                    <p:submenu label="Continentes">
-                        <p:menuitem value="America" url="#" />
-                        <p:menuitem value="Europa" url="#" />
-                        <p:menuitem value="Asia" url="#" />
-                        <p:menuitem value="Africa" url="#" />
-                        <p:menuitem value="Oceania" url="#" />
+                         <p:submenu label="Continentes">
+                        <p:menuitem value="America" style="font-size:10px" />
+                        <p:menuitem value="Europa" style="font-size:10px" />
+                        <p:menuitem value="Asia" style="font-size:10px"/>
+                        <p:menuitem value="Africa" style="font-size:10px" />
+                        <p:menuitem value="Oceania" style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
             <p:submenu label="Mundial">
                 <p:column>
                     <p:submenu label="Ver">
-                        <p:menuitem value="Fixture" url="#" />
-                        <p:menuitem value="Estadios" url="#" />
-                        <p:menuitem value="Arbitros" url="#" />
-                        <p:menuitem value="Organizadores" url="#" />
-                        <p:menuitem value="Mundiales anteriores" url="#" />
+                        <p:menuitem value="Fixture"  />
+                        <p:menuitem value="Estadios" action="Estadio.xhtml"  style="font-size:10px"/>
+                        <p:menuitem value="Arbitros" action="Arbitro.xhtml"  style="font-size:10px" />
+                        <p:menuitem value="Organizadores" action="Organizador.xhtml"  style="font-size:10px" />
+                        <p:menuitem value="Mundiales anteriores"  style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
             <p:submenu label="Estadisticas">
                 <p:column>
                     <p:submenu label="Ver">
-                        <p:menuitem value="Goleadores" url="#" />
-                        <p:menuitem value="Valla menos vencida" url="#" />
-                        <p:menuitem value="Tarjetas" url="#" />
-                        <p:menuitem value="Asistencias" url="#" />
+                        <p:menuitem value="Goleadores"  style="font-size:10px"/>
+                        <p:menuitem value="Valla menos vencida" style="font-size:10px"/>
+                        <p:menuitem value="Tarjetas" style="font-size:10px" />
+                        <p:menuitem value="Asistencias" style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
-            <p:submenu label="Noticias FIFA">
-                <p:column>
-                    <p:submenu label="Ir a">
-                        <p:menuitem value="Noticias" url="http://es.fifa.com" />
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
+           
         </p:megaMenu>  
             </h:form>
     </div>

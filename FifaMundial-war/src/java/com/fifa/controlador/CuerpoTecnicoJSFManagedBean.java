@@ -42,7 +42,10 @@ public class CuerpoTecnicoJSFManagedBean implements Serializable {
      * @return the cuerpotecnico
      */
     public List<Cuerpotecnico> getCuerpotecnico() {
-        return cuerpotecnico;
+       
+        if (this.cuerpotecnico == null) {
+            this.cuerpotecnico = this.cuerpotecnicoSessionBean.obtenerCuerpotecnico();
+        }return cuerpotecnico;
     }
 
     /**

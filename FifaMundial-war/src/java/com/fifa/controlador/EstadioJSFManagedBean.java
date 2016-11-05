@@ -44,7 +44,12 @@ public class EstadioJSFManagedBean implements Serializable {
      * @return the estadio
      */
     public List<Estadio> getEstadio() {
-        return estadio;
+        {
+        if (this.estadio == null) {
+            this.estadio = this.estadioSessionBean.obtenerEstadio();
+        }return estadio;
+    }
+
     }
 
     /**

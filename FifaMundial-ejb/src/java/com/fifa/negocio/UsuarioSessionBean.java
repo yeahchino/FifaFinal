@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Tipousuario;
 import com.fifa.datos.Usuario;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -88,6 +90,10 @@ public class UsuarioSessionBean {
             return false;
         }
     }
+     
+     
+ 
+        
      public void persist(Object object) {
         em.persist(object);
     }

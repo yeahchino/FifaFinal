@@ -39,7 +39,12 @@ public class RondaJSFManagedBean implements Serializable {
      * @return the ronda
      */
     public List<Ronda> getRonda() {
-        return ronda;
+       {
+        if (this.ronda == null) {
+            this.ronda = this.rondaSessionBean.obtenerRonda();
+        }return ronda;
+    }
+
     }
 
     /**

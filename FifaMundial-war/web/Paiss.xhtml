@@ -8,87 +8,21 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <p:growl id="msj" />
+        <p:growl id="msj" autoUpdate="true" />
 
         <h:form prependId="false">
-            <p:panelGrid columns="3">
-                <f:facet name="header">
-                    Buscar Paises
-                </f:facet>
-                <h:outputLabel value="Nombre: " for="txtBuscarPais"/>
-                <p:inputText value="#{paisJSFManagedBean.nombre}" id="txtBuscarPais"/>
-                <p:commandButton value="Buscar" 
-                                 icon="ui-icon-search" 
-                                 update="tablap"
-                                 >
-                    <f:setPropertyActionListener value="#{null}" target="#{paisJSFManagedBean.pais}" />                                         
-                </p:commandButton>
-            </p:panelGrid>
-
-            <br />
-
-
-            <p:dataTable value="#{paisJSFManagedBean.pais}" 
-                         var="item"
-                         id="tablap"
-                         paginator="true"
-                         paginatorPosition="bottom"
-                         rowsPerPageTemplate="5,10,15"
-                         emptyMessage="Sin datos"
-                         >
-                <p:column headerText="Nombre">
-                    #{item.nombre}
-                </p:column>
-
-                <p:column headerText="">
-                    <p:commandButton value="Eliminar"
-                                     action="#{paisJSFManagedBean.eliminar(item.idPais)}"
-                                     update="tablap msj"/>
-
-                    <p:commandButton action="#{paisJSFManagedBean.verEditar(true, item.idPais, item.nombre)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarPais"
-                                     />
-
-
-                </p:column>
-            </p:dataTable>  
-            <p:commandButton value="Agregar"
-                             action="#{paisJSFManagedBean.verEditar(true, -1, null)}"
-                             update="panelEditarPais"
+          
+            <p:commandButton value=""
+                            
+                             update="paList"
                              icon="ui-icon-check" />
-
-
-            <h:panelGroup id="panelEditarPais">
-                <p:panelGrid columns="2" rendered="#{paisJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Paises
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{paisJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Pais"/>
-                    <f:facet name="footer">
-                        <p:commandButton value="Guardar"
-                                         action="#{paisJSFManagedBean.guardar()}"
-                                         update="tablap panelEditarPais msj"
-                                         />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{paisJSFManagedBean.verEditar(false, -1, null)}"
-                                         update="panelEditarPais"
-                                         immediate="true"
-                                         />
-
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
-
-
-
-
-
-
-
-
+            <p:dataTable value="#{paisJSFManagedBean.pais}"
+                         id="paList"
+                         var="p">
+                <p:column headerText="Buscar Pais por nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.nombre}"/>
+                </p:column>
+            </p:dataTable>
 
         </h:form>
     </ui:define>

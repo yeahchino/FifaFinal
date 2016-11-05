@@ -50,6 +50,9 @@ public class ZonaJSFManagedBean implements Serializable {
      * @return the zona
      */
     public List<Zona> getZona() {
+         if (this.zona == null) {
+            this.zona = this.zonaSessionBean.obtenerZona();
+        }
         return zona;
     }
 

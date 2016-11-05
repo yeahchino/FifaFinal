@@ -11,9 +11,11 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 
 /**
  *
@@ -25,13 +27,23 @@ public class UsuarioJSFManagedBean implements Serializable {
 
     @EJB
     private UsuarioSessionBean usuarioSessionBean;
-
+    private final UsuarioSessionBean query = new UsuarioSessionBean();
+    private Usuario usuario;
     private int idTipoUsuario;
     private String nombre;
     private String contraseña;
     private String tipo;
     private List<Usuario> usuarios;
-    
+        private String username;
+private String password;
+
+     
+     @PostConstruct
+     public void init (){
+         
+         usuario = new Usuario();
+         
+     }
     public UsuarioJSFManagedBean() {
     }
     //observar las creaciones de los objetos, no se como se hace para crear dos objetos en la misma clase
@@ -100,7 +112,7 @@ public class UsuarioJSFManagedBean implements Serializable {
             return 2;
         }
     }
-    
+   
     //*val nom usuario
     public String guardar(){
         this.usuarioSessionBean.agregarUsuario(getNombre(), getContraseña(), idTipo());
@@ -134,5 +146,21 @@ public class UsuarioJSFManagedBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario eliminado con éxito", ""));
         return null;
     }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 
 }
