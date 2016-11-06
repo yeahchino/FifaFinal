@@ -31,6 +31,7 @@ public class EquipoJSFManagedBean implements Serializable {
     private EquipoSessionBean equipoSessionBean;
     
     private List<Equipo> equipolist;
+    private List <Equipo> zona;
     private boolean editar = false;
     private int idEquipo = -1;
     private Pais paisidPais;

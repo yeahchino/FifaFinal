@@ -10,10 +10,10 @@
     <ui:define name="content">
         <h:form prependId="false">
             <p:dataTable value="#{equipoJSFManagedBean.equiposOrdenadosPorZona}" var="equi">
-                <p:column headerText="Nombre">
+                <p:column headerText="Nombre" filterBy="#{equi.paisidPais.nombre}">
                     #{equi.paisidPais.nombre}
                 </p:column>
-                <p:column headerText="Zona">
+                <p:column headerText="Zona" filterBy="#{equi.zonaidZona.nombre}" filterMatchMode="contains">
                     #{equi.zonaidZona.nombre}
                 </p:column> 
             </p:dataTable>

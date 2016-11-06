@@ -7,12 +7,13 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div id="top" >
-        <img src="Imagenes/Menu-Top.jpg" alt=""   width="950" height="70"/>
+        <img src="Imagenes/Menu-Top.jpg" alt=""   width="1150" height="70"/>
         <h:form>
+         
         <p:megaMenu style="font-size: 10px">
              <p:submenu label="Noticias FIFA" style="font-size:10px">
                 <p:column>
-                    <p:submenu label="Ir a">
+                    <p:submenu label="Ir a" style="font-size: 12px">
                         <p:menuitem value="Home" action="index.xhtml"  style="font-size:10px" />
                         <p:menuitem value="Noticias" url="http://es.fifa.com" style="font-size:10px" />
                         
@@ -20,9 +21,9 @@
                     </p:submenu>
                 </p:column>
             </p:submenu>
-            <p:submenu label="Rondas" >
+            <p:submenu label="Rondas"  >
                 <p:column>
-                    <p:submenu label="Fase de grupos">
+                    <p:submenu label="Fase de grupos" style="font-size: 12px">
                         <p:menuitem value="Grupo A" action="Zona.xhtml" style="font-size:10px"/>
                         <p:menuitem value="Grupo B" style="font-size:10px" />
                         <p:menuitem value="Grupo C" style="font-size:10px" />
@@ -34,7 +35,7 @@
                     </p:submenu>
                 </p:column>
                 <p:column>
-                    <p:submenu label="Rondas Eliminatorias">
+                    <p:submenu label="Rondas Eliminatorias" style="font-size: 12px">
                         <p:menuitem value="Octavos de final" style="font-size:10px" />
                         <p:menuitem value="Cuartos de final" style="font-size:10px" />
                         <p:menuitem value="Semifinal" style="font-size:10px" />
@@ -43,22 +44,18 @@
                     </p:submenu>
                 </p:column>
             </p:submenu>
-            <p:submenu label="Equipos">
+            <p:submenu label="Busqueda" icon="ui-icon-search">
                 <p:column>
-                         <p:submenu label="Continentes">
-                        <p:menuitem value="America" style="font-size:10px" />
-                        <p:menuitem value="Europa" style="font-size:10px" />
-                        <p:menuitem value="Asia" style="font-size:10px"/>
-                        <p:menuitem value="Africa" style="font-size:10px" />
-                        <p:menuitem value="Oceania" style="font-size:10px" />
-                    </p:submenu>
+                         <p:submenu label="">
+                             <p:menuitem value="Jugadores" style="font-size:10px" action="Jugador.xhtml" />
+                                         </p:submenu>
                 </p:column>
             </p:submenu>
             <p:submenu label="Mundial">
                 <p:column>
-                    <p:submenu label="Ver">
-                        <p:menuitem value="Fixture"  />
-                        <p:menuitem value="Estadios" action="Estadio.xhtml"  style="font-size:10px"/>
+                    <p:submenu label="Ver" style="font-size: 12px">
+                        <p:menuitem value="Fixture" style="font-size: 10px" />
+                        <p:menuitem value="Estadios" action="Estadio.xhtml" style="font-size: 10px" />
                         <p:menuitem value="Arbitros" action="Arbitro.xhtml"  style="font-size:10px" />
                         <p:menuitem value="Organizadores" action="Organizador.xhtml"  style="font-size:10px" />
                         <p:menuitem value="Mundiales anteriores"  style="font-size:10px" />
@@ -67,7 +64,7 @@
             </p:submenu>
             <p:submenu label="Estadisticas">
                 <p:column>
-                    <p:submenu label="Ver">
+                    <p:submenu label="Ver" style="font-size: 12px">
                         <p:menuitem value="Goleadores"  style="font-size:10px"/>
                         <p:menuitem value="Valla menos vencida" style="font-size:10px"/>
                         <p:menuitem value="Tarjetas" style="font-size:10px" />

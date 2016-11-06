@@ -14,6 +14,7 @@ import com.fifa.datos.Equipo;
 import com.fifa.datos.Zona;
 import com.fifa.datos.Pais;
 import com.fifa.datos.Mundial;
+import javax.servlet.jsp.tagext.TryCatchFinally;
 
 
 /**
@@ -38,7 +39,7 @@ public class EquipoSessionBean {
          }
      }
     
-    public List<Equipo> obtenerArbitroNombre(String nombre)
+    public List<Equipo> obtenerEquipoNombre(String nombre)
      {
          try {
              javax.persistence.Query q= em.createNamedQuery("Equipo.findByNombre");
@@ -49,7 +50,7 @@ public class EquipoSessionBean {
          }
      }
     
-    public Equipo obtenerArbitroEquipoId(int idEquipo)
+    public Equipo obtenerEquipoId(int idEquipo)
      {
          try {
             em.getEntityManagerFactory().getCache().evict(Equipo.class);
@@ -109,6 +110,8 @@ public class EquipoSessionBean {
              return null;
          }
      }
+     
+   
      
           
      public void persist(Object object) {

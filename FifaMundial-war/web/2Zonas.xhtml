@@ -11,19 +11,14 @@
         <p:growl id="msj" autoUpdate="true" />
 
         <h:form prependId="false">
-          
-            <p:commandButton value=""
-                            
-                             update="dtList"
-                             icon="ui-icon-check" />
-            <p:dataTable value="#{organizadorJSFManagedBean.organizador}"
+             <p:dataTable value="#{equipoJSFManagedBean.equiposOrdenadosPorZona}"
                          id="dtList"
                          var="p">
-                <p:column headerText="Buscar Organizador por Nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
+                <p:column headerText="Buscar Paises por nombre" filterBy="#{p.paisidPais.nombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
                 </p:column>
-                <p:column headerText="Buscar Organizador por Apellido" filterBy="#{p.apellido}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.apellido}"/>
+                     <p:column headerText="Buscar Paises por Zona" filterBy="#{p.zonaidZona.nombre}" filterMatchMode="contains">
+                         <p:outputLabel value="#{p.zonaidZona.nombre}"/>
                 </p:column>
             </p:dataTable>
 
@@ -32,3 +27,4 @@
   </ui:define>
 
 </ui:composition>
+
