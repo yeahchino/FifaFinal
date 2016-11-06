@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e")
-    , @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")})
+    , @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")
+    , @NamedQuery(name = "Equipo.findEquipoByZona", query = "SELECT e FROM Equipo e order by e.zonaidZona, e.idEquipo")})
 public class Equipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -169,6 +170,8 @@ public class Equipo implements Serializable {
         }
         return true;
     }
+    
+    
 
     @Override
     public String toString() {
