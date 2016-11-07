@@ -4,21 +4,76 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
-
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+           
 
     <ui:define name="content">
+          <p:growl id="msj" autoUpdate="true"/>
+
         <h:form prependId="false">
-            <p:dataTable value="#{equipoJSFManagedBean.equiposOrdenadosPorZona}" var="equi">
-                <p:column headerText="Nombre" filterBy="#{equi.paisidPais.nombre}">
-                    #{equi.paisidPais.nombre}
+          
+              <p:dataTable value="#{equipoJSFManagedBean.equiposOrdenadosPorZona}" var="p">
+                <p:column headerText="Nombre" filterBy="#{p.paisidPais.nombre}">
+                    #{p.paisidPais.nombre}
                 </p:column>
-                <p:column headerText="Zona" filterBy="#{equi.zonaidZona.nombre}" filterMatchMode="contains">
-                    #{equi.zonaidZona.nombre}
+                <p:column headerText="Zona" filterBy="#{p.zonaidZona.nombre}" filterMatchMode="contains">
+                    #{p.zonaidZona.nombre}
                 </p:column> 
             </p:dataTable>
+                <p:column headerText="">
+
+                    <p:commandButton action="#{equipoJSFManagedBean.verEditar(true, p.idEquipo, p.paisidPais, p.zonaidZona, p.mundialidMundial)}"
+                                     value="Editar"
+                                     icon="ui-icon-search" 
+                                     update="panelEditarEq"
+                                     />
+                    
+                    
+                </p:column>
+
+            </p:dataTable>
+            <p:commandButton value="Agregar"
+                             action="#{equipoJSFManagedBean.verEditar(true,-1, null)}"
+                             update="panelEditarEq"
+                             icon="ui-icon-check" />
+
+
+            <h:panelGroup id="panelEditarEq">
+                <p:panelGrid columns="2" rendered="#{equipoJSFManagedBean.editar}">
+                    <f:facet name="header">
+                        Editar Equipos
+                    </f:facet>
+                    <h:outputLabel value="i *" for="txtNombre"/>
+                    <p:inputText value="#{zonaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
+               
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar"
+                                         action="#{equipoJSFManagedBean.guardar()}"
+                                            update="dtList panelEditarEq msj"
+                                     />
+                        <p:commandButton value="Cerrar" 
+                                         action="#{zonaJSFManagedBean.verEditar(false, -1, null)}"
+                                         update="panelEditarAlumno"
+                                         immediate="true"
+                                         />
+                                         
+                    </f:facet>
+                </p:panelGrid>
+            </h:panelGroup>
+
+
+
+
+
+
+
+
+
         </h:form>
 
-    </ui:define>
+
+  </ui:define>
 
 </ui:composition>
+

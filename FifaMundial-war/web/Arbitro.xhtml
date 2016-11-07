@@ -4,30 +4,81 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
            
 
     <ui:define name="content">
-        <p:growl id="msj" autoUpdate="true" />
+      
+        <p:growl id="msj" autoUpdate="true"/>
 
         <h:form prependId="false">
           
-            <p:commandButton value=""
-                            
-                             update="dtList"
-                             icon="ui-icon-check" />
             <p:dataTable value="#{arbitroJSFManagedBean.arbitro}"
                          id="dtList"
                          var="p">
-                <p:column headerText="Buscar Arbitro por nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
+                <p:column headerText="Nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.nombre}" />
                 </p:column>
-                <p:column headerText="Buscar Arbitro por Apellido" filterBy="#{p.apellido}" filterMatchMode="contains">
-                      <p:outputLabel value="#{p.apellido}"/>
+                <p:column headerText="Apellido" filterBy="#{p.apellido}" filterMatchMode="contains">
+                     <p:outputLabel value="#{p.apellido}" />
+                </p:column>
+                <p:column headerText="Dni" filterBy="#{p.dni}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.dni}" />
+                </p:column>
+                <p:column headerText="">
+
+                    <p:commandButton action="#{arbitroJSFManagedBean.verEditar(true, p.idArbitro, p.nombre, p.apellido, p.dni)}"
+                                     value="Editar"
+                                     icon="ui-icon-search" 
+                                     update="panelEditarAr"
+                                     />
+                    
+                    
                 </p:column>
             </p:dataTable>
+            <p:commandButton value="Agregar"
+                             action="#{arbitroJSFManagedBean.verEditar(true, -1, null, null, null)}"
+                             update="panelEditarAr"
+                             icon="ui-icon-check" />
+
+
+            <h:panelGroup id="panelEditarAr">
+                <p:panelGrid columns="2" rendered="#{arbitroJSFManagedBean.editar}">
+                    <f:facet name="header">
+                        Editar Arbitros
+                    </f:facet>
+                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
+                    <p:inputText value="#{arbitroJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
+                    <h:outputLabel value="Apellido: *" for="txtApellido"/>
+                    <p:inputText value="#{arbitroJSFManagedBean.apellido}" id="txtApellido" required="true" requiredMessage="Ingrese Apellido"/>
+                    <h:outputLabel value="Dni *" for="txtDni"/>
+                    <p:inputText value="#{arbitroJSFManagedBean.dni}" id="txtDni" required="true" requiredMessage="Ingrese Dni"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar"
+                                         action="#{arbitroJSFManagedBean.guardar()}"
+                                                     update="dtList panelEditarAr msj"                              />
+                        <p:commandButton value="Cerrar" 
+                                         action="#{arbitroJSFManagedBean.verEditar(false, -1, null, null, null)}"
+                                         update="panelEditarAr"
+                                         immediate="true"
+                                         />
+                                         
+                    </f:facet>
+                </p:panelGrid>
+            </h:panelGroup>
+
+
+
+
+
+
+
+
 
         </h:form>
+
+      
 
   </ui:define>
 

@@ -4,27 +4,73 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
            
 
     <ui:define name="content">
-        <p:growl id="msj" autoUpdate="true" />
+          <p:growl id="msj" autoUpdate="true"/>
 
         <h:form prependId="false">
           
-            <p:commandButton value=""
-                            
-                             update="dtList"
-                             icon="ui-icon-check" />
-            <p:dataTable value="#{zonaJSFManagedBean.zona}"
+           <p:dataTable value="#{zonaJSFManagedBean.zona}"
                          id="dtList"
                          var="p">
                 <p:column headerText="Buscar zonas por nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}" onclick="https://es.fifa.com"/>
+                    <p:outputLabel value="#{p.nombre}"/>
                 </p:column>
+               
+                <p:column headerText="">
+
+                    <p:commandButton action="#{zonaJSFManagedBean.verEditar(true, p.idZona, p.nombre)}"
+                                     value="Editar"
+                                     icon="ui-icon-search" 
+                                     update="panelEditarZo"
+                                     />
+                    
+                    
+                </p:column>
+
             </p:dataTable>
+            <p:commandButton value="Agregar"
+                             action="#{zonaJSFManagedBean.verEditar(true,-1, null)}"
+                             update="panelEditarZo"
+                             icon="ui-icon-check" />
+
+
+            <h:panelGroup id="panelEditarZo">
+                <p:panelGrid columns="2" rendered="#{zonaJSFManagedBean.editar}">
+                    <f:facet name="header">
+                        Editar Zonas
+                    </f:facet>
+                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
+                    <p:inputText value="#{zonaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
+               
+                    <f:facet name="footer">
+                        <p:commandButton value="Guardar"
+                                         action="#{zonaJSFManagedBean.guardarZona()}"
+                                            update="dtList panelEditarZo msj"
+                                     />
+                        <p:commandButton value="Cerrar" 
+                                         action="#{zonaJSFManagedBean.verEditar(false, -1, null)}"
+                                         update="panelEditarZo"
+                                         immediate="true"
+                                         />
+                                         
+                    </f:facet>
+                </p:panelGrid>
+            </h:panelGroup>
+
+
+
+
+
+
+
+
 
         </h:form>
+
 
   </ui:define>
 

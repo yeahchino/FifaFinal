@@ -69,13 +69,11 @@ public class OrganizadorJSFManagedBean implements Serializable {
     /**
      * @return the organizador
      */
-    public List<Organizador> getOrganizador() {
-         {
-        if (this.organizador == null) {
+    public List<Organizador> getOrganizador(){
+         if (this.organizador == null) {
             this.organizador = this.organizadorSessionBean.obtenerOrganizador();
-        }return organizador;
-    }
-
+        }
+        return organizador;
     }
 
     /**

@@ -8,10 +8,19 @@
         
 
     <ui:define name="content">
+  
         <p:growl id="msj" autoUpdate="true" />
 
         <h:form prependId="false"        >
-   
+             <style> 
+body 
+{ 
+background-image: url('Imagenes/login.jpg') ; 
+background-repeat: no-repeat; /*para que no se repita el fondo*/ 
+background-attachment: fixed /*para que el fondo sea estatico*/ 
+    
+} 
+</style> 
             <h:panelGrid columns="2" >
        
                 <p:outputLabel for="txtUsuario" value="Usuario" style="font-size:10px"/>
@@ -25,10 +34,7 @@
                 <p:commandButton icon="ui-icon-key" action="#{usuarioJSFManagedBean.inciarSesion()}" value="Iniciar Sesion"/>
                 
             </h:panelGrid>
-            <br/>
-            <br/>
-          
-            <p:separator/>
+         
             <p:column >
     
             </p:column>

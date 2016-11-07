@@ -27,12 +27,14 @@ public class ArbitroJSFManagedBean implements Serializable {
     private ArbitroSessionBean ArbitroSessionBean;
     
     private List<Arbitro> arbitrolist;
+    private Arbitro arbitro;
     private boolean editar = false;
     private int idArbitro = -1;
     private String nombre;
     private String apellido;
     private int dni;
 
+    
     public String getApellido() {
         return apellido;
     }

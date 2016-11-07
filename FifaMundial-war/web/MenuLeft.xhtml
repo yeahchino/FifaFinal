@@ -14,14 +14,20 @@
                     <p:menuitem value="Editar Mundial" icon="ui-icon-gear" />
                     <p:menuitem value="" />
         </p:submenu>
-               <p:submenu label="Editar" >
-            <p:menuitem value="Sedes" actionListener="#{menuView.save}" icon="ui-icon-arrowrefresh-1-w" />
-            <p:menuitem value="Organizadores" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-            <p:menuitem value="Equipos" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-            <p:menuitem value="Arbitros" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+               <p:submenu label="Editar"
+            <p:menuitem value="Jugadores"action="Jugador.xhtml"  icon="ui-icon-gear" />
+            <p:menuitem value="Equipos" action="Equipo.xhtml"  icon="ui-icon-gear" />
+            <p:menuitem value="Arbitros"action="Arbitro.xhtml" icon="ui-icon-gear"  />
+            <p:menuitem value="Estadios"action="Estadio.xhtml"  icon="ui-icon-gear"  />
+            <p:menuitem value="Sedes" action="Sede.xhtml" icon="ui-icon-gear" />
+            <p:menuitem value="Organizadores" action="Organizador.xhtml"  icon="ui-icon-gear"  />
+           
+          
+            
+            
         </p:submenu>
         <p:submenu label="Mi Cuenta">
-            <p:menuitem value="Editar" actionListener="#{menuView.delete}"  ajax="false"
+            <p:menuitem value="Editar" action="Usuario.xhtml" icon="ui-icon-gear"   ajax="false"
                         icon=" ui-icon-pencil"/>
             <p:menuitem value="Cerrar Sesión" action="index.xhtml"  icon="ui-icon-power" />
         </p:submenu>
