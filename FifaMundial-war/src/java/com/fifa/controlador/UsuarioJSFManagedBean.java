@@ -39,7 +39,7 @@ public class UsuarioJSFManagedBean implements Serializable {
      public void init (){
          
          usuario = new Usuario();
-         
+  
      }
     public UsuarioJSFManagedBean() {
     }
@@ -158,6 +158,24 @@ public class UsuarioJSFManagedBean implements Serializable {
         this.usuario = usuario;
     }
     
+    public String inciarSesion(){
+       Usuario us;
+        String redireccion= null;
+       
+        try {
+        us = usuarioSessionBean.iniciarSesion(usuario);
+        if (us!=null){
+         redireccion="IndexAdm.xhtml";      
+          }else{
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
+        }
+        }  catch (Exception e) {
+     
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR FATAL", ""));
+                 }
     
-
+                    return redireccion;
+           
+     
+}
 }

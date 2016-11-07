@@ -47,13 +47,13 @@
 }
 
 #top a:link, #top a:visited {
-  color: #08088A;
+  color: #FFFFFF;
   font-weight : bold;
   text-decoration: none;
 }
 
 #top a:link:hover, #top a:visited:hover  {
-  color: black;
+  color: white;
   font-weight : bold;
   text-decoration : underline;
 }

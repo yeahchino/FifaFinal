@@ -9,12 +9,12 @@
         <h:form>
             <p:growl autoUpdate="true"/>
            <p:panelMenu style="width:150px">
-        <p:submenu label="Administrar Mundiales" >
-                    <p:menuitem value="Crear Mundial"  icon="ui-icon-disk" />
-                    <p:menuitem value="Editar Mundial" icon="ui-icon-disk" />
+               <p:submenu label="Administrar Mundiales"icon="ui-icon-circle-minus" >
+                    <p:menuitem value="Crear Mundial"  icon=" ui-icon-document" />
+                    <p:menuitem value="Editar Mundial" icon="ui-icon-gear" />
                     <p:menuitem value="" />
         </p:submenu>
-        <p:submenu label="Editar">
+               <p:submenu label="Editar" icon="ui-icon-gear">
             <p:menuitem value="Sedes" actionListener="#{menuView.save}" icon="ui-icon-arrowrefresh-1-w" />
             <p:menuitem value="Organizadores" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
             <p:menuitem value="Equipos" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
@@ -22,8 +22,8 @@
         </p:submenu>
         <p:submenu label="Mi Cuenta">
             <p:menuitem value="Editar" actionListener="#{menuView.delete}"  ajax="false"
-                        icon="ui-icon-disk"/>
-            <p:menuitem value="Cerrar Sesión" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
+                        icon=" ui-icon-pencil"/>
+            <p:menuitem value="Cerrar Sesión" action="index.xhtml"  icon="ui-icon-power" />
         </p:submenu>
         <p:separator />
     </p:panelMenu>
