@@ -59,6 +59,27 @@ public class UsuarioSessionBean {
         }
     }
 
+    
+    public Usuario iniciarSesion(Usuario us){
+        Usuario usuario = null;
+        String consulta;
+        try {
+            consulta = "FROM Usuario u WHERE u.nombre= ?1 and u.contraseña= ?2 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, us.getNombre());
+            
+            query.setParameter(2, us.getContraseña());
+            List <Usuario> lista = query.getResultList();
+            if(!lista.isEmpty()){
+                
+                usuario = lista.get(0);
+                
+            }
+        } catch (Exception e) {
+        }
+        return usuario;
+        
+    }
 
     public boolean agregarUsuario(String nombre, String contraseña, int idTipoUsuario) {
         try {
@@ -91,7 +112,19 @@ public class UsuarioSessionBean {
         }
     }
      
-     
+     public boolean ConsultaUsuario(int idUsuario, String nombre, String contraseña, Tipousuario tipoUsuarioidTipo) {
+        try {
+            Usuario p = em.find(Usuario.class, idUsuario);
+            p.setNombre(nombre);
+            p.setContraseña(contraseña);
+            p.setTipoUsuarioidTipo(tipoUsuarioidTipo);
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
  
         
      public void persist(Object object) {
