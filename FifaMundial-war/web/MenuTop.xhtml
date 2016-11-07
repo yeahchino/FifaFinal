@@ -7,11 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div id="top" >
-        <img src="Imagenes/Menu-Top.jpg" alt=""   width="1300" height="70"/>
+        <img src="Imagenes/Menu-Top.jpg" alt=""   width="1330" height="70"/>
         <h:form>
          
-        <p:megaMenu style="font-size: 10px">
-             <p:submenu label="Noticias FIFA" style="font-size:10px">
+        <p:megaMenu style="font-size: 10px" >
+            <p:submenu label="Noticias FIFA" style="font-size:10px" icon="ui-icon-script">
                 <p:column>
                     <p:submenu label="Ir a" style="font-size: 12px">
                         <p:menuitem value="Home" icon="ui-icon-home" action="index.xhtml"  style="font-size:10px" />
@@ -40,25 +40,24 @@
                         <p:menuitem value="Cuartos de final" style="font-size:10px" />
                         <p:menuitem value="Semifinal" style="font-size:10px" />
                         <p:menuitem value="Tercer Puesto" style="font-size:10px" />
-                        <p:menuitem value="Final" style="font-size:10px" action="Ronda.xhtml"/>
+                        <p:menuitem value="Final" style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
-               <p:submenu label="Mundial">
+            
+            <p:submenu label="Mundial"  icon="ui-icon-search">
                 <p:column>
-                    <p:submenu label="Ver" style="font-size: 12px">
-                        <p:menuitem icon="ui-icon-circle-zoomout" value="Jugadores" style="font-size:10px" action="Jugador.xhtml" />
-                        <p:menuitem icon="ui-icon-circle-zoomout" value="Equipos" style="font-size: 10px" action="Equipo.xhtml" />
-                            <p:menuitem icon="ui-icon-circle-zoomout" value="Paises" style="font-size: 10px" action="Paiss.xhtml" />
-                                 <p:menuitem icon="ui-icon-circle-zoomout"  value="Estadios" action="Estadio.xhtml" style="font-size: 10px" />
-                        <p:menuitem icon="ui-icon-circle-zoomout"  value="Arbitros" action="Arbitro.xhtml"  style="font-size:10px" />
-                        <p:menuitem icon="ui-icon-circle-zoomout"  value="Organizadores" action="Organizador.xhtml"  style="font-size:10px" />
-                           <p:menuitem icon="ui-icon-circle-zoomout" value="Fixture" style="font-size: 10px" />
-                        <p:menuitem icon="ui-icon-circle-zoomout"  value="Mundiales anteriores"  style="font-size:10px" />
+                    <p:submenu label="Busqueda" style="font-size: 12px">
+                          <p:menuitem  icon="ui-icon-grip-diagonal-se" value="Jugadores" style="font-size:10px" action="Jugador.xhtml" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se" value="Fixture" style="font-size: 10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Estadios" action="Estadio.xhtml" style="font-size: 10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Arbitros" action="Arbitro.xhtml"  style="font-size:10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Organizadores" action="Organizador.xhtml"  style="font-size:10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Mundiales anteriores"  style="font-size:10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
-            <p:submenu label="Estadisticas">
+            <p:submenu label="Estadisticas" icon="ui-icon-print">
                 <p:column>
                     <p:submenu label="Ver" style="font-size: 12px">
                         <p:menuitem value="Goleadores"  style="font-size:10px"/>

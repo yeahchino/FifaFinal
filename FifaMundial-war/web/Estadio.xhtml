@@ -16,8 +16,11 @@
             <p:dataTable value="#{estadioJSFManagedBean.estadio}"
                          id="dtList"
                          var="p">
-                <p:column headerText="Buscar Estadio por nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
+                <p:column headerText="Nombre Estadio" filterBy="#{p.nombre}" filterMatchMode="contains">
                     <p:outputLabel value="#{p.nombre}"/>
+                </p:column>
+                <p:column headerText="Aforo Estadio" filterBy="#{p.aforo}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.aforo}"/>
                 </p:column>
                
                 <p:column headerText="">

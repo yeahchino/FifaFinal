@@ -10,9 +10,9 @@
     <ui:define name="content">
   
         <p:growl id="msj" autoUpdate="true" />
-
+    
         <h:form prependId="false"        >
-             <style> 
+         <style> 
 body 
 { 
 background-image: url('Imagenes/login.jpg') ; 
@@ -34,10 +34,11 @@ background-attachment: fixed /*para que el fondo sea estatico*/
                 <p:commandButton icon="ui-icon-key" action="#{usuarioJSFManagedBean.inciarSesion()}" value="Iniciar Sesion"/>
                 
             </h:panelGrid>
-         
-            <p:column >
-    
-            </p:column>
+            <br/>
+            <br/>
+            <br/>
+              
+            <p:separator/>
         </h:form>
 
   </ui:define>
