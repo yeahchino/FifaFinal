@@ -5,6 +5,7 @@
  */
 package com.fifa.negocio;
 
+import com.fifa.datos.Equipo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -92,7 +93,7 @@ public class ZonaSessionBean {
         }
     }
      
-          
+  
      public void persist(Object object) {
         em.persist(object);
     }

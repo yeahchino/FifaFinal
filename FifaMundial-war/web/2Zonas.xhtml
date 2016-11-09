@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
            
 
     <ui:define name="content">
@@ -14,17 +15,70 @@
              <p:dataTable value="#{equipoJSFManagedBean.equiposOrdenadosPorZona}"
                          id="dtList"
                          var="p">
-                <p:column headerText="Buscar Paises por nombre" filterBy="#{p.paisidPais.nombre}" filterMatchMode="contains">
+                 <p:column headerText="Buscar Paises por nombre" filterBy="#{p.paisidPais.nombre}" filterMatchMode="contains">
                     <p:outputLabel value="#{p.paisidPais.nombre}"/>
                 </p:column>
                      <p:column headerText="Buscar Paises por Zona" filterBy="#{p.zonaidZona.nombre}" filterMatchMode="contains">
                          <p:outputLabel value="#{p.zonaidZona.nombre}"/>
                 </p:column>
+                             <p:column headerText="">
+
+                                 <p:commandButton action="#{equipoJSFManagedBean.verEditar(true, p.idEquipo, p.paisidPais.nombre, p.zonaidZona.nombre, p.mundialidMundial.idMundial)}"
+                                     value="Editar"
+                                     icon="ui-icon-search" 
+                                     update="panelEditarEq"
+                                     />
+                    
+                    
+                </p:column>
             </p:dataTable>
+                <p:commandButton value="Agregar"
+                                 action="#{equipoJSFManagedBean.verEditar(true, null, null, null, null)}"
+                                           update="panelEditarEq"
+                                           icon="ui-icon-check" />
 
-        </h:form>
 
-  </ui:define>
+                          <h:panelGroup id="panelEditarEq">
+                              <p:panelGrid columns="2" rendered="#{equipoJSFManagedBean.editar}">
+                                  <f:facet name="header">
+                                      Editar Zonas
+                                  </f:facet>
+                                  <h:outputLabel value="Id Eq *" for="txtidEq"/>
+                                  <p:inputText value="#{equipoJSFManagedBean.idEquipo}" id="txtidEq" required="true" requiredMessage="Ingrese id Equipo" />
 
-</ui:composition>
+                                  <h:outputLabel value="Idpais *" for="txtPais"/>
+                                  <p:inputText value="#{equipoJSFManagedBean.paisidPais}" id="txtPais" required="true" requiredMessage="Ingrese Id Pais" />
+                                  
+                                  <h:outputLabel value="id Zona: *" for="txtNombre"/>
+                                  <p:inputText value="#{equipoJSFManagedBean.zonaidZona}" id="txtZona" required="true" requiredMessage="Ingrese Id Zona" />
+                                  
+                                  <h:outputLabel value="Id Mundial: *" for="txtMundial"/>
+                                  <p:inputText value="#{equipoJSFManagedBean.mundialidMundial}" id="txtMundial" required="true" requiredMessage="Ingrese id Mundial" />
+                                  
+                            
+                                  
+                                  
+                                  
+                                  
+                                  <f:facet name="footer">
+                                      <p:commandButton value="Guardar"
+                                                       action="#{equipoJSFManagedBean.guardar()}"
+                                                          update="dtList panelEditarEq msj"
+                                                   />
+                                      <p:commandButton value="Cerrar" 
+                                                       action="#{equipoJSFManagedBean.verEditar(false, null, null, null, null)}"
+                                                       update="panelEditarEq"
+                                                       immediate="true"
+                                                       />
 
+                                  </f:facet>
+                              </p:panelGrid>
+                          </h:panelGroup>
+
+
+                      </h:form>
+
+
+                </ui:define>
+
+              </ui:composition>

@@ -17,13 +17,14 @@
             <p:dataTable value="#{arbitroJSFManagedBean.arbitro}"
                          id="dtList"
                          var="p">
+                
                 <p:column headerText="Nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
                     <p:outputLabel value="#{p.nombre}" />
                 </p:column>
                 <p:column headerText="Apellido" filterBy="#{p.apellido}" filterMatchMode="contains">
                      <p:outputLabel value="#{p.apellido}" />
                 </p:column>
-                <p:column headerText="Dni" filterBy="#{p.dni}" filterMatchMode="contains">
+                <p:column headerText="Dni" filterBy="#{p.dni}"  filterMatchMode="contains">
                     <p:outputLabel value="#{p.dni}" />
                 </p:column>
                 <p:column headerText="">

@@ -32,6 +32,7 @@ public class ZonaJSFManagedBean implements Serializable {
     
     
     private List<Zona> zona;
+   
     private boolean editar = false;
     private int idZona = -1;
     private char nombre;
@@ -56,6 +57,10 @@ public class ZonaJSFManagedBean implements Serializable {
         return zona;
     }
 
+    
+         
+    
+    
     /**
      * @param zona the zona to set
      */

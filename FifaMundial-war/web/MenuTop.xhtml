@@ -24,7 +24,7 @@
             <p:submenu label="Rondas"  >
                 <p:column>
                     <p:submenu label="Fase de grupos" style="font-size: 12px">
-                        <p:menuitem value="Grupo A" action="Zona.xhtml" style="font-size:10px"/>
+                        <p:menuitem value="Grupo A" style="font-size:10px"/>
                         <p:menuitem value="Grupo B" style="font-size:10px" />
                         <p:menuitem value="Grupo C" style="font-size:10px" />
                         <p:menuitem value="Grupo D" style="font-size:10px" />
@@ -48,12 +48,14 @@
             <p:submenu label="Mundial"  icon="ui-icon-search">
                 <p:column>
                     <p:submenu label="Busqueda" style="font-size: 12px">
-                          <p:menuitem  icon="ui-icon-grip-diagonal-se" value="Jugadores" style="font-size:10px" action="Jugador.xhtml" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se" value="Fixture" style="font-size: 10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Estadios" action="Estadio.xhtml" style="font-size: 10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Arbitros" action="Arbitro.xhtml"  style="font-size:10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Organizadores" action="Organizador.xhtml"  style="font-size:10px" />
+                         <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Paises"  action="PaisVista.xhtml" style="font-size:10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Zonas"  action="ZonaVista.xhtml" style="font-size:10px" />
+                          <p:menuitem  icon="ui-icon-grip-diagonal-se" value="Jugadores" style="font-size:10px" action="JugadorVista.xhtml" />
+                          <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Estadios" action="EstadioVista.xhtml" style="font-size: 10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Arbitros" action="ArbitroVista.xhtml"  style="font-size:10px" />
+                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Organizadores" action="OrganizadorVista.xhtml"  style="font-size:10px" />
                         <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Mundiales anteriores"  style="font-size:10px" />
+                          <p:menuitem icon="ui-icon-grip-diagonal-se" value="Fixture" style="font-size: 10px" />
                     </p:submenu>
                 </p:column>
             </p:submenu>
@@ -64,6 +66,17 @@
                         <p:menuitem value="Valla menos vencida" style="font-size:10px"/>
                         <p:menuitem value="Tarjetas" style="font-size:10px" />
                         <p:menuitem value="Asistencias" style="font-size:10px" />
+                    </p:submenu>
+                </p:column>
+            </p:submenu>
+            
+             <p:submenu label="Iniciar Sesion" style="font-size:10px" icon="ui-icon-power">
+                <p:column>
+                    <p:submenu label="Ir a" style="font-size: 10px">
+                       
+                        <p:menuitem value="Iniciar Sesion" icon=" ui-icon-person " action="LogUser.xhtml" style="font-size:10px" />
+                        
+                        
                     </p:submenu>
                 </p:column>
             </p:submenu>

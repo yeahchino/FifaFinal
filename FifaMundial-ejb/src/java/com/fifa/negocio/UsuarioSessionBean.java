@@ -75,7 +75,11 @@ public class UsuarioSessionBean {
                 usuario = lista.get(0);
                 
             }
+            
         } catch (Exception e) {
+            
+            
+            
         }
         return usuario;
         
