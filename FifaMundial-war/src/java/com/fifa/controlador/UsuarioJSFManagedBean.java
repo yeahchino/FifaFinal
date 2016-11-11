@@ -16,7 +16,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-
 /**
  *
  * @author Adriana
@@ -34,13 +33,13 @@ public class UsuarioJSFManagedBean implements Serializable {
     private String tipo;
     private List<Usuario> usuarios;
 
-     
-     @PostConstruct
-     public void init (){
-         
-         usuario = new Usuario();
-  
-     }
+    @PostConstruct
+    public void init() {
+
+        usuario = new Usuario();
+
+    }
+
     public UsuarioJSFManagedBean() {
     }
     //observar las creaciones de los objetos, no se como se hace para crear dos objetos en la misma clase
@@ -51,14 +50,14 @@ public class UsuarioJSFManagedBean implements Serializable {
     public int getIdTipoUsuario() {
         return idTipoUsuario;
     }
-    
+
     /**
      * @param idTipoUsuario the idTipoUsuario to set
      */
     public void setIdTipoUsuario(int idTipoUsuario) {
         this.idTipoUsuario = idTipoUsuario;
     }
-    
+
     /**
      * @return the nombre
      */
@@ -86,7 +85,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
+
     /**
      * @return the tipo
      */
@@ -102,21 +101,21 @@ public class UsuarioJSFManagedBean implements Serializable {
     }
 
     //para saber que id tiene el usuario elegido
-    public int idTipo(){
-        if(tipo.compareTo("Admin") == 0){
-            return 1;}
-        else{
+    public int idTipo() {
+        if (tipo.compareTo("Admin") == 0) {
+            return 1;
+        } else {
             return 2;
         }
     }
-   
+
     //*val nom usuario
-    public String guardar(){
+    public String guardar() {
         this.usuarioSessionBean.agregarUsuario(getNombre(), getContraseña(), idTipo());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
-        this.nombre="";
-        this.contraseña="";
-        this.tipo="";
+        this.nombre = "";
+        this.contraseña = "";
+        this.tipo = "";
         return null;
     }
 
@@ -136,10 +135,10 @@ public class UsuarioJSFManagedBean implements Serializable {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-    
-     public String eliminar(int id) {
-         this.usuarioSessionBean.borrarUsuario(idTipoUsuario);
-         this.usuarios = null;
+
+    public String eliminar(int id) {
+        this.usuarioSessionBean.borrarUsuario(idTipoUsuario);
+        this.usuarios = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario eliminado con éxito", ""));
         return null;
     }
@@ -157,25 +156,24 @@ public class UsuarioJSFManagedBean implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    public String inciarSesion(){
-       Usuario us;
-        String redireccion= null;
-       
+
+    public String inciarSesion() {
+        Usuario us;
+        String redireccion = null;
+        //redireccion = "IndexAdm.xhtml";
         try {
-        us = usuarioSessionBean.iniciarSesion(usuario);
-        if (us!=null){
-         redireccion="IndexAdm.xhtml";      
-          }else{
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
+            us = usuarioSessionBean.iniciarSesion(usuario);
+            if (us != null) {
+                redireccion = "IndexAdm.xhtml";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
+            }
+        } catch (Exception e) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR FATAL", ""));
         }
-        }  catch (Exception e) {
-     
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR FATAL", ""));
-                 }
-    
-                    return redireccion;
-           
-     
-}
+
+        return redireccion;
+
+    }
 }

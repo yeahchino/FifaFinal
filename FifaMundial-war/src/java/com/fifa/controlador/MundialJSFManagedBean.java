@@ -11,9 +11,15 @@ import com.fifa.negocio.MundialSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -30,8 +36,10 @@ public class MundialJSFManagedBean implements Serializable {
     private int idMundial;
     private Date fechaInicio;
     private Date fechaFin;
-    private Pais idPais;
-    
+
+    @Inject
+    private PaisJSFManagedBean paisJSF;
+
     public MundialJSFManagedBean() {
     }
 
@@ -48,7 +56,7 @@ public class MundialJSFManagedBean implements Serializable {
     public void setMundialSessionBean(MundialSessionBean mundialSessionBean) {
         this.mundialSessionBean = mundialSessionBean;
     }
-    
+
     /**
      * @return the mundial
      */
@@ -105,24 +113,50 @@ public class MundialJSFManagedBean implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    /**
-     * @return the idPais
-     */
-    public Pais getIdPais() {
-        return idPais;
+    //Para calendario
+    public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
+    }
+
+    //click en calendario
+    public void click() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("form:display");
+        requestContext.execute("PF('dlg').show()");
     }
 
     /**
-     * @param idPais the idPais to set
+     * @return the paisJSF
      */
-    public void setIdPais(Pais idPais) {
-        this.idPais = idPais;
+    public PaisJSFManagedBean getPaisJSF() {
+        return paisJSF;
     }
 
-    public String guardar(){
-        this.mundialSessionBean.agregarMundial(getFechaInicio(), getFechaFin(), getIdPais().getIdPais());
+    /**
+     * @param paisJSF the paisJSF to set
+     */
+    public void setPaisJSF(PaisJSFManagedBean paisJSF) {
+        this.paisJSF = paisJSF;
+    }
+
+    public String guardar() {
+        FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_WARN, fechaInicio+" "+fechaFin+" "+paisJSF.getIdPais(), ""));
+        if (paisJSF.getIdPais() <= -1) {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar un país", ""));
+        } else {
+            this.mundialSessionBean.agregarMundial(fechaInicio, fechaFin, paisJSF.getIdPais());
+
+            this.fechaInicio = null;
+            this.fechaFin = null;
+            this.paisJSF = null;
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El mundial ha sido guardado con éxito", ""));
+        }
         return null;
     }
-    
-    
+
 }

@@ -43,9 +43,9 @@
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
-
+                
                 <p:tab title="Modificar o Eliminar">
-                    <p:panelGrid columns="3">
+                   <p:panelGrid columns="3">
                         <f:facet name="header">
                             Buscar Usuario
                         </f:facet>
@@ -76,15 +76,19 @@
                                              update="tbUser msj"/>
                         </p:column>
 
-                            <!--<p:commandButton action="#{alumno1Bean.verEditar(true, item.idAlumno, item.nombre, item.apellido, item.legajo)}"
+                            <p:commandButton action="#{alumno1Bean.verEditar(true, item.idAlumno, item.nombre, item.apellido, item.legajo)}"
                                              value="Editar"
                                              icon="ui-icon-search" 
                                              update="panelEditarAlumno"
-                                             />-->
+                                             />
                     </p:dataTable>
 
                 </p:tab>
+                <p:tab title="Ver">
+                    Lucas putazoo
+                </p:tab>
             </p:tabView>
+           
         </h:form>
     </ui:define>
 </ui:composition>

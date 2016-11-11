@@ -64,7 +64,7 @@ public class UsuarioSessionBean {
         Usuario usuario = null;
         String consulta;
         try {
-            consulta = "FROM Usuario u WHERE u.nombre= ?1 and u.contraseña= ?2 ";
+            consulta = "FROM usuario u WHERE u.nombre= ?1 and u.contraseña= ?2 ";
             Query query = em.createQuery(consulta);
             query.setParameter(1, us.getNombre());
             

@@ -27,7 +27,7 @@ public class PaisJSFManagedBean implements Serializable {
     @EJB
     private PaisSessionBean paisSessionBean;
 
-    private List<Pais> paislist;
+    private List<Pais> pais;
     private List<Pais> paisXnom;
     private boolean editar = false;
     private int idPais = -1;
@@ -46,10 +46,10 @@ public class PaisJSFManagedBean implements Serializable {
      */
     public List<Pais> getPais() {
 
-        if (this.paislist == null) {
-            this.paislist = this.paisSessionBean.obtenerPais();
+        if (this.pais == null) {
+            this.pais = this.paisSessionBean.obtenerPais();
         }
-        return paislist;
+        return pais;
     }
 
     /**
@@ -57,7 +57,7 @@ public class PaisJSFManagedBean implements Serializable {
      */
     public void setPais(List<Pais> paislist) {
 
-        this.paislist = paislist;
+        this.pais = paislist;
     }
 
     /**
@@ -118,13 +118,13 @@ public class PaisJSFManagedBean implements Serializable {
             this.nombre = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregado con exito", ""));
         }
-        this.paislist = null;
+        this.pais = null;
         return null;
     }
 
     public String eliminar(int id) {
         this.paisSessionBean.borrarPais(id);
-        this.paislist = null;
+        this.pais = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminado con exito", ""));
         return null;
     }
@@ -147,16 +147,12 @@ public class PaisJSFManagedBean implements Serializable {
         this.paisXnom = paisXnom;
     }
 
-    public String verMarcar(int idPaisSel) {
-        this.idPais = idPaisSel;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais: " + idPais, ""));
-        return null;
-    }
-
     public void onRowSelect(SelectEvent event) {
         Pais p = ((Pais) event.getObject());
         this.idPais = p.getIdPais();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais: " + idPais, ""));
+        this.nombre = p.getNombre();
+        FacesContext.getCurrentInstance().addMessage(
+                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
     }
 
     /**
