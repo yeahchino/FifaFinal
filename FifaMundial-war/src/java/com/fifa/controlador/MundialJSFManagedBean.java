@@ -150,9 +150,9 @@ public class MundialJSFManagedBean implements Serializable {
         } else {
             this.mundialSessionBean.agregarMundial(fechaInicio, fechaFin, paisJSF.getIdPais());
 
-            this.fechaInicio = null;
-            this.fechaFin = null;
-            this.paisJSF = null;
+//            this.fechaInicio = null;
+//            this.fechaFin = null;
+//            this.paisJSF = null;
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El mundial ha sido guardado con éxito", ""));
         }
