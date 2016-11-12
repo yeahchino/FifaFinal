@@ -36,70 +36,107 @@
                 allDayText: 'Todo el día'
             };
         </script>
+        <p:growl id="msj" />
+        <p:tabView>
+            <p:tab title="Nuevo">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+                        <!--Fecha Inicio-->
+                        <h:panelGrid columns="4" cellpadding="5" id="panelDatos">              
+                            <h:outputLabel value="Fecha de inicio" for="txtIn"/>
+                            <p:calendar id="Fecha_de_inicio" value="#{mundialJSFManagedBean.fechaInicio}" 
+                                        locale="es" navigator="true" pattern="dd/MM/yyyy"
+                                        required="true" onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha de inicio requerida"
+                                        effect="fadeIn" effectDuration="100">
+                                <p:ajax event="dateSelect" update="Fecha_de_fin" />
+                            </p:calendar>  
+                            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                                <h:outputText value="#{mundialJSFManagedBean.fechaInicio}" id="txtIn">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText> 
+                            </p:dialog>
+                            <!--Fecha Fin-->
+                            <h:outputLabel value="Fecha de finalización" for="txtF"/>
+                            <p:calendar id="Fecha_de_fin" value="#{mundialJSFManagedBean.fechaFin}" 
+                                        locale="es" navigator="true" pattern="dd/MM/yyyy" 
+                                        mindate="#{mundialJSFManagedBean.fechaInicio}" 
+                                        required="true" onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha finalización requerida" 
+                                        effect="fadeIn" effectDuration="100">
+                                <f:attribute name="Fecha_de_inicio" value="#{mundialJSFManagedBean.fechaInicio}"/>
+                                <f:validator validatorId="validarFechaJSFManagedBean" />
+                            </p:calendar>
+                            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                                <h:outputText value="#{mundialJSFManagedBean.fechaInicio}" id="txtF">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:dialog>
+                            <!--Pais-->
+                            <p:outputLabel value="Seleccionar país"/>
+                        </h:panelGrid>
+                        <br/>
+                        <p:dataTable id="tblPais" 
+                                     value="#{paisJSFManagedBean.pais}"
+                                     var="pais"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{paisJSFManagedBean.paisXnom}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{pais.idPais}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msj"/>
 
-        <h:form prependId="false" id="form">
-            <p:growl id="msj" showDetail="true" />
-            <div align="center">
-                <!--Fecha Inicio-->
-                <h:panelGrid columns="4" cellpadding="5" id="panelDatos">              
-                    <h:outputLabel value="Fecha de inicio" for="txtIn"/>
-                    <p:calendar id="Fecha_de_inicio" value="#{mundialJSFManagedBean.fechaInicio}" 
-                                locale="es" navigator="true" pattern="dd/MM/yyyy"
-                                required="true" onkeypress="return permite(event, 'none')" 
-                                requiredMessage="Fecha de inicio requerida"
-                                effect="fadeIn" effectDuration="100">
-                        <p:ajax event="dateSelect" update="Fecha_de_fin" />
-                    </p:calendar>  
-                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-                        <h:outputText value="#{mundialJSFManagedBean.fechaInicio}" id="txtIn">
-                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                        </h:outputText> 
-                    </p:dialog>
-                    <!--Fecha Fin-->
-                    <h:outputLabel value="Fecha de finalización" for="txtF"/>
-                    <p:calendar id="Fecha_de_fin" value="#{mundialJSFManagedBean.fechaFin}" 
-                                locale="es" navigator="true" pattern="dd/MM/yyyy" 
-                                mindate="#{mundialJSFManagedBean.fechaInicio}" 
-                                required="true" onkeypress="return permite(event, 'none')" 
-                                requiredMessage="Fecha finalización requerida" 
-                                effect="fadeIn" effectDuration="100">
-                        <f:attribute name="Fecha_de_inicio" value="#{mundialJSFManagedBean.fechaInicio}"/>
-                        <f:validator validatorId="validarFechaJSFManagedBean" />
-                    </p:calendar>
-                    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-                        <h:outputText value="#{mundialJSFManagedBean.fechaInicio}" id="txtF">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </p:dialog>
-                    <!--Pais-->
-                    <p:outputLabel value="Seleccionar país"/>
-                </h:panelGrid>
-                <br/>
-                <p:dataTable id="tblPais" 
-                             value="#{paisJSFManagedBean.pais}"
-                             var="pais"
-                             style="width:400px;"
-                             emptyMessage="Sin datos" 
-                             filteredValue="#{paisJSFManagedBean.paisXnom}"
-                             paginator="true"
-                             paginatorPosition="bottom"
-                             rows="5"
-                             selectionMode="single"
-                             rowKey="#{pais.idPais}"
-                             >
-                    <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msj"/>
+                            <p:column filterBy="#{pais.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{pais.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Guardar"
+                                         action="#{mundialJSFManagedBean.guardar()}"
+                                         icon="ui-icon-circle-check"/>
+                        <!--update="txtIn txtF"-->
+                    </div>
+                </h:form> 
+            </p:tab>
+            <p:tab title="Godfather Part II">
+                <h:form prependId="false" id="form2">
+                <p:panelGrid columns="2" id="panel">
+                        <h:outputLabel value="Nombre: " for="txtNom"/>
+                        <p:inputText value="#{usuarioJSFManagedBean.nombre}" id="txtNom" required="true" requiredMessage="Ingrese un nombre" />
+                        <h:outputLabel for="pass1" value="Contraseña:" />
+                        <p:password id="pass1" value="#{usuarioJSFManagedBean.contraseña}" 
+                                    match="pass2" 
+                                    label="Contraseña" 
+                                    required="true"
+                                    requiredMessage="Ingrese una contraseña"
+                                    feedback="true" 
+                                    promptLabel="Ingrese su contraseña" 
+                                    weakLabel="Débil"  
+                                    goodLabel="Mediana" 
+                                    strongLabel="Fuerte"
+                                    validatorMessage="LAS CONTRASEÑAS NO COINCIDEN"/>
+                        <h:outputLabel for="pass2" value="Repetir contraseña:" />
+                        <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" requiredMessage="Debe repetir la contraseña" />
+                        <p:outputLabel value="Tipo:" for="tipo"/>
+                        <p:selectOneRadio id="tipo" value="#{usuarioJSFManagedBean.tipo}" required="true" requiredMessage="Seleccione un tipo">
+                            <f:selectItem itemLabel="Administrador" itemValue="Admin" />
+                            <f:selectItem itemLabel="Supervisor" itemValue="Super" />
+                        </p:selectOneRadio>
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Guardar" action="#{usuarioJSFManagedBean.guardar()}"
+                                                 update="panel msj"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form> 
+            </p:tab>
+        </p:tabView>
 
-                    <p:column filterBy="#{pais.nombre}" filterMatchMode="startsWith" headerText="Buscar">
-                        <h:outputText value="#{pais.nombre}"/>
-                    </p:column>
-                </p:dataTable>
-                <br/>
-                <p:commandButton value="Guardar"
-                                 action="#{mundialJSFManagedBean.guardar()}"
-                                 icon="ui-icon-circle-check"/>
-                                 <!--update="txtIn txtF"-->
-                                 
-            </div>
-        </h:form> 
+
     </ui:define>
 </ui:composition>
