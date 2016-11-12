@@ -170,7 +170,7 @@ public class UsuarioJSFManagedBean implements Serializable {
             }
         } catch (Exception e) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR FATAL", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR 404", ""));
         }
 
         return redireccion;

@@ -14,6 +14,7 @@ import com.fifa.datos.Equipo;
 import com.fifa.datos.Zona;
 import com.fifa.datos.Pais;
 import com.fifa.datos.Mundial;
+import javax.persistence.Query;
 import javax.servlet.jsp.tagext.TryCatchFinally;
 
 
@@ -75,6 +76,7 @@ public class EquipoSessionBean {
 
     public boolean agregarEquipo( Pais paisidPais, Zona zonaidZona, Mundial mundialidMundial) {
         try {
+            if (Validator(mundialidMundial,paisidPais)==false){
             Equipo p = new Equipo();
             p.setPaisidPais(paisidPais);
             p.setZonaidZona(zonaidZona);
@@ -82,11 +84,39 @@ public class EquipoSessionBean {
             em.persist(p);
             em.flush();
             return true;
+            }
         } catch (Exception e) {
-            return false;
+        
         }
+            return false;
     }
      
+        public Boolean  Validator (Mundial idMundial, Pais idPais){
+     String p1=null;
+     String consulta;
+        try {
+            consulta = "FROM Equipo p WHERE p.mundialidMundial= ?1 and p.paisidpais=2? ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, idMundial);
+            query.setParameter(2, idPais);
+            
+                   
+        List <Pais> Listpa = query.getResultList();
+            if (!Listpa.isEmpty()) {
+               
+                return false;
+            }
+
+            
+        } catch (Exception e) {
+            
+            
+            
+        }
+        return true;
+        
+    }
+    
      public boolean modificarEquipo(int idEquipo, Pais paisidPais, Zona zonaidZona, Mundial mundialidMundial) {
         try {
             Equipo p = em.find(Equipo.class, idEquipo);

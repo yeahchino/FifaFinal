@@ -66,16 +66,49 @@ public class PaisSessionBean {
 
     public boolean agregarPais(String nombre) {
         try {
+            
+            if (Validator(nombre)==true){
+                
+            
             Pais p = new Pais();
             p.setNombre(nombre);
             em.persist(p);
             em.flush();
-            return true;
+                return true;
+            }
+        
         } catch (Exception e) {
-            return false;
+          
         }
+          return false;
     }
 
+    
+        public Boolean  Validator (String nombre){
+     String p1=null;
+     String consulta;
+        try {
+            consulta = "FROM Pais p WHERE p.nombre= ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, nombre);
+                   
+        List <Pais> Listpa = query.getResultList();
+            if (!Listpa.isEmpty()) {
+               
+                return false;
+            }
+
+            
+        } catch (Exception e) {
+            
+            
+            
+        }
+        return true;
+        
+    }
+
+    
     public boolean modificarPais(int idPais, String nombre) {
         try {
             Pais p = em.find(Pais.class, idPais);

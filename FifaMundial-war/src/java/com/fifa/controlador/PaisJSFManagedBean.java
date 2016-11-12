@@ -114,10 +114,14 @@ public class PaisJSFManagedBean implements Serializable {
             this.paisSessionBean.modificarPais(idPais, nombre);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais modificado con exito", ""));
         } else {
+            if (paisSessionBean.agregarPais(nombre)==false) {
+                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Pais ya existe", ""));
+            } else{
             this.paisSessionBean.agregarPais(nombre);
             this.nombre = null;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregado con exito", ""));
-        }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais agregado con éxito", ""));
+            }
+            }
         this.pais = null;
         return null;
     }
