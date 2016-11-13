@@ -38,7 +38,7 @@ public class EquipoJSFManagedBean implements Serializable {
     private Zona zonaidZona;
     private Mundial mundialidMundial;
     private List<String> list;
-    List lista = new ArrayList();
+
 
     public Pais getPaisidPais() {
         return paisidPais;
@@ -88,44 +88,7 @@ public class EquipoJSFManagedBean implements Serializable {
     }
      
     
-   public List <String> obtenerfix(){
-    
-       
 
- int teams =4;
- 
-   
-    // Generate the schedule using round robin algorithm.
-    int totalRounds = (teams - 1)*2;
-    int matchesPerRound = teams / 2;
-    String[][] rounds = new String[totalRounds][matchesPerRound];
-
-    for (int round = 0; round < totalRounds; round++) {
-        for (int match = 0; match < matchesPerRound; match++) {
-            int home = (round + match) % (teams - 1);
-            int away = (teams - 1 - match + round) % (teams - 1);
-
-            // Last team stays in the same place while the others
-            // rotate around it.
-            if (match == 0) {
-                away = teams - 1;
-            }
-
-            // Add one so teams are number 1 to teams not 0 to teams - 1
-            // upon display.
-            rounds[round][match] = ("team " + (home + 1) + " plays against team " + (away + 1));
-        }
-    }
-     
-
-    // Display the rounds    
-    for (int i = 0; i < rounds.length; i++) {
-       
-            list = Arrays.asList(rounds[i]);
-           
-    }
-       return list;
-     }
 
     /**
      * @param equipolist
@@ -198,6 +161,27 @@ public class EquipoJSFManagedBean implements Serializable {
     public List<Equipo> getEquiposOrdenadosPorZona() {
         return this.equipoSessionBean.obtenerEquiposOrdenZona();
 }
+
+    /**
+     * @return the list
+     */
+    public List<String> getList() {
+        
+             
+        if(this.list == null)
+        {
+            this.list = this.equipoSessionBean.obtenerfix();
+       }
+    
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(List<String> list) {
+        this.list = list;
+    }
      
 
     /**
