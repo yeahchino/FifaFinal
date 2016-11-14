@@ -91,19 +91,4 @@ public class PaisSessionBean {
     public void persist(Object object) {
         em.persist(object);
     }
-
-    public List<Pais> PaisXnombre(String nombre) {
-        try {
-            Query q = em.createNamedQuery("Pais.buscarXnombre");
-
-            if (nombre != null) {
-                q.setParameter("nombre", nombre + "%");
-            } else {
-                q.setParameter("nombre", "%");
-            }
-            return q.getResultList();
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }

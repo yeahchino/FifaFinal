@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -61,7 +62,21 @@ public class MundialJSFManagedBean implements Serializable {
      * @return the mundial
      */
     public List<Mundial> getMundial() {
-        return mundial;
+        if (this.mundial == null) {
+            this.mundial = this.mundialSessionBean.ObtenerMundiales();
+        }
+        return mundial; 
+    }
+    
+    //ver
+    public String nombreMundial() {
+        if (null == fechaInicio) {
+            return null;
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+            int año= Integer.parseInt(dateFormat.format(fechaInicio));
+            return paisJSF.getNombre()+" "+año;
+        }
     }
 
     /**
@@ -143,7 +158,7 @@ public class MundialJSFManagedBean implements Serializable {
 
     public String guardar() {
         FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(FacesMessage.SEVERITY_WARN, fechaInicio+" "+fechaFin+" "+paisJSF.getIdPais(), ""));
+                null, new FacesMessage(FacesMessage.SEVERITY_WARN, fechaInicio + " " + fechaFin + " " + paisJSF.getIdPais(), ""));
         if (paisJSF.getIdPais() <= -1) {
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Debe seleccionar un país", ""));
@@ -158,5 +173,13 @@ public class MundialJSFManagedBean implements Serializable {
         }
         return null;
     }
+
+//    public void onRowSelect(SelectEvent event) {
+//        Mundial m = ((Mundial) event.getObject());
+//        this.idMundial = m.getIdMundial();
+//        //this.nombre = p.getNombre();
+//        FacesContext.getCurrentInstance().addMessage(
+//                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + idMundial, ""));
+//    }
 
 }

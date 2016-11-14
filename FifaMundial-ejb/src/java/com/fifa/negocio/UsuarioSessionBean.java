@@ -12,8 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Tipousuario;
 import com.fifa.datos.Usuario;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**

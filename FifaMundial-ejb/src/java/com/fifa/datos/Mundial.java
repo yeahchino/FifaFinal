@@ -33,13 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author dfeitt
  */
 @Entity
-@Table(name = "mundial")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Mundial.findAll", query = "SELECT m FROM Mundial m")
-    , @NamedQuery(name = "Mundial.findByIdMundial", query = "SELECT m FROM Mundial m WHERE m.idMundial = :idMundial")
-    , @NamedQuery(name = "Mundial.findByFechaInicio", query = "SELECT m FROM Mundial m WHERE m.fechaInicio = :fechaInicio")
-    , @NamedQuery(name = "Mundial.findByFechaFin", query = "SELECT m FROM Mundial m WHERE m.fechaFin = :fechaFin")})
+        @Table(name = "mundial")
+        @XmlRootElement
+        @NamedQueries({
+    @NamedQuery(name = "Mundial.findAll", query = "SELECT m FROM Mundial m"),
+    @NamedQuery(name = "Mundial.findByIdMundial", query = "SELECT m FROM Mundial m WHERE m.idMundial = :idMundial"),
+    @NamedQuery(name = "Mundial.findByFechaInicio", query = "SELECT m FROM Mundial m WHERE m.fechaInicio = :fechaInicio"),
+    @NamedQuery(name = "Mundial.findByFechaFin", query = "SELECT m FROM Mundial m WHERE m.fechaFin = :fechaFin")})
 public class Mundial implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -168,5 +168,5 @@ public class Mundial implements Serializable {
     public String toString() {
         return "com.fifa.datos.Mundial[ idMundial=" + idMundial + " ]";
     }
-    
+
 }

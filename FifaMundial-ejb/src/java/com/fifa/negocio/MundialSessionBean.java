@@ -13,7 +13,6 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Date;
-import javax.ejb.EJB;
 import javax.persistence.Query;
 
 /**
