@@ -9,79 +9,83 @@
     <div id="top" >
         <img src="Imagenes/Menu-Top.jpg" alt=""   width="1330" height="70"/>
         <h:form>
-         
-        <p:megaMenu style="font-size: 10px" >
-            <p:submenu label="Noticias FIFA" style="font-size:10px" icon="ui-icon-script">
-                <p:column>
-                    <p:submenu label="Ir a" style="font-size: 12px">
-                        <p:menuitem value="Home" icon="ui-icon-home" action="indexAdm.xhtml"  style="font-size:10px" />
-                        <p:menuitem value="Noticias" icon=" ui-icon-notice " url="http://es.fifa.com" style="font-size:10px" />
-                        
-                        
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-            <p:submenu label="Rondas"  >
-                <p:column>
-                    <p:submenu label="Fase de grupos" style="font-size: 12px">
-                        <p:menuitem value="Grupo A" style="font-size:10px"/>
-                        <p:menuitem value="Grupo B" style="font-size:10px" />
-                        <p:menuitem value="Grupo C" style="font-size:10px" />
-                        <p:menuitem value="Grupo D" style="font-size:10px" />
-                        <p:menuitem value="Grupo E" style="font-size:10px" />
-                        <p:menuitem value="Grupo F" style="font-size:10px" />
-                        <p:menuitem value="Grupo G" style="font-size:10px" />
-                        <p:menuitem value="Grupo H" style="font-size:10px" />
-                    </p:submenu>
-                </p:column>
-                <p:column>
-                    <p:submenu label="Rondas Eliminatorias" style="font-size: 12px">
-                        <p:menuitem value="Octavos de final" style="font-size:10px" />
-                        <p:menuitem value="Cuartos de final" style="font-size:10px" />
-                        <p:menuitem value="Semifinal" style="font-size:10px" />
-                        <p:menuitem value="Tercer Puesto" style="font-size:10px" />
-                        <p:menuitem value="Final" style="font-size:10px" />
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-            
-            <p:submenu label="Mundial"  icon="ui-icon-search">
-                <p:column>
-                    <p:submenu label="Busqueda" style="font-size: 12px">
-                         <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Paises"  action="PaisVista.xhtml" style="font-size:10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Zonas"  action="ZonaVista.xhtml" style="font-size:10px" />
-                          <p:menuitem  icon="ui-icon-grip-diagonal-se" value="Jugadores" style="font-size:10px" action="JugadorVista.xhtml" />
-                          <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Estadios" action="EstadioVista.xhtml" style="font-size: 10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Arbitros" action="ArbitroVista.xhtml"  style="font-size:10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Organizadores" action="OrganizadorVista.xhtml"  style="font-size:10px" />
-                        <p:menuitem icon="ui-icon-grip-diagonal-se"  value="Mundiales anteriores"  style="font-size:10px" />
-                          <p:menuitem icon="ui-icon-grip-diagonal-se" value="Fixture" style="font-size: 10px" />
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-            <p:submenu label="Estadisticas" icon="ui-icon-print">
-                <p:column>
-                    <p:submenu label="Ver" style="font-size: 12px">
-                        <p:menuitem value="Goleadores"  style="font-size:10px"/>
-                        <p:menuitem value="Valla menos vencida" style="font-size:10px"/>
-                        <p:menuitem value="Tarjetas" style="font-size:10px" />
-                        <p:menuitem value="Asistencias" style="font-size:10px" />
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-            
-             <p:submenu label="Iniciar Sesion" style="font-size:10px" icon="ui-icon-power">
-                <p:column>
-                    <p:submenu label="Ir a" style="font-size: 10px">
-                       
-                        <p:menuitem value="Iniciar Sesion" icon=" ui-icon-person " action="LogUser.xhtml" style="font-size:10px" />
-                        
-                        
-                    </p:submenu>
-                </p:column>
-            </p:submenu>
-           
-        </p:megaMenu>  
-            </h:form>
+
+            <p:megaMenu style="font-size: 10px" >
+
+                
+
+
+                <p:submenu label="Grupos" icon="ui-icon-newwin" >
+                    <p:column>
+                        <p:submenu label="Fase de grupos" style="font-size: 12px">
+                            <p:menuitem value="Grupos" action="Equipo.xhtml" style="font-size:10px"/>
+
+
+                        </p:submenu>
+                    </p:column>
+                    <p:column>
+                        <p:submenu label="Rondas Eliminatorias (En construccion)" style="font-size: 12px">
+                            <p:menuitem value="Octavos de final" style="font-size:10px" />
+                            <p:menuitem value="Cuartos de final" style="font-size:10px" />
+                            <p:menuitem value="Semifinal" style="font-size:10px" />
+                            <p:menuitem value="Tercer Puesto" style="font-size:10px" />
+                            <p:menuitem value="Final" style="font-size:10px" />
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+
+                <p:submenu label="Estadisticas" icon="ui-icon-print">
+                    <p:column>
+                        <p:submenu label="Tablas (En construccion)" style="font-size: 12px">
+                            <p:menuitem value="Goleadores"  style="font-size:10px"/>
+                            <p:menuitem value="Valla menos vencida" style="font-size:10px"/>
+                            <p:menuitem value="Tarjetas" style="font-size:10px" />
+                            <p:menuitem value="Asistencias" style="font-size:10px" />
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Listados" icon="ui-icon-search" >
+                    <p:column>
+                        <p:submenu label="Listados" style="font-size: 12px">
+                            <p:menuitem value="Paises"  action="PaisVista.xhtml" style="font-size:10px" />
+                            <p:menuitem value="Equipos" action="Equipo.xhtml" style="font-size:10px"/>
+                            <p:menuitem value="Zonas"  action="ZonaVista.xhtml" style="font-size:10px" />
+                            <p:menuitem value="Estadios" action="EstadioVista.xhtml" style="font-size: 10px" />
+                            <p:menuitem value="Arbitros" action="ArbitroVista.xhtml"  style="font-size:10px" />
+                            <p:menuitem value="Fixture" style="font-size: 10px" />
+                            <p:menuitem value="Jugadores (En Construccion)" style="font-size:10px" action="JugadorVista.xhtml" />
+                            <p:menuitem value="Organizadores (En Construccion)" action="OrganizadorVista.xhtml"  style="font-size:10px" />
+                            <p:menuitem value="Mundiales anteriores (En Construccion)"  style="font-size:10px" />
+                            
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Iniciar Sesion" style="font-size:10px" icon="ui-icon-power">
+                    <p:column>
+                        <p:submenu label="Usuarios" style="font-size: 10px">
+
+                            <p:menuitem value="Iniciar Sesion" icon=" ui-icon-person " action="LogUser.xhtml" style="font-size:10px" />
+
+
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Noticias FIFA" style="font-size:10px" icon="ui-icon-script">
+                    <p:column>
+                        <p:submenu label="Ir a" style="font-size: 12px">
+                            <p:menuitem value="Home" icon="ui-icon-home" action="index.xhtml"  style="font-size:10px" />
+                            <p:menuitem value="Noticias" icon="ui-icon-info" url="http://es.fifa.com" style="font-size:10px" />
+
+
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+            </p:megaMenu>  
+        </h:form>
     </div>
 </ui:composition>
