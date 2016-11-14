@@ -28,7 +28,6 @@ public class PaisJSFManagedBean implements Serializable {
     private PaisSessionBean paisSessionBean;
 
     private List<Pais> pais;
-    private List<Pais> paisXnom;
     private boolean editar = false;
     private int idPais = -1;
     private String nombre;
@@ -127,24 +126,6 @@ public class PaisJSFManagedBean implements Serializable {
         this.pais = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pais eliminado con exito", ""));
         return null;
-    }
-
-    /**
-     * @return the paisXnom
-     */
-    public List<Pais> getPaisXnom() {
-
-        if (this.paisXnom == null) {
-            this.paisXnom = this.paisSessionBean.PaisXnombre(nombre);
-        }
-        return paisXnom;
-    }
-
-    /**
-     * @param paisXnom the paisXnom to set
-     */
-    public void setPaisXnom(List<Pais> paisXnom) {
-        this.paisXnom = paisXnom;
     }
 
     public void onRowSelect(SelectEvent event) {
