@@ -11,7 +11,9 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Jugador;
+import com.fifa.datos.Pais;
 import java.util.Date;
+import javax.persistence.Query;
 
 /**
  *
@@ -67,10 +69,35 @@ public class JugadorSessionBean {
             return false;
         }
     }
+     public Boolean  Validator (int dni){
+     String p1=null;
+     String consulta;
+        try {
+            consulta = "FROM Jugador p WHERE p.dni= ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, dni);
+                   
+        List <Pais> Listpa = query.getResultList();
+            if (!Listpa.isEmpty()) {
+               
+                return false;
+            }
+
+            
+        } catch (Exception e) {
+            
+            
+            
+        }
+        return true;
+        
+    }
 
 
     public boolean agregarJugador( String nombre, String apellido,Date fechaNac, int dni) {
         try {
+                if (Validator(dni)==true){
+                
             Jugador p = new Jugador();
             p.setNombre(nombre);
             p.setApellido(apellido);
@@ -79,9 +106,11 @@ public class JugadorSessionBean {
             em.persist(p);
             em.flush();
             return true;
+                }
         } catch (Exception e) {
-            return false;
+          
         }
+          return false;
     }
      
      public boolean modificarJugador(int idJugador, String nombre, String apellido,Date fechaNac , int dni) {

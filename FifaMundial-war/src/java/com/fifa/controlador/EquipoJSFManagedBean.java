@@ -13,7 +13,7 @@ import com.fifa.negocio.EquipoSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -37,6 +37,8 @@ public class EquipoJSFManagedBean implements Serializable {
     private Pais paisidPais;
     private Zona zonaidZona;
     private Mundial mundialidMundial;
+    private List<String> list;
+
 
     public Pais getPaisidPais() {
         return paisidPais;
@@ -85,6 +87,8 @@ public class EquipoJSFManagedBean implements Serializable {
         return equipolist;
     }
      
+    
+
 
     /**
      * @param equipolist
@@ -157,6 +161,38 @@ public class EquipoJSFManagedBean implements Serializable {
     public List<Equipo> getEquiposOrdenadosPorZona() {
         return this.equipoSessionBean.obtenerEquiposOrdenZona();
 }
+
+    /**
+     * @return the list
+     */
+    public List<String> getList() {
+        
+             
+        if(this.list == null)
+        {
+            this.list = this.equipoSessionBean.obtenerfix();
+       }
+    
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(List<String> list) {
+        this.list = list;
+    }
+     
+
+    /**
+     * @return the list
+     */
+
+
+    /**
+     * @param list the list to set
+     */
+ 
 
     
 

@@ -21,54 +21,47 @@
                     #{p.zonaidZona.nombre}
                 </p:column> 
             </p:dataTable>
-                <p:column headerText="">
-
-                    <p:commandButton action="#{equipoJSFManagedBean.verEditar(true, p.idEquipo, p.paisidPais, p.zonaidZona, p.mundialidMundial)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarEq"
-                                     />
-                    
-                    
-                </p:column>
-
-            </p:dataTable>
-            <p:commandButton value="Agregar"
-                             action="#{equipoJSFManagedBean.verEditar(true,-1, null)}"
+              <p:commandButton value="Agregar"
+                             action="#{arbitroJSFManagedBean.verEditar(true, -1, null, null, null)}"
                              update="panelEditarEq"
                              icon="ui-icon-check" />
 
 
             <h:panelGroup id="panelEditarEq">
-                <p:panelGrid columns="2" rendered="#{equipoJSFManagedBean.editar}">
+                <p:panelGrid columns="2" rendered="#{arbitroJSFManagedBean.editar}">
                     <f:facet name="header">
                         Editar Equipos
                     </f:facet>
-                    <h:outputLabel value="i *" for="txtNombre"/>
-                    <p:inputText value="#{zonaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
-               
+                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
+                    <p:inputText value="#{equipoJSFManagedBean.paisidPais.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre"/>
+                    <h:outputLabel value="Apellido: *" for="txtApellido"/>
+                    <p:inputText value="#{equipoJSFManagedBean.zonaidZona.nombre}" id="txtApellido" required="true" requiredMessage="Ingrese Apellido"/>
+                 
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
                                          action="#{equipoJSFManagedBean.guardar()}"
-                                            update="dtList panelEditarEq msj"
-                                     />
+                                                     update="dtList panelEditarEq msj"                              />
                         <p:commandButton value="Cerrar" 
-                                         action="#{zonaJSFManagedBean.verEditar(false, -1, null)}"
-                                         update="panelEditarAlumno"
+                                         action="#{arbitroJSFManagedBean.verEditar(false, -1, null, null, null)}"
+                                         update="panelEditarEq"
                                          immediate="true"
                                          />
                                          
                     </f:facet>
                 </p:panelGrid>
             </h:panelGroup>
-
-
-
-
-
-
-
-
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
         </h:form>
 

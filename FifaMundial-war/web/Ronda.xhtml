@@ -12,56 +12,25 @@
           <p:growl id="msj" autoUpdate="true"/>
 
         <h:form prependId="false">
-          
-            <p:dataTable value="#{rondaJSFManagedBean.ronda}"
-                         id="dtList"
-                         var="p">
-                <p:column headerText="Nombre Ronda" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
-                </p:column>
-               
-                <p:column headerText="">
-
-                    <p:commandButton action="#{rondaJSFManagedBean.verEditar(true, p.idRonda, p.nombre)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarRonda"
-                                     />
-                    
-                    
-                </p:column>
-
-            </p:dataTable>
-            <p:commandButton value="Agregar"
-                             action="#{rondaJSFManagedBean.verEditar(true,-1, null)}"
-                             update="panelEditarRonda"
-                             icon="ui-icon-check" />
-
-
-            <h:panelGroup id="panelEditarRonda">
-                <p:panelGrid columns="2" rendered="#{rondaJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Ronda
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{rondaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
-               
-                    <f:facet name="footer">
-                        <p:commandButton value="Guardar"
-                                         action="#{rondaJSFManagedBean.guardarRonda()}"
-                                            update="dtList panelEditarRonda msj"
-                                     />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{rondaJSFManagedBean.verEditar(false, -1, null)}"
-                                         update="panelEditarRonda"
-                                         immediate="true"
-                                         />
-                                         
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
-
-
+   
+            
+               <h:panelGrid columns="3" cellpadding="5">
+        <h:outputLabel for="menu" value="Location:" />
+        <p:selectCheckboxMenu id="menu" value="#{Ronda.selectedCities}" label="Cities"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+            <f:selectItems value="#{checkboxView.cities}" />
+        </p:selectCheckboxMenu>
+        <p:commandLink value="Submit" update="display" />
+    </h:panelGrid>
+ 
+    <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px">
+        <p:dataList value="#{checkboxView.selectedCities}" var="city" emptyMessage="No cities selected">
+            #{city}
+        </p:dataList>
+    </p:outputPanel>
+            
+            
+            
         </h:form>
 
 

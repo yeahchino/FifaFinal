@@ -146,9 +146,15 @@ public class JugadorJSFManagedBean implements Serializable {
             this.jugadorSessionBean.modificarJugador(idJugador, nombre, apellido, fechaNac, dni);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificado con exito", ""));
         } else {
+            if (jugadorSessionBean.Validator(dni)==false){
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Jugador ya existe", ""));
+            }
+            else{
             this.jugadorSessionBean.agregarJugador(nombre, apellido, fechaNac, dni);
             this.nombre = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador agregado con exito", ""));
+       
+            }
         }
         this.jugadorlist = null;
         return null;

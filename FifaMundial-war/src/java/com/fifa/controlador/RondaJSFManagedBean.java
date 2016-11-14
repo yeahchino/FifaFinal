@@ -5,7 +5,6 @@
  */
 package com.fifa.controlador;
 
-import com.fifa.datos.Pais;
 import com.fifa.datos.Ronda;
 import com.fifa.negocio.RondaSessionBean;
 import javax.inject.Named;
@@ -15,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 
 /**
  *
@@ -31,6 +31,8 @@ public class RondaJSFManagedBean implements Serializable {
     private boolean editar = false;
     private int idRonda = -1;
     private String nombre;
+
+
     
     public RondaJSFManagedBean() {
     }
@@ -47,6 +49,8 @@ public class RondaJSFManagedBean implements Serializable {
 
     }
 
+ 
+ 
     /**
      * @param ronda the ronda to set
      */
@@ -95,6 +99,7 @@ public class RondaJSFManagedBean implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
     public String verEditar(boolean ver, int idRonda, String nombre) {
         this.setEditar(ver);
         this.idRonda = idRonda;
@@ -122,4 +127,9 @@ public class RondaJSFManagedBean implements Serializable {
         this.setRonda(null);
         return null;
     }
+
+
+    
+    
+    
 }

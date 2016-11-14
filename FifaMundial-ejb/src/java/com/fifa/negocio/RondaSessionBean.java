@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Ronda;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  *
@@ -95,37 +96,7 @@ public class RondaSessionBean {
     /**
      *
      */
-    public void generarFixture() {
-        int equipos = 4;
-        int totalDeFechas = equipos - 1;
-        int partidosPorFecha = equipos / 2;
-        String[][] fechas = new String[totalDeFechas][partidosPorFecha];
-        //List<String> resultadoRonda;
-        
-        //iteracion de la matriz entre partidos por fecha y total de fechas
-        for (int fecha = 0; fecha < totalDeFechas; fecha++) {
-            for (int partido = 0; partido < partidosPorFecha; partido++) {
-                int local = (fecha + partido) % (equipos - 1);
-                int vistante = (equipos - 1 - partido + fecha) % (equipos - 1);
-                
-                 
-                //Esto hace el efecto de que se quede frenado el primer equipo y los demas giren
-                if (partido == 0) {
-                    vistante = equipos - 1;
-                }
-
-                fechas[fecha][partido] = (local + 1) + " v " + (vistante + 1);
-                //List<String> resultadoronda;
-
-               // for (int i = 0; i < fechas.length; i++) {
-               //resultadoRonda = Arrays.asList(fechas[i]);
-                    
-                    
-                }
-                
-
-            }
-        }
+ 
         
     }
     
