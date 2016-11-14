@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/Equipo2.xhtml</welcome-file>
+        <welcome-file>faces/Mundial.xhtml</welcome-file>
     </welcome-file-list>
     
 </web-app>

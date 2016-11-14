@@ -10,7 +10,7 @@
     <ui:define name="content">
         <h:form prependId="false"> 
             <p:growl id="msgs" showDetail="true" />
-            
+
             <p:panelGrid columns="3">
                 <f:facet name="header">
                     Buscar Alumnos
@@ -42,52 +42,52 @@
                 <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msgs" />
 
                 <p:column headerText="Nombre">
-            #{item.idPais}
-        </p:column>
-        <p:column headerText="Apellido">
-            #{item.nombre}
-        </p:column>
-        <p:column>
-            <p:commandButton icon="ui-icon-circle-check"
-                             action="#{paisJSFManagedBean.verMarcar(item.idPais)}"
-                             update="msgs txtIdPais"/>
-        </p:column>
-    </p:dataTable> 
-    <p:inputText id="txtIdPais" value="#{paisJSFManagedBean.idPais}"/>
-    <p:commandButton value="Agregar"
-                     action="#{mundialJSFManagedBean.guardar()}"
-                     icon="ui-icon-check" />
+                    #{item.idPais}
+                </p:column>
+                <p:column headerText="Apellido">
+                    #{item.nombre}
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="ui-icon-circle-check"
+                                     action="#{paisJSFManagedBean.verMarcar(item.idPais)}"
+                                     update="msgs txtIdPais"/>
+                </p:column>
+            </p:dataTable> 
+            <p:inputText id="txtIdPais" value="#{paisJSFManagedBean.idPais}"/>
+            <p:commandButton value="Agregar"
+                             action="#{mundialJSFManagedBean.guardar()}"
+                             icon="ui-icon-check" />
 
 
-    <p:dataTable value="#{paisJSFManagedBean.paisXnom}" 
-                 var="item"
-                 id="tablaPais2"
-                 paginator="true"
-                 paginatorPosition="bottom"
-                 rowsPerPageTemplate="5,10,15"
-                 emptyMessage="Sin datos"   
-                 selection="#{paisJSFManagedBean.paisesSel}" 
-                 rowKey="#{item.idPais}"
-                 >
+            <p:dataTable value="#{paisJSFManagedBean.pais}" 
+                         var="item"
+                         id="tablaPais2"
+                         paginator="true"
+                         paginatorPosition="bottom"
+                         rowsPerPageTemplate="5,10,15"
+                         emptyMessage="Sin datos"   
+                         selection="#{paisJSFManagedBean.paisesSel}" 
+                         rowKey="#{item.idPais}"
+                         >
 
-        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-        <p:column headerText="Nombre">
-            #{item.idPais}
-        </p:column>
-        <p:column headerText="Apellido">
-            #{item.nombre}
-        </p:column>
-        <f:facet name="footer">
-            <p:commandButton process="tablaPais2" 
-                             update="msgs" 
-                             icon="ui-icon-search" 
-                             value="Ver Seleccion" 
-                             action="#{paisJSFManagedBean.verPaisesSel()}"
-                             ajax="false"
-                              />
-        </f:facet>
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column headerText="Nombre">
+                    #{item.idPais}
+                </p:column>
+                <p:column headerText="Apellido">
+                    #{item.nombre}
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton process="tablaPais2" 
+                                     update="msgs" 
+                                     icon="ui-icon-search" 
+                                     value="Ver Seleccion" 
+                                     action="#{paisJSFManagedBean.verPaisesSel()}"
+                                     ajax="false"
+                                     />
+                </f:facet>
 
-    </p:dataTable> 
+            </p:dataTable> 
 
 
         </h:form>

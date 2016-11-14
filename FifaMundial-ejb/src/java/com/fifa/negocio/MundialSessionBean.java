@@ -58,4 +58,22 @@ public class MundialSessionBean {
         }
     }
 
+    public boolean modificarMundial(Date fechaInicio, Date fechaFin, int idPais, int idMundial) {
+        try {
+            Pais paisSel = em.find(Pais.class, idPais);
+            Mundial m = em.find(Mundial.class, idMundial);
+            if (paisSel != null && m != null) {
+                m.setFechaInicio(fechaInicio);
+                m.setFechaFin(fechaFin);
+                m.setPaisidPais(paisSel);
+                em.merge(m);
+                em.flush();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

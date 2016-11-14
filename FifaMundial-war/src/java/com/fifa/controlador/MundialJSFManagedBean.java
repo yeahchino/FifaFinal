@@ -34,9 +34,11 @@ public class MundialJSFManagedBean implements Serializable {
     private MundialSessionBean mundialSessionBean;
 
     private List<Mundial> mundial;
+    private List<Mundial> mundialElegido;
     private int idMundial;
     private Date fechaInicio;
     private Date fechaFin;
+    private boolean editar = false;
 
     @Inject
     private PaisJSFManagedBean paisJSF;
@@ -181,5 +183,42 @@ public class MundialJSFManagedBean implements Serializable {
 //        FacesContext.getCurrentInstance().addMessage(
 //                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + idMundial, ""));
 //    }
+
+    /**
+     * @return the mundialElegido
+     */
+    public List<Mundial> getMundialElegido() {
+        return mundialElegido;
+    }
+
+    /**
+     * @param mundialElegido the mundialElegido to set
+     */
+    public void setMundialElegido(List<Mundial> mundialElegido) {
+        this.mundialElegido = mundialElegido;
+    }
+
+    /**
+     * @return the editar
+     */
+    public boolean isEditar() {
+        return editar;
+    }
+
+    /**
+     * @param editar the editar to set
+     */
+    public void setEditar(boolean editar) {
+        this.editar = editar;
+    }
+    
+     public String editar() {
+        if (this.idMundial != -1) {
+            this.mundialSessionBean.modificarMundial(fechaInicio, fechaFin, idMundial, idMundial);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mundial modificado con éxito", ""));
+        }
+        //this.alumnos = null;
+        return null;
+    }
 
 }
