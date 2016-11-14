@@ -157,12 +157,13 @@ public class EquipoSessionBean {
     int matchesPerRound = teams / 2;
     String[][] rounds = new String[totalRounds][matchesPerRound];
      List<String> list = null;
+     
 
     for (int round = 0; round < totalRounds; round++) {
         for (int match = 0; match < matchesPerRound; match++) {
             int home = (round + match) % (teams - 1);
-            int away = (teams - 1 - match + round) % (teams - 1);
-
+            int away = (teams - match + round -1) % (teams - 1);
+          
             // Last team stays in the same place while the others
             // rotate around it.
             if (match == 0) {
@@ -171,17 +172,21 @@ public class EquipoSessionBean {
 
             // Add one so teams are number 1 to teams not 0 to teams - 1
             // upon display.
-            rounds[round][match] = (this.obtenerEquipoId(home + 1).getPaisidPais().getNombre() + "Vs " + this.obtenerEquipoId(away + 1).getPaisidPais().getNombre());
-        }
+            rounds[round][match] = ((home + 1)+ " Vs " + (away + 1));
+            
+                 list = Arrays.asList(rounds[round]);
+                 
+                }
+       
     }
      
 
-    // Display the rounds    
-    for (int i = 0; i < rounds.length; i++) {
+   // Display the rounds    
+//  for (int i = 0; i < rounds.length; i++) {
        
-    list = Arrays.asList(rounds[i]);
-           
-    }
+
+ 
+     
        return list;
      }
      public void persist(Object object) {
