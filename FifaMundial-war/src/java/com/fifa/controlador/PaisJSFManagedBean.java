@@ -22,7 +22,7 @@ import org.primefaces.event.SelectEvent;
  */
 @Named(value = "paisJSFManagedBean")
 @SessionScoped
-public class PaisJSFManagedBean implements Serializable {
+public class PaisJSFManagedBean implements Serializable , Converter{
 
     @EJB
     private PaisSessionBean paisSessionBean;
@@ -164,5 +164,5 @@ public class PaisJSFManagedBean implements Serializable {
         return "Ronda.xhtml?faces-redirect=true";
         //return null;
     }
-
-}
+    
+    }
