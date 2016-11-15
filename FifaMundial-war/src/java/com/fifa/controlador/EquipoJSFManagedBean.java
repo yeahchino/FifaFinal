@@ -210,10 +210,7 @@ public class EquipoJSFManagedBean implements Serializable {
     public void onEquipoDrop(DragDropEvent ddEvent) {
         Equipo equi = ((Equipo) ddEvent.getData());
         
-        try {
-            int aux = 0;
-            if (aux<4){
-            
+                 
             equiposTargetA.add(equi);
             List<Equipo> equiposAux = new ArrayList<>();
             for (Equipo equipo : equiposSource) {
@@ -222,12 +219,7 @@ public class EquipoJSFManagedBean implements Serializable {
                 }
             }
             equiposSource = equiposAux;
-            aux++;
-            }
-        } catch (Exception e) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "No se pueden agregar mas de 4 equipos por zona", ""));
-        }
+         
 
     }
 

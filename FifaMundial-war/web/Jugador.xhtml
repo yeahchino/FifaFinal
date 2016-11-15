@@ -43,11 +43,7 @@
                 </p:column>
 
             </p:dataTable>
-            <p:commandButton value="Agregar"
-                             action="#{jugadorJSFManagedBean.verEditar(true, -1, null, null, null, null)}"
-                             update="panelEditarJ"
-                             icon="ui-icon-circle-triangle-s" />
-
+          
 
             <h:panelGroup id="panelEditarJ">
                 <p:panelGrid columns="2" rendered="#{jugadorJSFManagedBean.editar}">
