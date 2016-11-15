@@ -70,11 +70,7 @@
                         <p:column headerText="Nombre">
                             #{us.nombre}
                         </p:column>
-                        <p:column headerText="">
-                            <p:commandButton icon="ui-icon-trash"
-                                             action="#{usuarioJSFManagedBean.eliminar(us.nombre)}"
-                                             update="tbUser msj"/>
-                        </p:column>
+                       
 
                         <p:commandButton action="#{alumno1Bean.verEditar(true, item.idAlumno, item.nombre, item.apellido, item.legajo)}"
                                          value="Editar"
@@ -84,9 +80,7 @@
                     </p:dataTable>
 
                 </p:tab>
-                <p:tab title="Ver">
-                    Lucas putazoo
-                </p:tab>
+              
             </p:tabView>
 
         </h:form>
