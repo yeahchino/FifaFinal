@@ -164,7 +164,15 @@ public class EquipoJSFManagedBean implements Serializable {
         return null;
     }
 
-    
+    public List<Equipo> getEquiposOrdenadosPorZona() {
+        return this.equipoSessionBean.obtenerEquiposOrdenZona().subList(0, 4);
+
+    }
+
+    public List<Equipo> getEquiposOrdenadosPorZona2() {
+        return this.equipoSessionBean.obtenerEquiposOrdenZona().subList(4, 8);
+
+    }
 
     public List<String> getList() {
 
@@ -188,13 +196,7 @@ public class EquipoJSFManagedBean implements Serializable {
         this.equipoOrdenado = equipoOrdenado;
     }
 
-    /**
-     * @return the list
-     */
-    /**
-     * @param list the list to set
-     * @return
-     */
+    
     public List<Equipo> getEquiposSource() {
 
         if (equiposSource.isEmpty()) {
@@ -210,42 +212,18 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public void onEquipoDrop(DragDropEvent ddEvent) {
         Equipo equi = ((Equipo) ddEvent.getData());
-        int nzona = 0;
-        switch (nzona) {
-            case 1:
-                equiposTargetA = equiposTargetA;
-                equiposTargetA.add(equi);
-            case 2:
-                equiposTargetB = equiposTargetB;
-                equiposTargetB.add(equi);
-                List<Equipo> equiposAux = new ArrayList<>();
-                for (Equipo equipo : equiposSource) {
-                    if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
-                        equiposAux.add(equipo);
-                    }
-                }
-                equiposSource = equiposAux;
-            case 3:
-                equiposTargetC = equiposTargetC;
-                equiposTargetC.add(equi);
-            case 4:
-                equiposTargetD = equiposTargetD;
-                equiposTargetD.add(equi);
-            case 5:
-                equiposTargetE = equiposTargetE;
-                equiposTargetE.add(equi);
-            case 6:
-                equiposTargetF = equiposTargetF;
-                equiposTargetF.add(equi);
-            case 7:
-                equiposTargetG = equiposTargetG;
-                equiposTargetG.add(equi);
-            case 8:
-                equiposTargetH = equiposTargetH;
-                equiposTargetH.add(equi);
 
+        equiposTargetA.add(equi);
+        List<Equipo> equiposAux = new ArrayList<>();
+        for (Equipo equipo : equiposSource) {
+            if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
+                equiposAux.add(equipo);
+            }
         }
+        equiposSource = equiposAux;
+        
     }
+    
     //Get y Set de las listas de equipos destino        //Get y Set de las listas de equipos destino
 
     public List<Equipo> getEquiposTargetA() {
