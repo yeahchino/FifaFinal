@@ -137,7 +137,7 @@ public class EquipoSessionBean {
         int teams = 4;
 
         // Generate the schedule using round robin algorithm.
-        int totalRounds = (teams - 1) * 2;
+        int totalRounds = (teams - 1) ;
         int matchesPerRound = teams / 2;
         String[][] rounds = new String[totalRounds][matchesPerRound];
         List<String> myList = null;

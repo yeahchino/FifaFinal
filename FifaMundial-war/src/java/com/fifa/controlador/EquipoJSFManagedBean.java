@@ -190,13 +190,10 @@ public class EquipoJSFManagedBean implements Serializable {
         this.list = list;
     }
 
-    
-
     public void setEquipoOrdenado(List<Equipo> equipoOrdenado) {
         this.equipoOrdenado = equipoOrdenado;
     }
 
-    
     public List<Equipo> getEquiposSource() {
 
         if (equiposSource.isEmpty()) {
@@ -212,20 +209,29 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public void onEquipoDrop(DragDropEvent ddEvent) {
         Equipo equi = ((Equipo) ddEvent.getData());
-
-        equiposTargetA.add(equi);
-        List<Equipo> equiposAux = new ArrayList<>();
-        for (Equipo equipo : equiposSource) {
-            if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
-                equiposAux.add(equipo);
-            }
-        }
-        equiposSource = equiposAux;
         
-    }
-    
-    //Get y Set de las listas de equipos destino        //Get y Set de las listas de equipos destino
+        try {
+            int aux = 0;
+            if (aux<4){
+            
+            equiposTargetA.add(equi);
+            List<Equipo> equiposAux = new ArrayList<>();
+            for (Equipo equipo : equiposSource) {
+                if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
+                    equiposAux.add(equipo);
+                }
+            }
+            equiposSource = equiposAux;
+            aux++;
+            }
+        } catch (Exception e) {
 
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "No se pueden agregar mas de 4 equipos por zona", ""));
+        }
+
+    }
+
+    //Get y Set de las listas de equipos destino        //Get y Set de las listas de equipos destino
     public List<Equipo> getEquiposTargetA() {
         return equiposTargetA;
     }
