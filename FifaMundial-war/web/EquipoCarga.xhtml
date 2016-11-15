@@ -30,6 +30,7 @@
             <h:panelGroup id="panelEditarEq">
                 <p:panelGrid columns="2" rendered="#{arbitroJSFManagedBean.editar}">
                     <f:facet name="header">
+                        
                         Editar Equipos
                     </f:facet>
                     <h:outputLabel value="Nombre: *" for="txtNombre"/>
@@ -39,7 +40,7 @@
                  
                     <f:facet name="footer">
                         <p:commandButton value="Guardar"
-                                         action="#{equipoJSFManagedBean.guardar()}                              />
+                                         action="#{equipoJSFManagedBean.guardar()}"                             />
                         <p:commandButton value="Cerrar" 
                                          action="#{arbitroJSFManagedBean.verEditar(false, -1, null, null, null)}"
                                          update="panelEditarEq"

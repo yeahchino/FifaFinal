@@ -22,7 +22,7 @@ import org.primefaces.event.SelectEvent;
  */
 @Named(value = "paisJSFManagedBean")
 @SessionScoped
-public class PaisJSFManagedBean implements Serializable , Converter{
+public class PaisJSFManagedBean implements Serializable  {
 
     @EJB
     private PaisSessionBean paisSessionBean;

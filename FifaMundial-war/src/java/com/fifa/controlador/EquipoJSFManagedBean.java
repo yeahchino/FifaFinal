@@ -10,14 +10,16 @@ import com.fifa.datos.Mundial;
 import com.fifa.datos.Pais;
 import com.fifa.datos.Zona;
 import com.fifa.negocio.EquipoSessionBean;
+import com.fifa.negocio.PaisSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.DragDropEvent;
 
 /**
  *
@@ -28,17 +30,33 @@ import javax.faces.context.FacesContext;
 public class EquipoJSFManagedBean implements Serializable {
 
     @EJB
+    private PaisSessionBean paisSessionBean;
+
+    @EJB
     private EquipoSessionBean equipoSessionBean;
-    
+
     private List<Equipo> equipolist;
-    private List <Equipo> zona;
+    private List<Equipo> zona;
     private boolean editar = false;
     private int idEquipo = -1;
     private Pais paisidPais;
     private Zona zonaidZona;
     private Mundial mundialidMundial;
     private List<String> list;
+    private List<Equipo> equipoOrdenado;
 
+    //Lista origen que se aplica para el uso del DragandDrop 
+    private List<Equipo> equiposSource = new ArrayList<>();
+
+    //Listas destino que se utilizan para el DragandDrop por Zpna
+    private List<Equipo> equiposTargetA = new ArrayList<>();
+    private List<Equipo> equiposTargetB = new ArrayList<>();
+    private List<Equipo> equiposTargetC = new ArrayList<>();
+    private List<Equipo> equiposTargetD = new ArrayList<>();
+    private List<Equipo> equiposTargetE = new ArrayList<>();
+    private List<Equipo> equiposTargetF = new ArrayList<>();
+    private List<Equipo> equiposTargetG = new ArrayList<>();
+    private List<Equipo> equiposTargetH = new ArrayList<>();
 
     public Pais getPaisidPais() {
         return paisidPais;
@@ -63,9 +81,6 @@ public class EquipoJSFManagedBean implements Serializable {
     public void setMundialidMundial(Mundial mundialidMundial) {
         this.mundialidMundial = mundialidMundial;
     }
-    
-    
-   
 
     /**
      * Creates a new instance of AlumnoBean
@@ -73,28 +88,22 @@ public class EquipoJSFManagedBean implements Serializable {
     public EquipoJSFManagedBean() {
     }
 
-    
-
     /**
      * @return the equipo
      */
     public List<Equipo> getEquipo() {
-         
-        if(this.equipolist == null)
-        {
+
+        if (this.equipolist == null) {
             this.equipolist = this.equipoSessionBean.obtenerEquipo();
-       }
+        }
         return equipolist;
     }
-     
-    
-
 
     /**
      * @param equipolist
      */
     public void setEquipo(List<Equipo> equipolist) {
-       
+
         this.equipolist = equipolist;
     }
 
@@ -111,10 +120,7 @@ public class EquipoJSFManagedBean implements Serializable {
     public void setIdEquipo(int idEquipo) {
         this.idEquipo = idEquipo;
     }
-    
-    
 
-       
     /**
      * @return the editar
      */
@@ -137,13 +143,13 @@ public class EquipoJSFManagedBean implements Serializable {
         this.idEquipo = idEquipo;
         return null;
     }
-    
+
     public String guardar() {
         if (this.idEquipo != -1) {
-            this.equipoSessionBean.modificarEquipo(idEquipo,  paisidPais,  zonaidZona,  mundialidMundial);
+            this.equipoSessionBean.modificarEquipo(idEquipo, paisidPais, zonaidZona, mundialidMundial);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo modificado con exito", ""));
         } else {
-            this.equipoSessionBean.agregarEquipo( paisidPais,  zonaidZona,  mundialidMundial);
+            this.equipoSessionBean.agregarEquipo(paisidPais, zonaidZona, mundialidMundial);
             this.paisidPais = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo agregado con exito", ""));
         }
@@ -157,22 +163,15 @@ public class EquipoJSFManagedBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo eliminado con exito", ""));
         return null;
     }
-    
-    public List<Equipo> getEquiposOrdenadosPorZona() {
-        return this.equipoSessionBean.obtenerEquiposOrdenZona();
-}
 
-    /**
-     * @return the list
-     */
-    public List<String> getList() {
-        
-             
-        if(this.list == null)
-        {
-            this.list = this.equipoSessionBean.obtenerfix();
-       }
     
+
+    public List<String> getList() {
+
+        if (this.list == null) {
+            this.list = this.equipoSessionBean.obtenerfix();
+        }
+
         return list;
     }
 
@@ -182,19 +181,135 @@ public class EquipoJSFManagedBean implements Serializable {
     public void setList(List<String> list) {
         this.list = list;
     }
-     
+
+    
+
+    public void setEquipoOrdenado(List<Equipo> equipoOrdenado) {
+        this.equipoOrdenado = equipoOrdenado;
+    }
 
     /**
      * @return the list
      */
-
-
     /**
      * @param list the list to set
+     * @return
      */
- 
+    public List<Equipo> getEquiposSource() {
 
-    
+        if (equiposSource.isEmpty()) {
+            List<Pais> paisesAux = paisSessionBean.obtenerPais();
+            for (Pais pais : paisesAux) {
+                Equipo eAux = new Equipo();
+                eAux.setPaisidPais(pais);
+                equiposSource.add(eAux);
+            }
+        }
+        return equiposSource;
+    }
 
+    public void onEquipoDrop(DragDropEvent ddEvent) {
+        Equipo equi = ((Equipo) ddEvent.getData());
+        int nzona = 0;
+        switch (nzona) {
+            case 1:
+                equiposTargetA = equiposTargetA;
+                equiposTargetA.add(equi);
+            case 2:
+                equiposTargetB = equiposTargetB;
+                equiposTargetB.add(equi);
+                List<Equipo> equiposAux = new ArrayList<>();
+                for (Equipo equipo : equiposSource) {
+                    if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
+                        equiposAux.add(equipo);
+                    }
+                }
+                equiposSource = equiposAux;
+            case 3:
+                equiposTargetC = equiposTargetC;
+                equiposTargetC.add(equi);
+            case 4:
+                equiposTargetD = equiposTargetD;
+                equiposTargetD.add(equi);
+            case 5:
+                equiposTargetE = equiposTargetE;
+                equiposTargetE.add(equi);
+            case 6:
+                equiposTargetF = equiposTargetF;
+                equiposTargetF.add(equi);
+            case 7:
+                equiposTargetG = equiposTargetG;
+                equiposTargetG.add(equi);
+            case 8:
+                equiposTargetH = equiposTargetH;
+                equiposTargetH.add(equi);
+
+        }
+    }
+    //Get y Set de las listas de equipos destino        //Get y Set de las listas de equipos destino
+
+    public List<Equipo> getEquiposTargetA() {
+        return equiposTargetA;
+    }
+
+    public void setEquiposTargetA(List<Equipo> equiposTargetA) {
+        this.equiposTargetA = equiposTargetA;
+    }
+
+    public List<Equipo> getEquiposTargetB() {
+        return equiposTargetB;
+    }
+
+    public void setEquiposTargetB(List<Equipo> equiposTargetB) {
+        this.equiposTargetB = equiposTargetB;
+    }
+
+    public List<Equipo> getEquiposTargetC() {
+        return equiposTargetC;
+    }
+
+    public void setEquiposTargetC(List<Equipo> equiposTargetC) {
+        this.equiposTargetC = equiposTargetC;
+    }
+
+    public List<Equipo> getEquiposTargetD() {
+        return equiposTargetD;
+    }
+
+    public void setEquiposTargetD(List<Equipo> equiposTargetD) {
+        this.equiposTargetD = equiposTargetD;
+    }
+
+    public List<Equipo> getEquiposTargetE() {
+        return equiposTargetE;
+    }
+
+    public void setEquiposTargetE(List<Equipo> equiposTargetE) {
+        this.equiposTargetE = equiposTargetE;
+    }
+
+    public List<Equipo> getEquiposTargetF() {
+        return equiposTargetF;
+    }
+
+    public void setEquiposTargetF(List<Equipo> equiposTargetF) {
+        this.equiposTargetF = equiposTargetF;
+    }
+
+    public List<Equipo> getEquiposTargetG() {
+        return equiposTargetG;
+    }
+
+    public void setEquiposTargetG(List<Equipo> equiposTargetG) {
+        this.equiposTargetG = equiposTargetG;
+    }
+
+    public List<Equipo> getEquiposTargetH() {
+        return equiposTargetH;
+    }
+
+    public void setEquiposTargetH(List<Equipo> equiposTargetH) {
+        this.equiposTargetH = equiposTargetH;
+    }
 
 }

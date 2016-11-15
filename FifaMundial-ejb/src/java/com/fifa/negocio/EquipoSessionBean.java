@@ -180,4 +180,38 @@ public class EquipoSessionBean {
         em.persist(object);
     }
 
+    public boolean modificarEquipoZona(int idEquipo, Zona zonaidZona) {
+        {
+        try {
+            Equipo p = em.find(Equipo.class, idEquipo);
+          
+            p.setZonaidZona(zonaidZona);
+            
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    }
+
+    public boolean agregarEquipoZona(Zona zonaidZona) {{
+        try {
+            
+                Equipo p = new Equipo();
+               
+                p.setZonaidZona(zonaidZona);
+                
+                em.persist(p);
+                em.flush();
+                return true;
+                
+                    } catch (Exception e) {
+
+        }
+        return false;
+    }
+    }
+
 }
