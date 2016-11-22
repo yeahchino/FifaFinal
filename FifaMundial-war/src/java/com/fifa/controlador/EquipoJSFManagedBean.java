@@ -16,6 +16,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -44,6 +45,7 @@ public class EquipoJSFManagedBean implements Serializable {
     private Mundial mundialidMundial;
     private List<String> list;
     private List<Equipo> equipoOrdenado;
+    private List<Equipo> eqXzona;
 
     //Lista origen que se aplica para el uso del DragandDrop 
     private List<Equipo> equiposSource = new ArrayList<>();
@@ -209,17 +211,15 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public void onEquipoDrop(DragDropEvent ddEvent) {
         Equipo equi = ((Equipo) ddEvent.getData());
-        
-                 
-            equiposTargetA.add(equi);
-            List<Equipo> equiposAux = new ArrayList<>();
-            for (Equipo equipo : equiposSource) {
-                if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
-                    equiposAux.add(equipo);
-                }
+
+        equiposTargetA.add(equi);
+        List<Equipo> equiposAux = new ArrayList<>();
+        for (Equipo equipo : equiposSource) {
+            if (!equipo.getPaisidPais().getNombre().equals(equi.getPaisidPais().getNombre())) {
+                equiposAux.add(equipo);
             }
-            equiposSource = equiposAux;
-         
+        }
+        equiposSource = equiposAux;
 
     }
 
@@ -286,6 +286,56 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public void setEquiposTargetH(List<Equipo> equiposTargetH) {
         this.equiposTargetH = equiposTargetH;
+    }
+
+    /**
+     * @return the eqXzona
+     */
+    public List<Equipo> getEqXzona(int zona) {
+        switch (zona) {
+            //A
+            case 1:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //B
+            case 2:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //C
+            case 3:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //D
+            case 4:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //E
+            case 5:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //F
+            case 6:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //G
+            case 7:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            //H
+            case 8:
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                break;
+            default:
+                return null;
+        }
+        return eqXzona;
+    }
+
+    /**
+     * @param eqXzona the eqXzona to set
+     */
+    public void setEqXzona(List<Equipo> eqXzona) {
+        this.eqXzona = eqXzona;
     }
 
 }

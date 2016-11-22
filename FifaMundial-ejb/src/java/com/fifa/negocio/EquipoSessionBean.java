@@ -213,5 +213,15 @@ public class EquipoSessionBean {
         return false;
     }
     }
+    
+    public List<Equipo> obtenerEquipoXzona(int id) {
+        try {
+            javax.persistence.Query q = em.createNamedQuery("Equipo.findByIdZona");
+            q.setParameter("idZona", id);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }

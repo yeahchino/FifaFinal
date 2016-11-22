@@ -6,43 +6,38 @@
 package com.fifa.datos;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author dfeitt
+ * @author Alexia
  */
 @Entity
 @Table(name = "partido")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Partido.findAll", query = "SELECT p FROM Partido p")
-    , @NamedQuery(name = "Partido.findByIdPartido", query = "SELECT p FROM Partido p WHERE p.idPartido = :idPartido")
-    , @NamedQuery(name = "Partido.findByFecha", query = "SELECT p FROM Partido p WHERE p.fecha = :fecha")
-    , @NamedQuery(name = "Partido.findByHora", query = "SELECT p FROM Partido p WHERE p.hora = :hora")
-    , @NamedQuery(name = "Partido.findByRdoA", query = "SELECT p FROM Partido p WHERE p.rdoA = :rdoA")
-    , @NamedQuery(name = "Partido.findByRdoB", query = "SELECT p FROM Partido p WHERE p.rdoB = :rdoB")
-    , @NamedQuery(name = "Partido.findByPenalesA", query = "SELECT p FROM Partido p WHERE p.penalesA = :penalesA")
-    , @NamedQuery(name = "Partido.findByPenalesB", query = "SELECT p FROM Partido p WHERE p.penalesB = :penalesB")})
+    @NamedQuery(name = "Partido.findAll", query = "SELECT p FROM Partido p"),
+    @NamedQuery(name = "Partido.findByIdPartido", query = "SELECT p FROM Partido p WHERE p.idPartido = :idPartido"),
+    @NamedQuery(name = "Partido.findByFecha", query = "SELECT p FROM Partido p WHERE p.fecha = :fecha"),
+    @NamedQuery(name = "Partido.findByHora", query = "SELECT p FROM Partido p WHERE p.hora = :hora"),
+    @NamedQuery(name = "Partido.findByRdoA", query = "SELECT p FROM Partido p WHERE p.rdoA = :rdoA"),
+    @NamedQuery(name = "Partido.findByRdoB", query = "SELECT p FROM Partido p WHERE p.rdoB = :rdoB"),
+    @NamedQuery(name = "Partido.findByPenalesA", query = "SELECT p FROM Partido p WHERE p.penalesA = :penalesA"),
+    @NamedQuery(name = "Partido.findByPenalesB", query = "SELECT p FROM Partido p WHERE p.penalesB = :penalesB")})
 public class Partido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,27 +61,21 @@ public class Partido implements Serializable {
     private Integer penalesA;
     @Column(name = "penalesB")
     private Integer penalesB;
-    @ManyToMany(mappedBy = "partidoCollection")
-    private Collection<Arbitro> arbitroCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "partidoidPartido")
-    private Collection<Jugadoresxpartido> jugadoresxpartidoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "partido")
-    private Collection<Goles> golesCollection;
+    @JoinColumn(name = "Estadio_idEstadio", referencedColumnName = "idEstadio")
+    @ManyToOne
+    private Estadio estadioidEstadio;
+    @JoinColumn(name = "Jugador_capitanA", referencedColumnName = "idJugador")
+    @ManyToOne
+    private Jugador jugadorcapitanA;
+    @JoinColumn(name = "Jugador_capitanB", referencedColumnName = "idJugador")
+    @ManyToOne
+    private Jugador jugadorcapitanB;
     @JoinColumn(name = "Equipo_idEquipoA", referencedColumnName = "idEquipo")
     @ManyToOne(optional = false)
     private Equipo equipoidEquipoA;
     @JoinColumn(name = "Equipo_idEquipoB", referencedColumnName = "idEquipo")
     @ManyToOne(optional = false)
     private Equipo equipoidEquipoB;
-    @JoinColumn(name = "Estadio_idEstadio", referencedColumnName = "idEstadio")
-    @ManyToOne(optional = false)
-    private Estadio estadioidEstadio;
-    @JoinColumn(name = "Jugador_capitanA", referencedColumnName = "idJugador")
-    @ManyToOne(optional = false)
-    private Jugador jugadorcapitanA;
-    @JoinColumn(name = "Jugador_capitanB", referencedColumnName = "idJugador")
-    @ManyToOne(optional = false)
-    private Jugador jugadorcapitanB;
     @JoinColumn(name = "Mundial_idMundial", referencedColumnName = "idMundial")
     @ManyToOne(optional = false)
     private Mundial mundialidMundial;
@@ -157,49 +146,6 @@ public class Partido implements Serializable {
         this.penalesB = penalesB;
     }
 
-    @XmlTransient
-    public Collection<Arbitro> getArbitroCollection() {
-        return arbitroCollection;
-    }
-
-    public void setArbitroCollection(Collection<Arbitro> arbitroCollection) {
-        this.arbitroCollection = arbitroCollection;
-    }
-
-    @XmlTransient
-    public Collection<Jugadoresxpartido> getJugadoresxpartidoCollection() {
-        return jugadoresxpartidoCollection;
-    }
-
-    public void setJugadoresxpartidoCollection(Collection<Jugadoresxpartido> jugadoresxpartidoCollection) {
-        this.jugadoresxpartidoCollection = jugadoresxpartidoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Goles> getGolesCollection() {
-        return golesCollection;
-    }
-
-    public void setGolesCollection(Collection<Goles> golesCollection) {
-        this.golesCollection = golesCollection;
-    }
-
-    public Equipo getEquipoidEquipoA() {
-        return equipoidEquipoA;
-    }
-
-    public void setEquipoidEquipoA(Equipo equipoidEquipoA) {
-        this.equipoidEquipoA = equipoidEquipoA;
-    }
-
-    public Equipo getEquipoidEquipoB() {
-        return equipoidEquipoB;
-    }
-
-    public void setEquipoidEquipoB(Equipo equipoidEquipoB) {
-        this.equipoidEquipoB = equipoidEquipoB;
-    }
-
     public Estadio getEstadioidEstadio() {
         return estadioidEstadio;
     }
@@ -222,6 +168,22 @@ public class Partido implements Serializable {
 
     public void setJugadorcapitanB(Jugador jugadorcapitanB) {
         this.jugadorcapitanB = jugadorcapitanB;
+    }
+
+    public Equipo getEquipoidEquipoA() {
+        return equipoidEquipoA;
+    }
+
+    public void setEquipoidEquipoA(Equipo equipoidEquipoA) {
+        this.equipoidEquipoA = equipoidEquipoA;
+    }
+
+    public Equipo getEquipoidEquipoB() {
+        return equipoidEquipoB;
+    }
+
+    public void setEquipoidEquipoB(Equipo equipoidEquipoB) {
+        this.equipoidEquipoB = equipoidEquipoB;
     }
 
     public Mundial getMundialidMundial() {

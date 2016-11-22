@@ -33,9 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "equipo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e")
-    , @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo")
-    , @NamedQuery(name = "Equipo.findEquipoByZona", query = "SELECT e FROM Equipo e order by e.zonaidZona, e.idEquipo")})
+    @NamedQuery(name = "Equipo.findAll", query = "SELECT e FROM Equipo e"),
+    @NamedQuery(name = "Equipo.findByIdEquipo", query = "SELECT e FROM Equipo e WHERE e.idEquipo = :idEquipo"),
+    @NamedQuery(name = "Equipo.findEquipoByZona", query = "SELECT e FROM Equipo e order by e.zonaidZona, e.idEquipo"),
+    @NamedQuery(name = "Equipo.findByIdZona", query = "SELECT e FROM Equipo e JOIN e.zonaidZona z where z.idZona = :idZona")})
 
 public class Equipo implements Serializable {
 
@@ -171,12 +172,10 @@ public class Equipo implements Serializable {
         }
         return true;
     }
-    
-    
 
     @Override
     public String toString() {
         return "com.fifa.datos.Equipo[ idEquipo=" + idEquipo + " ]";
     }
-    
+
 }
