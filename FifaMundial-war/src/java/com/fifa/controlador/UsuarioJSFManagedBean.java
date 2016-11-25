@@ -7,6 +7,7 @@ package com.fifa.controlador;
 
 import com.fifa.datos.Usuario;
 import com.fifa.negocio.UsuarioSessionBean;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -164,16 +166,42 @@ public class UsuarioJSFManagedBean implements Serializable {
         try {
             us = usuarioSessionBean.iniciarSesion(usuario);
             if (us != null) {
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
                 redireccion = "IndexAdm.xhtml";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
             }
         } catch (Exception e) {
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR 404", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", ""));
         }
 
         return redireccion;
 
     }
+
+    public boolean verTUsuario() {
+        Usuario us = usuarioSessionBean.iniciarSesion(usuario);
+        tipo = Integer.toString(us.getTipoUsuarioidTipo().getIdTipo());
+        if (tipo.compareTo("1") == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void verificarSesion() {
+        try {
+            Usuario us = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            if (us == null) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("faces/LogUser.xhtml");
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void cerrarSesion() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+
 }

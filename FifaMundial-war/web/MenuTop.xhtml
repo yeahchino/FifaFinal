@@ -11,7 +11,9 @@
         <h:form>
 
             <p:megaMenu style="font-size: 10px" >
-
+                <f:facet name="options">
+                    <p:commandButton actionListener="#{usuarioJSFManagedBean.cerrarSesion()}" action="index.xhtml" icon="ui-icon-power"/>
+                </f:facet>
                 
   <p:submenu label="Iniciar Sesion" style="font-size:10px" icon="ui-icon-power">
                     <p:column>

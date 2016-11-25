@@ -3,11 +3,17 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div id="left">
         <h:form>
-            <p:growl autoUpdate="true"/>
+            <p:growl id="msj" autoUpdate="true" showDetail="true" sticky="true"/>
+            <p:idleMonitor timeout="60000">
+                <p:ajax event="idle" listener="#{usuarioJSFManagedBean.cerrarSesion()}" update="msj" />
+            </p:idleMonitor>
+
+            <f:event type="preRenderView" listener="#{usuarioJSFManagedBean.verificarSesion()}"></f:event>
             <p:panelMenu style="width:150px">
                 <p:submenu label="Administrar Mundiales" >
                     <p:menuitem value="Crear Mundial"  icon=" ui-icon-document" action="Mundial.xhtml" />
@@ -28,9 +34,10 @@
                     <p:menuitem value="Cargar resultados (En Construccion)"   icon="ui-icon-gear"   />
                 </p:submenu>
                 <p:submenu label="Mi Cuenta">
+                    <p:menuitem value="Agregar Usuario" icon="ui-icon-power" rendered="#{UsuarioJSFManagedBean.verTipoUsuario}"/>
                     <p:menuitem value="Editar" action="Usuario.xhtml"  ajax="false"
                                 icon=" ui-icon-gear"/>
-                    <p:menuitem value="Cerrar Sesión" action="index.xhtml"  icon="ui-icon-power" />
+                    <p:menuitem value="Cerrar Sesión" action="index.xhtml"  icon="ui-icon-power"/>
                 </p:submenu>
                 <p:separator />
             </p:panelMenu>

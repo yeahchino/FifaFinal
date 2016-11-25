@@ -101,11 +101,12 @@ public class PartidoJSFManagedBean implements Serializable {
        int eq3 = List.get(2).getIdEquipo();
        int eq4 = List.get(3).getIdEquipo();
        
+       
        partidoSessionBean.agregarPartido(null, null, eq1, eq2, 0, 0, 0, 0, 0, 0, 1, r, 0);
        partidoSessionBean.agregarPartido(null, null, eq3, eq4, 0, 0, 0, 0, 0, 0, 1, r, 0);
        
        partidoSessionBean.agregarPartido(null, null, eq2, eq3, 0, 0, 0, 0, 0, 0, 1, r, 0);
-       partidoSessionBean.agregarPartido(null, null, eq1, eq4, 0, 0, 0, 0, 0, 0, 1, r, 0);
+       partidoSessionBean.agregarPartido(null, null, eq4, eq1, 0, 0, 0, 0, 0, 0, 1, r, 0);
        
        partidoSessionBean.agregarPartido(null, null, eq1, eq3, 0, 0, 0, 0, 0, 0, 1, r, 0);
        partidoSessionBean.agregarPartido(null, null, eq2, eq4, 0, 0, 0, 0, 0, 0, 1, r, 0);
