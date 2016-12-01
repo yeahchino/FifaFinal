@@ -27,9 +27,11 @@
                                     weakLabel="Débil"  
                                     goodLabel="Mediana" 
                                     strongLabel="Fuerte"
-                                    validatorMessage="LAS CONTRASEÑAS NO COINCIDEN"/>
+                                    validatorMessage="LAS CONTRASEÑAS NO COINCIDEN"
+                                    title="Mínimo 5 caracteres. Entre ellos: mínimo 1 caracter especial, 1 minúscula, 1 mayúscula y 1 número. No puede contener espacios, ni más de 3 números consecutivos en orden ascendente o descendente"/>
                         <h:outputLabel for="pass2" value="Repetir contraseña:" />
-                        <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" requiredMessage="Debe repetir la contraseña" />
+                        <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" 
+                                    requiredMessage="Debe repetir la contraseña" />
                         <p:outputLabel value="Tipo:" for="tipo"/>
                         <p:selectOneRadio id="tipo" value="#{usuarioJSFManagedBean.tipo}" required="true" requiredMessage="Seleccione un tipo">
                             <f:selectItem itemLabel="Administrador" itemValue="Admin" />
@@ -43,44 +45,6 @@
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
-
-                <p:tab title="Modificar o Eliminar">
-                    <p:panelGrid columns="3">
-                        <f:facet name="header">
-                            Buscar Usuario
-                        </f:facet>
-                        <h:outputLabel value="Nombre: " for="txtBuscarNom"/>
-                        <p:inputText value="#{usuarioJSFManagedBean.nombre}" id="txtBuscarNom"/>
-                        <p:commandButton value="Buscar" 
-                                         icon="ui-icon-search" 
-                                         update="tbUser"
-                                         >
-                            <f:setPropertyActionListener value="#{null}" target="#{usuarioJSFManagedBean.nombre}" />                                         
-                        </p:commandButton>
-                    </p:panelGrid>
-                    <br/>
-                    <p:dataTable value="#{usuarioJSFManagedBean.usuarios}" 
-                                 var="us"
-                                 id="tbUser"
-                                 paginator="true"
-                                 paginatorPosition="bottom"
-                                 rowsPerPageTemplate="5,10,15"
-                                 emptyMessage="Sin datos"
-                                 >
-                        <p:column headerText="Nombre">
-                            #{us.nombre}
-                        </p:column>
-                       
-
-                        <p:commandButton action="#{alumno1Bean.verEditar(true, item.idAlumno, item.nombre, item.apellido, item.legajo)}"
-                                         value="Editar"
-                                         icon="ui-icon-search" 
-                                         update="panelEditarAlumno"
-                                         />
-                    </p:dataTable>
-
-                </p:tab>
-              
             </p:tabView>
 
         </h:form>

@@ -29,7 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a")})
+    @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a"),
+    @NamedQuery(name = "Usuario.validarPass", query = "SELECT u.contraseña FROM Usuario u WHERE u.nombre= :nombre and u.contraseña= :pass ")})
+
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -108,5 +110,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.fifa.datos.Usuario[ nombre=" + nombre + " ]";
     }
-    
+
 }

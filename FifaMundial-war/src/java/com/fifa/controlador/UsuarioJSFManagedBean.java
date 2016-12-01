@@ -12,6 +12,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -31,6 +33,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     private Usuario usuario;
     private int idTipoUsuario;
     private String nombre;
+    private String nombreBienvenida;
     private String contraseña;
     private String tipo;
     private List<Usuario> usuarios;
@@ -111,6 +114,52 @@ public class UsuarioJSFManagedBean implements Serializable {
         }
     }
 
+    public boolean passContenga() {
+        //Contenga
+        Pattern p1 = Pattern.compile(".*012.*");
+        Pattern p2 = Pattern.compile(".*123.*");
+        Pattern p3 = Pattern.compile(".*234.*");
+        Pattern p4 = Pattern.compile(".*345.*");
+        Pattern p5 = Pattern.compile(".*456.*");
+        Pattern p6 = Pattern.compile(".*567.*");
+        Pattern p7 = Pattern.compile(".*678.*");
+        Pattern p8 = Pattern.compile(".*789.*");
+        Pattern p9 = Pattern.compile(".*987.*");
+        Pattern p10 = Pattern.compile(".*876.*");
+        Pattern p11 = Pattern.compile(".*765.*");
+        Pattern p12 = Pattern.compile(".*654.*");
+        Pattern p13 = Pattern.compile(".*543.*");
+        Pattern p14 = Pattern.compile(".*432.*");
+        Pattern p15 = Pattern.compile(".*321.*");
+        Pattern p16 = Pattern.compile(".*210.*");
+
+        Matcher m1 = p1.matcher(contraseña);
+        Matcher m2 = p2.matcher(contraseña);
+        Matcher m3 = p3.matcher(contraseña);
+        Matcher m4 = p4.matcher(contraseña);
+        Matcher m5 = p5.matcher(contraseña);
+        Matcher m6 = p6.matcher(contraseña);
+        Matcher m7 = p7.matcher(contraseña);
+        Matcher m8 = p8.matcher(contraseña);
+        Matcher m9 = p9.matcher(contraseña);
+        Matcher m10 = p10.matcher(contraseña);
+        Matcher m11 = p11.matcher(contraseña);
+        Matcher m12 = p12.matcher(contraseña);
+        Matcher m13 = p13.matcher(contraseña);
+        Matcher m14 = p14.matcher(contraseña);
+        Matcher m15 = p15.matcher(contraseña);
+        Matcher m16 = p16.matcher(contraseña);
+
+        if (m1.matches() || m2.matches() || m3.matches() || m4.matches() || m5.matches() || m6.matches() || m7.matches() || m8.matches()
+                || m9.matches() || m10.matches() || m11.matches() || m12.matches() || m13.matches() || m14.matches() || m15.matches() || m16.matches()) {
+            //contiene
+            return true;
+        } else {
+            //no contiene
+            return false;
+        }
+    }
+
     public boolean validarPass() {
 
         int cantEspeciales = 0;
@@ -148,37 +197,49 @@ public class UsuarioJSFManagedBean implements Serializable {
         if (cantCaracteres < 5) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener 5 caracteres como mínimo", ""));
-
+            return false;
         } else if (cantEspacios != 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña no puede contener espacios", ""));
+            return false;
         } else if (cantEspeciales < 1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un caracter especial", ""));
-
+            return false;
         } else if (cantLetrasMayus < 1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un letra mayúscula", ""));
+            return false;
         } else if (cantLetrasMinus < 1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un letra minúscula", ""));
+            return false;
         } else if (cantNumeros < 1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un número", ""));
+            return false;
+        } else if (passContenga()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "La contraseña no puede contener más 3 números consecutivos en orden ascendente o descendente ", ""));
+            return false;
+        } else {
+            return true; //pass valida
         }
-        
-        return true;
     }
 
     //*val nom usuario
-    public String guardar() {
+    public void guardar() {
 
-        this.usuarioSessionBean.agregarUsuario(getNombre(), getContraseña(), idTipo());
+        if(validarPass()){
+         this.usuarioSessionBean.agregarUsuario(nombre, contraseña, idTipo());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
         this.nombre = "";
         this.contraseña = "";
-        this.tipo = "";
-        return null;
+        }
+    }
+    
+    public void mensaje(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
     }
 
     /**
@@ -227,12 +288,14 @@ public class UsuarioJSFManagedBean implements Serializable {
             us = usuarioSessionBean.iniciarSesion(usuario);
             if (us != null) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
-                nombre = us.getNombre();
+                setNombreBienvenida(us.getNombre());
                 tipo = Integer.toString(us.getTipoUsuarioidTipo().getIdTipo());
-
                 redireccion = "IndexAdm.xhtml";
             } else {
+                int c=0;
+                if(c<3){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
+                }
             }
         } catch (Exception e) {
 
@@ -244,7 +307,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     }
 
     public String bienvenido() {
-        return "¡¡Bienvenido " + nombre + "!!";
+        return "¡¡Bienvenido " + getNombreBienvenida() + "!!";
     }
 
     public boolean verTipoUsuario() {
@@ -267,6 +330,20 @@ public class UsuarioJSFManagedBean implements Serializable {
 
     public void cerrarSesion() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
+
+    /**
+     * @return the nombreBienvenida
+     */
+    public String getNombreBienvenida() {
+        return nombreBienvenida;
+    }
+
+    /**
+     * @param nombreBienvenida the nombreBienvenida to set
+     */
+    public void setNombreBienvenida(String nombreBienvenida) {
+        this.nombreBienvenida = nombreBienvenida;
     }
 
 }
