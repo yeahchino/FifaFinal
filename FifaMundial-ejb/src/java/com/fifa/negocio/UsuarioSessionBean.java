@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Tipousuario;
 import com.fifa.datos.Usuario;
+import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -36,7 +37,7 @@ public class UsuarioSessionBean {
     //cuent recuperacion de mail
     public static String Username = "fifa.mundial.web@gmail.com";
     public static String PassWord = "alexiagallo";
-    
+
     public List<Usuario> obtenerUsuario() {
         try {
             Query q = em.createNamedQuery("Usuario.findAll");
@@ -46,10 +47,10 @@ public class UsuarioSessionBean {
         }
     }
 
-    public List<Usuario> obtenerUsuarioNombre(String nombre) {
+    public List<Usuario> obtenerNombre(String nombre) {
         try {
             Query q = em.createNamedQuery("Usuario.findByNombre");
-            q.setParameter("nombre", "%" + nombre);
+            q.setParameter("nombre", nombre);
             return q.getResultList();
         } catch (Exception e) {
             return null;
@@ -163,7 +164,7 @@ public class UsuarioSessionBean {
 
         String msj = "lala" + "\n" + "vivaa";
         String para = mail;
-        String asunto = "juan de la ciudad";
+        String asunto = "m";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -191,6 +192,50 @@ public class UsuarioSessionBean {
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public boolean bloqueoCuenta(String nombre) {
+        try {
+            Usuario p = em.find(Usuario.class, nombre);
+            p.setBloqueado(Boolean.FALSE);
+            String pass = p.getContraseña();
+            p.setPassVieja(pass);
+
+            em.merge(p);
+            em.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Usuario verEmail(Usuario us) {
+        Usuario usuario = null;
+        String consulta="";
+        try {
+            consulta = "FROM Usuario u WHERE u.nombre= ?1";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, us.getNombre());
+
+            List<Usuario> lista2 = query.getResultList();
+            List<String> lista = obtenerEmail(us.getNombre());
+
+            if (!lista.isEmpty()) {
+                usuario = lista2.get(0);
+            }
+        } catch (Exception e) {
+        }
+        return usuario;
+    }
+
+    public List<String> obtenerEmail(String nombre) {
+        try {
+            Query q = em.createNamedQuery("Usuario.verEmail");
+            q.setParameter("nombre", nombre);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
         }
     }
 }
