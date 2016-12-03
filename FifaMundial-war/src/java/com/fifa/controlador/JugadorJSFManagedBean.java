@@ -12,6 +12,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -117,57 +119,49 @@ public class JugadorJSFManagedBean implements Serializable {
         this.nombre = nombre;
     }
     
-    /**
-     * @return the editar
-     */
-    public boolean isEditar() {
-        return editar;
-    }
-
-    /**
-     * @param editar the editar to set
-     */
-    public void setEditar(boolean editar) {
-        this.editar = editar;
-    }
-
-    public String verEditar(boolean ver, int idJugador, String nombre, String apellido, Date fechaNac, int dni) {
-        this.editar = ver;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNac = fechaNac;
-        this.dni = dni;
-        this.idJugador = idJugador;
-        return null;
-    }
-    
     public String guardar() {
-        if (this.idJugador != -1) {
+       
+        if 
+         (this.idJugador != -1) {
             this.jugadorSessionBean.modificarJugador(idJugador, nombre, apellido, fechaNac, dni);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificado con exito", ""));
         } else {
+    
             if (jugadorSessionBean.Validator(dni)==false){
                   FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Jugador ya existe", ""));
-            }
+            } 
+         
             else{
-            this.jugadorSessionBean.agregarJugador(nombre, apellido, fechaNac, dni);
+                if (validarDni(dni)==false){
+                           FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El dni debe contener 8 caracteres", ""));
+     
+                }
+                else{
+           this.jugadorSessionBean.agregarJugador(nombre, apellido, fechaNac, dni);
             this.nombre = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador agregado con exito", ""));
        
+            }
             }
         }
         this.jugadorlist = null;
         return null;
     }
 
-    public String eliminar(int id) {
-        this.jugadorSessionBean.borrarJugador(id);
-        this.jugadorlist = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador eliminado con exito", ""));
-        return null;
-    }
-
+public boolean validarDni(int dni){
+     
+String cadena = "";
+ 
+ 
+ 
+cadena = String.valueOf(dni);
+ 
+cadena= Integer.toString(dni);
+      if (cadena.length()!=8){
+            
+            return false;
+        }
+      return true;
     
-
-
+}
 }

@@ -89,6 +89,7 @@ public class JugadorSessionBean {
             
             
         }
+      
         return true;
         
     }
