@@ -37,6 +37,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     private String contraseña;
     private String tipo;
     private List<Usuario> usuarios;
+    private String codSeguridad;
 
     @PostConstruct
     public void init() {
@@ -230,15 +231,15 @@ public class UsuarioJSFManagedBean implements Serializable {
     //*val nom usuario
     public void guardar() {
 
-        if(validarPass()){
-         this.usuarioSessionBean.agregarUsuario(nombre, contraseña, idTipo());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
-        this.nombre = "";
-        this.contraseña = "";
+        if (validarPass()) {
+            this.usuarioSessionBean.agregarUsuario(nombre, contraseña, idTipo());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
+            this.nombre = "";
+            this.contraseña = "";
         }
     }
-    
-    public void mensaje(){
+
+    public void mensaje() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
     }
 
@@ -280,30 +281,38 @@ public class UsuarioJSFManagedBean implements Serializable {
         this.usuario = usuario;
     }
 
+    int c = 0;
+
     public String inciarSesion() {
         Usuario us;
+        Usuario us2;
         String redireccion = null;
-        //redireccion = "IndexAdm.xhtml";
-        try {
-            us = usuarioSessionBean.iniciarSesion(usuario);
-            if (us != null) {
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
-                setNombreBienvenida(us.getNombre());
-                tipo = Integer.toString(us.getTipoUsuarioidTipo().getIdTipo());
-                redireccion = "IndexAdm.xhtml";
-            } else {
-                int c=0;
-                if(c<3){
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
-                }
-            }
-        } catch (Exception e) {
-
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", ""));
+        String msj= usuarioSessionBean.generarPass();
+        
+        us = usuarioSessionBean.iniciarSesion(usuario);
+        us2 = usuarioSessionBean.verEmail(usuario);
+        if (us != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
+            setNombreBienvenida(us.getNombre());
+            tipo = Integer.toString(us.getTipoUsuarioidTipo().getIdTipo());
+            redireccion = "IndexAdm.xhtml";
+        } else if (us2 == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "El usuario no existe", ""));
+        } else if (c < 3) {
+            c++;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Contraseña incorrecta", ""));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Usuario bloqueado. Se enviara un e-mail a su casilla de correo para restablecer su contraseña", ""));
+            String mail = us2.getEmail();
+            usuarioSessionBean.bloqueoCuenta(us2.getNombre());
+            usuarioSessionBean.SendMail(mail,us2.getNombre());
+            
+            c=0;
         }
-
         return redireccion;
-
     }
 
     public String bienvenido() {
@@ -344,6 +353,24 @@ public class UsuarioJSFManagedBean implements Serializable {
      */
     public void setNombreBienvenida(String nombreBienvenida) {
         this.nombreBienvenida = nombreBienvenida;
+    }
+
+    /**
+     * @return the codSeguridad
+     */
+    public String getCodSeguridad() {
+        return codSeguridad;
+    }
+
+    /**
+     * @param codSeguridad the codSeguridad to set
+     */
+    public void setCodSeguridad(String codSeguridad) {
+        this.codSeguridad = codSeguridad;
+    }
+    
+    public void cambiarPass(){
+        
     }
 
 }

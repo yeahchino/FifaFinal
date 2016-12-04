@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./menutop2.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <p:growl id="msj" autoUpdate="true" showDetail="true" sticky="true"/>
+        <h:form prependId="false">
+            <p:inputText id="txtCod" value="#{usuarioJSFManagedBean.codSeguridad}" required="true" requiredMessage="Ingrese el código de seguridad"/>
+            <p:commandButton icon="ui-icon-key" action="#{usuarioJSFManagedBean.cambiarPass()}" value="Ingresar"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

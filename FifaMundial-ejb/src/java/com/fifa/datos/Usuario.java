@@ -30,7 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre"),
     @NamedQuery(name = "Usuario.findByContrase\u00f1a", query = "SELECT u FROM Usuario u WHERE u.contrase\u00f1a = :contrase\u00f1a"),
-    @NamedQuery(name = "Usuario.validarPass", query = "SELECT u.contraseña FROM Usuario u WHERE u.nombre= :nombre and u.contraseña= :pass ")})
+    @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
+    @NamedQuery(name = "Usuario.findByBloqueado", query = "SELECT u FROM Usuario u WHERE u.bloqueado = :bloqueado"),
+    @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado"),
+    @NamedQuery(name = "Usuario.findByPassVieja", query = "SELECT u FROM Usuario u WHERE u.passVieja = :passVieja"),
+    @NamedQuery(name = "Usuario.validarPass", query = "SELECT u.contraseña FROM Usuario u WHERE u.nombre= :nombre and u.contraseña= :pass "),
+    @NamedQuery(name = "Usuario.verEmail", query = "SELECT u.email FROM Usuario u WHERE u.nombre= :nombre")})
 
 public class Usuario implements Serializable {
 
@@ -46,6 +51,17 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "contrase\u00f1a")
     private String contraseña;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 45)
+    @Column(name = "email")
+    private String email;
+    @Column(name = "bloqueado")
+    private Boolean bloqueado;
+    @Column(name = "estado")
+    private Boolean estado;
+    @Size(max = 45)
+    @Column(name = "passVieja")
+    private String passVieja;
     @JoinColumn(name = "TipoUsuario_idTipo", referencedColumnName = "idTipo")
     @ManyToOne(optional = false)
     private Tipousuario tipoUsuarioidTipo;
@@ -76,6 +92,38 @@ public class Usuario implements Serializable {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(Boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public String getPassVieja() {
+        return passVieja;
+    }
+
+    public void setPassVieja(String passVieja) {
+        this.passVieja = passVieja;
     }
 
     public Tipousuario getTipoUsuarioidTipo() {
