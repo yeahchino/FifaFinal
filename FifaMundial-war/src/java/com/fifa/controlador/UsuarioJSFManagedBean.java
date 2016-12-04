@@ -37,6 +37,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     private String contraseña;
     private String tipo;
     private List<Usuario> usuarios;
+    private String codSeguridad;
 
     @PostConstruct
     public void init() {
@@ -279,13 +280,15 @@ public class UsuarioJSFManagedBean implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     int c = 0;
 
     public String inciarSesion() {
         Usuario us;
         Usuario us2;
         String redireccion = null;
+        String msj= usuarioSessionBean.generarPass();
+        
         us = usuarioSessionBean.iniciarSesion(usuario);
         us2 = usuarioSessionBean.verEmail(usuario);
         if (us != null) {
@@ -293,17 +296,20 @@ public class UsuarioJSFManagedBean implements Serializable {
             setNombreBienvenida(us.getNombre());
             tipo = Integer.toString(us.getTipoUsuarioidTipo().getIdTipo());
             redireccion = "IndexAdm.xhtml";
+        } else if (us2 == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "El usuario no existe", ""));
         } else if (c < 3) {
             c++;
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario o contraseña erronea", ""));
-        } else {
-            if(us2 != null){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Contraseña incorrecta", ""));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Usuario bloqueado. Se enviara un e-mail a su casilla de correo para restablecer su contraseña", ""));
             String mail = us2.getEmail();
-            usuarioSessionBean.SendMail(mail);
-            usuarioSessionBean.bloqueoCuenta(nombre);
-            }
+            usuarioSessionBean.bloqueoCuenta(us2.getNombre());
+            usuarioSessionBean.SendMail(mail,us2.getNombre());
+            
             c=0;
         }
         return redireccion;
@@ -347,6 +353,24 @@ public class UsuarioJSFManagedBean implements Serializable {
      */
     public void setNombreBienvenida(String nombreBienvenida) {
         this.nombreBienvenida = nombreBienvenida;
+    }
+
+    /**
+     * @return the codSeguridad
+     */
+    public String getCodSeguridad() {
+        return codSeguridad;
+    }
+
+    /**
+     * @param codSeguridad the codSeguridad to set
+     */
+    public void setCodSeguridad(String codSeguridad) {
+        this.codSeguridad = codSeguridad;
+    }
+    
+    public void cambiarPass(){
+        
     }
 
 }
