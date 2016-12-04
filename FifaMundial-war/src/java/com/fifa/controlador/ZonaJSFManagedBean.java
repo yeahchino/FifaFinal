@@ -5,6 +5,7 @@
  */
 package com.fifa.controlador;
 
+import com.fifa.datos.Pais;
 import com.fifa.datos.Zona;
 import com.fifa.negocio.ZonaSessionBean;
 import javax.inject.Named;
@@ -15,6 +16,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -127,6 +129,14 @@ public class ZonaJSFManagedBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zona eliminada con exito", ""));
         return null;
     }
+    public void onRowSelect(SelectEvent event) {
+        Zona z = ((Zona) event.getObject());
+        this.idZona = z.getIdZona();
+        this.nombre = z.getNombre();
+        FacesContext.getCurrentInstance().addMessage(
+                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
+    }   
+ 
 
     public String guardarZona() {
         if (this.getIdZona() == -1) {

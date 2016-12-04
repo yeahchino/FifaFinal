@@ -212,6 +212,11 @@ public class MundialJSFManagedBean implements Serializable {
         this.editar = editar;
     }
     
+      public void onRowSelect(SelectEvent event) {
+        Mundial m = ((Mundial) event.getObject());
+        this.idMundial = m.getIdMundial();
+       
+    }
      public String editar() {
         if (this.idMundial != -1) {
             this.mundialSessionBean.modificarMundial(fechaInicio, fechaFin, idMundial, idMundial);

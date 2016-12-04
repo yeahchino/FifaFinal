@@ -20,7 +20,9 @@ import java.util.Random;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -35,7 +37,18 @@ public class EquipoJSFManagedBean implements Serializable {
 
     @EJB
     private EquipoSessionBean equipoSessionBean;
-
+   
+        @Inject
+    private PaisJSFManagedBean paisJSF;
+            @Inject
+    private ZonaJSFManagedBean zonaJSF;
+                @Inject
+    private MundialJSFManagedBean mundialJSF;
+    
+    
+    
+ private String[] equipos= new String[4];
+    private String l;
     private List<Equipo> equipolist;
     private List<Equipo> zona;
     private boolean editar = false;
@@ -89,6 +102,11 @@ public class EquipoJSFManagedBean implements Serializable {
      * Creates a new instance of AlumnoBean
      */
     public EquipoJSFManagedBean() {
+         this.equipos[0]="A";
+        this.equipos[1]="B";
+        this.equipos[2]="C";
+        this.equipos[3]="D";
+
     }
 
     /**
@@ -152,7 +170,7 @@ public class EquipoJSFManagedBean implements Serializable {
             this.equipoSessionBean.modificarEquipo(idEquipo, paisidPais, zonaidZona, mundialidMundial);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo modificado con exito", ""));
         } else {
-            this.equipoSessionBean.agregarEquipo(paisidPais, zonaidZona, mundialidMundial);
+            this.equipoSessionBean.agregarEquipo(paisJSF.getIdPais(), zonaJSF.getIdZona(), mundialJSF.getIdMundial());
             this.paisidPais = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo agregado con exito", ""));
         }
@@ -173,12 +191,25 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public List<String> getList() {
 
-        if (this.list == null) {
-            this.list = this.equipoSessionBean.obtenerfix();
-        }
-
-        return list;
+    return null;
     }
+    
+    
+    public String cruce(){
+       
+         this.equipos[0]="A";
+        this.equipos[1]="B";
+        this.equipos[2]="C";
+        this.equipos[3]="D";
+ 
+     
+        for (int i = 0, j=equipos.length-1; i<j; i++, j--) {
+           l=(equipos[i]+" vs "+ equipos[j]);
+          
+        }
+      return l;
+    }
+
 
     /**
      * @param list the list to set
@@ -336,5 +367,7 @@ public class EquipoJSFManagedBean implements Serializable {
         
     }
 
+    }
 
-}
+  
+

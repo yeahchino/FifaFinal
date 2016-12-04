@@ -8,18 +8,19 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
+   
+
         <p:growl id="msj" autoUpdate="true"/>
-        <p:tabView cache="false"><p:tab title="Nuevo">
+        <p:tabView cache="false">
+            <p:tab title="Nuevo">
                 <h:form prependId="false" id="formNvo">
                     <div align="center">
-                        <!--Fecha Inicio-->
-                        <h:panelGrid columns="4" cellpadding="5" id="panelDatos">              
-               
+             
+           
                            
-                                      <!--Pais-->
+                            <!--Pais-->
                             <p:outputLabel value="Seleccionar país"/>
-                        </h:panelGrid>
-                        <br/>
+                         <br/>
                         <p:dataTable id="tblPais" 
                                      value="#{paisJSFManagedBean.pais}"
                                      var="pais"
@@ -39,17 +40,88 @@
                             </p:column>
                         </p:dataTable>
                         <br/>
+                                     <!--Zona-->
+                            <p:outputLabel value="Seleccionar Zona"/>
+                         <br/>
+                        <p:dataTable id="tblZona" 
+                                     value="#{zonaJSFManagedBean.zona}"
+                                     var="zona"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{zonaJSFManagedBean.zona}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{zona.idZona}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{zonaJSFManagedBean.onRowSelect}" update="msj"/>
+
+                            <p:column filterBy="#{zona.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{zona.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                         
+                         
+                                         <!--Mundial-->
+                            <p:outputLabel value="Seleccionar Mundial"/>
+                         <br/>
+                        <p:dataTable id="tblMundial" 
+                                     value="#{mundialJSFManagedBean.mundial}"
+                                     var="mundial"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{mundialJSFManagedBean.mundial}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{mundial.idMundial}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{mundialJSFManagedBean.onRowSelect}" update="msj"/>
+
+                            <p:column filterBy="#{mundial.paisidPais.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{mundial.paisidPais.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                         
+                         
                         <p:commandButton value="Guardar"
                                          action="#{equipoJSFManagedBean.guardar()}"
                                          icon="ui-icon-circle-check"
-                                         update="@([id$=tablaAl)"
+                                         update="@([id$=tablaEq)"
                                          >
                             <f:setPropertyActionListener value="#{null}" target="#{equipoJSFManagedBean.equipo}" />                                         
                         </p:commandButton>
                     </div>
                 </h:form> 
             </p:tab>
-           
+               <p:tab title="Ver Equipos">
+                <h:form prependId="false" id="formMod">
+                    <p:dataTable value="#{equipoJSFManagedBean.equipo}" 
+                                 var="item"
+                                 id="tablaEq"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.paisidPais.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Nombre">
+                            #{item.paisidPais.nombre}                     
+                         </p:column>
+                          <p:column headerText="Zona">
+                            #{item.zonaidZona.nombre}                     
+                         </p:column>
+                         
+                    </p:dataTable>
+              
+                </h:form>
+            </p:tab>
+
+            
+            
         </p:tabView>
     </ui:define>
 </ui:composition>

@@ -11,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Equipo;
+import static com.fifa.datos.Equipo_.mundialidMundial;
 import com.fifa.datos.Zona;
 import com.fifa.datos.Pais;
 import com.fifa.datos.Mundial;
@@ -69,24 +70,27 @@ public class EquipoSessionBean {
             return false;
         }
     }
-
-    public boolean agregarEquipo(Pais paisidPais, Zona zonaidZona, Mundial mundialidMundial) {
+ public boolean agregarEquipo(int idPais,int idZona,int idMundial) {
         try {
-            if (Validator(mundialidMundial, paisidPais) == false) {
-                Equipo p = new Equipo();
-                p.setPaisidPais(paisidPais);
-                p.setZonaidZona(zonaidZona);
-                p.setMundialidMundial(mundialidMundial);
-                em.persist(p);
+            Pais paisSel = em.find(Pais.class, idPais);
+             Zona zonaSel = em.find(Zona.class, idZona);
+              Mundial MundialSel = em.find(Mundial.class, idMundial);
+
+            if (paisSel != null) {
+                Equipo e = new Equipo();
+                e.setPaisidPais(paisSel);
+                e.setZonaidZona(zonaSel);
+               e.setMundialidMundial(MundialSel);
+                em.persist(e);
                 em.flush();
-                return true;
             }
+
+            return true;
         } catch (Exception e) {
-
+            return false;
         }
-        return false;
     }
-
+    
     public Boolean Validator(Mundial idMundial, Pais idPais) {
         String p1 = null;
         String consulta;
@@ -132,49 +136,7 @@ public class EquipoSessionBean {
         }
     }
 
-    public List<String> obtenerfix() {
-
-        int teams = 4;
-
-        // Generate the schedule using round robin algorithm.
-        int totalRounds = (teams - 1) ;
-        int matchesPerRound = teams / 2;
-        String[][] rounds = new String[totalRounds][matchesPerRound];
-        List<String> myList = null;
-
-        for (int round = 0; round < totalRounds; round++) {
-            for (int match = 0; match < matchesPerRound; match++) {
-                int home = (round + match) % (teams - 1);
-                int away = (teams - match + round - 1) % (teams - 1);
-
-                // Last team stays in the same place while the others
-                // rotate around it.
-                if (match == 0) {
-                    away = teams - 1;
-                }
-
-                // Add one so teams are number 1 to teams not 0 to teams - 1
-                // upon display.
-                rounds[round][match] = ((home + 1) + " Vs " + (away + 1));
-                
-            }
-        }
-        
-        List<String> singleDArray = new ArrayList<String>();
-               
-                for (String[] array : rounds) {
-                    singleDArray.addAll(Arrays.asList(array));
-                }
-                String[] sd = singleDArray.toArray(new String[singleDArray.size()]);
-
-                myList = Arrays.asList(sd);
-
-//        // Display the rounds    
-//        for (int i = 0; i < rounds.length; i++) {   
-//        }
-//        ;
-        return myList;
-    }
+   
 
     public void persist(Object object) {
         em.persist(object);
