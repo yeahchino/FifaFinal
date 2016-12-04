@@ -13,58 +13,79 @@
 
         <h:form prependId="false">
           
-           <p:dataTable value="#{zonaJSFManagedBean.zona}"
+            <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(1)}"
                          id="dtList"
                          var="p">
-                <p:column headerText="Nombre Zona" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
+                <p:column headerText="Grupo A"  >
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
                 </p:column>
-               
-                <p:column headerText="">
-
-                    <p:commandButton action="#{zonaJSFManagedBean.verEditar(true, p.idZona, p.nombre)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarZo"
-                                     />
-                    
-                    
-                </p:column>
-
+                  
+             
             </p:dataTable>
-           
-
-            <h:panelGroup id="panelEditarZo">
-                <p:panelGrid columns="2" rendered="#{zonaJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Zonas
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{zonaJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
+            <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(2)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo B" >
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
                
-                    <f:facet name="footer">
-                        <p:commandButton value="Guardar"
-                                         action="#{zonaJSFManagedBean.guardarZona()}"
-                                            update="dtList panelEditarZo msj"
-                                     />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{zonaJSFManagedBean.verEditar(false, -1, null)}"
-                                         update="panelEditarZo"
-                                         immediate="true"
-                                         />
-                                         
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
-
-
-
-
-
-
-
-
-
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(3)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo C">
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(4)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo D" >
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(5)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo E">
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(6)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo F">
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(7)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo G" >
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+             <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(8)}"
+                         id="dtList"
+                         var="p">
+                <p:column headerText="Grupo H" >
+                    <p:outputLabel value="#{p.paisidPais.nombre}"/>
+                </p:column>
+               
+             
+            </p:dataTable>
+            
         </h:form>
 
 

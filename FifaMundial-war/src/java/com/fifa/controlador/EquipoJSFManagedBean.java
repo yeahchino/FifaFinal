@@ -46,6 +46,7 @@ public class EquipoJSFManagedBean implements Serializable {
     private List<String> list;
     private List<Equipo> equipoOrdenado;
     private List<Equipo> eqXzona;
+    private List<Equipo> Zonas;
 
     //Lista origen que se aplica para el uso del DragandDrop 
     private List<Equipo> equiposSource = new ArrayList<>();
@@ -159,12 +160,6 @@ public class EquipoJSFManagedBean implements Serializable {
         return null;
     }
 
-    public String eliminar(int id) {
-        this.equipoSessionBean.borrarEquipo(id);
-        this.equipolist = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Equipo eliminado con exito", ""));
-        return null;
-    }
 
     public List<Equipo> getEquiposOrdenadosPorZona() {
         return this.equipoSessionBean.obtenerEquiposOrdenZona().subList(0, 4);
@@ -337,5 +332,9 @@ public class EquipoJSFManagedBean implements Serializable {
     public void setEqXzona(List<Equipo> eqXzona) {
         this.eqXzona = eqXzona;
     }
+    public void setZona1(){
+        
+    }
+
 
 }

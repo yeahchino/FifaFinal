@@ -316,7 +316,7 @@ public class UsuarioJSFManagedBean implements Serializable {
     }
 
     public String bienvenido() {
-        return "¡¡Bienvenido " + getNombreBienvenida() + "!!";
+        return "Bienvenido " + getNombreBienvenida()+" ";
     }
 
     public boolean verTipoUsuario() {
