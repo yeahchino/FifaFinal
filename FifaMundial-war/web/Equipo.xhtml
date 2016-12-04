@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./TemplateBase.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:growl id="msj" autoUpdate="true"/>
+        <p:tabView cache="false"><p:tab title="Nuevo">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+                        <!--Fecha Inicio-->
+                        <h:panelGrid columns="4" cellpadding="5" id="panelDatos">              
+               
+                           
+                                      <!--Pais-->
+                            <p:outputLabel value="Seleccionar país"/>
+                        </h:panelGrid>
+                        <br/>
+                        <p:dataTable id="tblPais" 
+                                     value="#{paisJSFManagedBean.pais}"
+                                     var="pais"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{paisJSFManagedBean.pais}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{pais.idPais}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msj"/>
+
+                            <p:column filterBy="#{pais.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{pais.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Guardar"
+                                         action="#{equipoJSFManagedBean.guardar()}"
+                                         icon="ui-icon-circle-check"
+                                         update="@([id$=tablaAl)"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{equipoJSFManagedBean.equipo}" />                                         
+                        </p:commandButton>
+                    </div>
+                </h:form> 
+            </p:tab>
+           
+        </p:tabView>
+    </ui:define>
+</ui:composition>
