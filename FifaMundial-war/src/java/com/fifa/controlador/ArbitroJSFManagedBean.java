@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,6 +27,8 @@ public class ArbitroJSFManagedBean implements Serializable {
     @EJB
     private ArbitroSessionBean ArbitroSessionBean;
     
+       @Inject
+    private PaisJSFManagedBean paisJSF;
     private List<Arbitro> arbitrolist;
     private Arbitro arbitro;
     private boolean editar = false;
@@ -137,9 +140,14 @@ public class ArbitroJSFManagedBean implements Serializable {
             this.ArbitroSessionBean.modificarArbitro(idArbitro, nombre, apellido, dni);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro modificado con exito", ""));
         } else {
-            this.ArbitroSessionBean.agregarArbitro(nombre, apellido, dni);
+              if (ArbitroSessionBean.Validator(dni)==false){
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Arbitro ya existe", ""));
+            } 
+              else{
+             this.ArbitroSessionBean.agregarArbitro(nombre, apellido, dni, paisJSF.getIdPais());
             this.nombre = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Arbitro agregado con exito", ""));
+        }
         }
         this.arbitrolist = null;
         return null;

@@ -11,6 +11,8 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Estadio;
+import com.fifa.datos.Pais;
+import com.fifa.datos.Sede;
 
 /**
  *
@@ -68,11 +70,13 @@ public class EstadioSessionBean {
     }
 
 
-    public boolean agregarEstadio( String nombre, int aforo) {
+    public boolean agregarEstadio( String nombre, int aforo,int idSede) {
         try {
+           Sede SedeSel = em.find(Sede.class, idSede);
             Estadio p = new Estadio();
             p.setNombre(nombre);
             p.setAforo(aforo);
+            p.setSedeidSede(SedeSel);
             em.persist(p);
             em.flush();
             return true;

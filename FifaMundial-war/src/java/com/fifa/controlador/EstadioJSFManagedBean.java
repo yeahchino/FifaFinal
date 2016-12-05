@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 /**
  *
@@ -28,7 +29,9 @@ public class EstadioJSFManagedBean implements Serializable {
     @EJB
     private EstadioSessionBean estadioSessionBean;
 
-    
+      @Inject
+    private SedeJSFManagedBean sedeJSF;
+
       private List<Estadio> estadio;
     private boolean editar = false;
     private int idEstadio = -1;
@@ -132,7 +135,7 @@ public class EstadioJSFManagedBean implements Serializable {
 
     public String guardarEstadio() {
         if (this.getIdEstadio()== -1) {
-            this.estadioSessionBean.agregarEstadio(nombre, aforo);
+            this.estadioSessionBean.agregarEstadio(nombre, aforo, sedeJSF.getIdSede());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Estadio agregada con exito", ""));
         } else {
             this.estadioSessionBean.modificarEstadio(idEstadio,nombre, aforo);

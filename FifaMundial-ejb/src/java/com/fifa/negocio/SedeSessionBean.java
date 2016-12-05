@@ -5,6 +5,7 @@
  */
 package com.fifa.negocio;
 
+import com.fifa.datos.Pais;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -68,10 +69,12 @@ public class SedeSessionBean {
     }
 
 
-    public boolean agregarSede( String nombre) {
+    public boolean agregarSede( String nombre, int idPais) {
         try {
+              Pais paisSel = em.find(Pais.class, idPais);
             Sede p = new Sede();
             p.setNombre(nombre);
+            p.setPaisidPais(paisSel);
             em.persist(p);
             em.flush();
             return true;

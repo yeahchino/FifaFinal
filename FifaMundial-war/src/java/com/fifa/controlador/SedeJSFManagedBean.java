@@ -5,6 +5,7 @@
  */
 package com.fifa.controlador;
 
+import com.fifa.datos.Pais;
 import com.fifa.datos.Sede;
 import com.fifa.negocio.SedeSessionBean;
 import javax.inject.Named;
@@ -14,6 +15,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -25,6 +28,8 @@ public class SedeJSFManagedBean implements Serializable {
 
     @EJB
     private SedeSessionBean sedeSessionBean;
+       @Inject
+    private PaisJSFManagedBean paisJSF;
 
      private List<Sede> sede;
     private boolean editar = false;
@@ -107,17 +112,31 @@ public class SedeJSFManagedBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sede eliminada con exito", ""));
         return null;
     }
+    public void onRowSelect(SelectEvent event) {
+        Sede s = ((Sede) event.getObject());
+        this.idSede = s.getIdSede();
+        this.nombre = s.getNombre();
+        FacesContext.getCurrentInstance().addMessage(
+                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
+    }
+
 
     public String guardarSede() {
-        if (this.getIdSede() == -1) {
-            this.sedeSessionBean.agregarSede(nombre);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sede agregada con exito", ""));
-        } else {
+       
+        if 
+         (this.idSede != -1) {
             this.sedeSessionBean.modificarSede(idSede, nombre);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sede modificada con exito", ""));
-        }
-        this.setEditar(false);
-        this.setSede(null);
+        } else {
+        
+           this.sedeSessionBean.agregarSede(nombre,paisJSF.getIdPais());
+            this.nombre = null;
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sede agregada con exito", ""));
+       
+            }
+           
+        
+        this.sede = null;
         return null;
     }
  

@@ -11,6 +11,8 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Arbitro;
+import com.fifa.datos.Pais;
+import javax.persistence.Query;
 
 /**
  *
@@ -67,13 +69,40 @@ public class ArbitroSessionBean {
         }
     }
 
-
-    public boolean agregarArbitro( String nombre, String apellido, int dni) {
+public Boolean  Validator (int dni){
+     String p1=null;
+     String consulta;
         try {
+            consulta = "FROM Arbitro p WHERE p.dni= ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, dni);
+                   
+        List <Arbitro> Listpa = query.getResultList();
+            if (!Listpa.isEmpty()) {
+               
+                return false;
+            }
+
+            
+        } catch (Exception e) {
+            
+            
+            
+        }
+      
+        return true;
+        
+    }
+
+
+    public boolean agregarArbitro(String nombre, String apellido, int dni, int idPais) {
+        try {
+            Pais paisSel = em.find(Pais.class, idPais);
             Arbitro p = new Arbitro();
             p.setNombre(nombre);
             p.setApellido(apellido);
             p.setDni(dni);
+            p.setPaisidPais(paisSel);
             em.persist(p);
             em.flush();
             return true;

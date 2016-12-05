@@ -6,12 +6,14 @@
 package com.fifa.negocio;
 
 import com.fifa.datos.Equipo;
+import com.fifa.datos.Pais;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Zona;
+import javax.persistence.Query;
 
 /**
  *
@@ -71,16 +73,43 @@ public class ZonaSessionBean {
 
     public boolean agregarZona( Character nombre) {
         try {
+            if (Validator(nombre)==true){
             Zona p = new Zona();
             p.setNombre(nombre);
             em.persist(p);
             em.flush();
             return true;
+            }
         } catch (Exception e) {
             return false;
         }
+                    return false;
     }
-     
+    
+      public Boolean  Validator (char nombre){
+     String p1=null;
+     String consulta;
+        try {
+            consulta = "FROM Zona z WHERE z.nombre= ?1 ";
+            Query query = em.createQuery(consulta);
+            query.setParameter(1, nombre);
+                   
+        List <Pais> Listpa = query.getResultList();
+            if (!Listpa.isEmpty()) {
+               
+                return false;
+            }
+
+            
+        } catch (Exception e) {
+            
+            
+            
+        }
+      
+        return true;
+        
+    }
      public boolean modificarZona(int idZona, Character nombre) {
         try {
             Zona p = em.find(Zona.class, idZona);

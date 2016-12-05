@@ -137,18 +137,28 @@ public class ZonaJSFManagedBean implements Serializable {
                 null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
     }   
  
-
-    public String guardarZona() {
-        if (this.getIdZona() == -1) {
-            this.zonaSessionBean.agregarZona(getNombre());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zona agregada con exito", ""));
+  public String guardarZona() {
+       
+        if 
+         (this.idZona != -1) {
+            this.zonaSessionBean.modificarZona(idZona, nombre);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Jugador modificado con exito", ""));
         } else {
-            this.zonaSessionBean.modificarZona(getIdZona(), getNombre());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zona modificada con exito", ""));
-        }
-        this.setEditar(false);
-        this.setZona(null);
-        return null;
-    }
     
-}
+            if (zonaSessionBean.Validator(nombre)==false){
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La zona ya existe", ""));
+            } 
+         
+                        else{
+           this.zonaSessionBean.agregarZona(nombre);
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zona agregada con exito", ""));
+       
+            }
+            }
+         this.zona = null;
+        return null;
+        }
+       
+    }
+

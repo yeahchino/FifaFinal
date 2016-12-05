@@ -102,10 +102,7 @@ public class EquipoJSFManagedBean implements Serializable {
      * Creates a new instance of AlumnoBean
      */
     public EquipoJSFManagedBean() {
-         this.equipos[0]="A";
-        this.equipos[1]="B";
-        this.equipos[2]="C";
-        this.equipos[3]="D";
+      
 
     }
 
@@ -195,21 +192,7 @@ public class EquipoJSFManagedBean implements Serializable {
     }
     
     
-    public String cruce(){
-       
-         this.equipos[0]="A";
-        this.equipos[1]="B";
-        this.equipos[2]="C";
-        this.equipos[3]="D";
- 
-     
-        for (int i = 0, j=equipos.length-1; i<j; i++, j--) {
-           l=(equipos[i]+" vs "+ equipos[j]);
-          
-        }
-      return l;
-    }
-
+    
 
     /**
      * @param list the list to set
@@ -363,10 +346,17 @@ public class EquipoJSFManagedBean implements Serializable {
     public void setEqXzona(List<Equipo> eqXzona) {
         this.eqXzona = eqXzona;
     }
-    public void setZona1(){
+
+    public List<Equipo> getZona(int zona1) {
         
+         this.zona = this.equipoSessionBean.obtenerEquipoXzona(zona1);
+        return zona;
     }
 
+    public void setZona(List<Equipo> zona) {
+        this.zona = zona;
+    }
+  
     }
 
   

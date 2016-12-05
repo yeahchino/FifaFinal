@@ -3,77 +3,97 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-           
 
     <ui:define name="content">
-          <p:growl id="msj" autoUpdate="true"/>
+   
 
-        <h:form prependId="false">
-          
-            <p:dataTable value="#{estadioJSFManagedBean.estadio}"
-                         id="dtList"
-                         var="p">
-                <p:column headerText="Nombre Estadio" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
-                </p:column>
-                <p:column headerText="Aforo Estadio" filterBy="#{p.aforo}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.aforo}"/>
-                </p:column>
-               
-                <p:column headerText="">
+        <p:growl id="msj" autoUpdate="true"/>
+        <p:tabView cache="false">
+            <p:tab title="Nuevo Estadio">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+             
+                                <h:panelGrid columns="1" cellpadding="5" id="panelDatos">              
+                           
+                            
+                <p:outputLabel for="txtUsuario" value="Nombre" style="font-size:12px"/>
+                <p:inputText id="txtUsuario" value="#{estadioJSFManagedBean.nombre}" required="true" requiredMessage="Ingrese nombre del estadio"/>
 
-                    <p:commandButton action="#{estadioJSFManagedBean.verEditar(true, p.idEstadio, p.nombre, p.aforo)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarEstadio"
-                                     />
-                    
-                    
-                </p:column>
+                <p:outputLabel for="txtUsuario" value="Aforo" style="font-size:12px"/>
+                <p:inputText id="txtUsuario" value="#{estadioJSFManagedBean.aforo}" required="true" requiredMessage="Ingrese aforo"/>
+                
+   
+                                                                        
+                        
+                           
+                            <!--Pais-->
+                            <p:outputLabel value="Seleccionar Sede"/>
+                         <br/>
+                        <p:dataTable id="tblPais" 
+                                     value="#{sedeJSFManagedBean.sede}"
+                                     var="sedes"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{sedeJSFManagedBean.sede}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{sedes.idSede}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{sedeJSFManagedBean.onRowSelect}" update="msj"/>
 
-            </p:dataTable>
-           
-
-            <h:panelGroup id="panelEditarEstadio">
-                <p:panelGrid columns="2" rendered="#{estadioJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Estadio
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{estadioJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
-               
-                     <h:outputLabel value="Aforo *" for="txtAforo"/>
-                     <p:inputText value="#{estadioJSFManagedBean.aforo}" id="txtAforo" required="true" requiredMessage="Ingrese Nombre" />
-                                       
-                    <f:facet name="footer">
+                            <p:column filterBy="#{sedes.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{sedes.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                                </h:panelGrid>
+                         
+                                
                         <p:commandButton value="Guardar"
                                          action="#{estadioJSFManagedBean.guardarEstadio()}"
-                                            update="dtList panelEditarEstadio msj"
-                                     />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{estadioJSFManagedBean.verEditar(false, -1,null, null)}"
-                                         update="panelEditarEstadio"
-                                         immediate="true"
-                                         />
-                                         
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
+                                         icon="ui-icon-circle-check"
+                                         update="@([id$=tablaEq)"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{estadioJSFManagedBean.estadio}" />                                         
+                        </p:commandButton>
+                    </div>
+                </h:form> 
+            </p:tab>
+               <p:tab title="Ver Estadios">
+                <h:form prependId="false" id="formMod">
+                    <p:dataTable value="#{estadioJSFManagedBean.estadio}" 
+                                 var="item"
+                                 id="tablaEq"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Nombre y aforo">
+                            #{item.nombre}                     
+                            #{item.aforo}    
+                         </p:column>
+                     
+                      
+                       
+                      
+                 
+                         
+                    </p:dataTable>
+                   
+              
+                </h:form>
+            </p:tab>
 
-
-
-
-
-
-
-
-
-        </h:form>
-
-
-  </ui:define>
-
+            
+            
+        </p:tabView>
+    </ui:define>
 </ui:composition>

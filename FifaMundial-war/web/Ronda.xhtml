@@ -3,37 +3,65 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-           
 
     <ui:define name="content">
-          <p:growl id="msj" autoUpdate="true"/>
-
-        <h:form prependId="false">
    
+        <p:growl id="msj" autoUpdate="true"/>
+        <p:tabView cache="false"><p:tab title="Nueva Ronda">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+                        <!--Fecha Inicio-->
+                        <h:panelGrid columns="1" cellpadding="5" id="panelDatos">              
+                           
+                            
+                            
+                <p:outputLabel for="txtUsuario" value="Ingrese nombre de la ronda" style="font-size:12px"/>
+                <p:inputText id="txtUsuario" value="#{rondaJSFManagedBean.nombre}" required="true" requiredMessage="Ingrese Nombre de la ronda"/>
+                
+      
+                       
+                        </h:panelGrid>
+                                             <br/>
+                        <p:commandButton value="Guardar"
+                                         action="#{rondaJSFManagedBean.guardarRonda()}"
+                                         icon="ui-icon-circle-check"
+                                         update="@([id$=tablaAl)"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{rondaJSFManagedBean.ronda}" />                                         
+                        </p:commandButton>
+                    </div>
+                </h:form> 
+            </p:tab>
             
-               <h:panelGrid columns="3" cellpadding="5">
-        <h:outputLabel for="menu" value="Location:" />
-        <p:selectCheckboxMenu id="menu" value="#{Ronda.selectedCities}" label="Cities"
-                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-            <f:selectItems value="#{checkboxView.cities}" />
-        </p:selectCheckboxMenu>
-        <p:commandLink value="Submit" update="display" />
-    </h:panelGrid>
- 
-    <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px">
-        <p:dataList value="#{checkboxView.selectedCities}" var="city" emptyMessage="No cities selected">
-            #{city}
-        </p:dataList>
-    </p:outputPanel>
-            
-            
-            
-        </h:form>
+              <p:tab title="Ver Zonas">
+                <h:form prependId="false" id="formMod">
+                    <p:dataTable value="#{rondaJSFManagedBean.ronda}" 
+                                 var="item"
+                                 id="tablaAl"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Nombre ">
+                            #{item.nombre}                     
+                            
+                              </p:column>
+                     
+                    </p:dataTable>
+              
+                </h:form>
+            </p:tab>
 
-
-  </ui:define>
-
+            
+            
+            
+            
+                  </p:tabView>
+    </ui:define>
 </ui:composition>

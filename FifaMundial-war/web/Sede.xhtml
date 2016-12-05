@@ -3,65 +3,92 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./TemplateBase.xhtml"
-                xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-           
 
     <ui:define name="content">
-          <p:growl id="msj" autoUpdate="true"/>
+   
 
-        <h:form prependId="false">
-          
-            <p:dataTable value="#{sedeJSFManagedBean.sede}"
-                         id="dtList"
-                         var="p">
-                <p:column headerText="Buscar Sede por nombre" filterBy="#{p.nombre}" filterMatchMode="contains">
-                    <p:outputLabel value="#{p.nombre}"/>
-                </p:column>
-               
-                <p:column headerText="">
+        <p:growl id="msj" autoUpdate="true"/>
+        <p:tabView cache="false">
+            <p:tab title="Nueva Sede">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+             
+                                <h:panelGrid columns="1" cellpadding="5" id="panelDatos">              
+                           
+                            
+                <p:outputLabel for="txtUsuario" value="Nombre" style="font-size:12px"/>
+                <p:inputText id="txtUsuario" value="#{sedeJSFManagedBean.nombre}" required="true" requiredMessage="Ingrese Nombre de la Sede"/>
+                
+                           
+                            <!--Pais-->
+                            <p:outputLabel value="Seleccionar país"/>
+                         <br/>
+                        <p:dataTable id="tblPais" 
+                                     value="#{paisJSFManagedBean.pais}"
+                                     var="pais"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{paisJSFManagedBean.pais}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{pais.idPais}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{paisJSFManagedBean.onRowSelect}" update="msj"/>
 
-                    <p:commandButton action="#{sedeJSFManagedBean.verEditar(true, p.idSede, p.nombre)}"
-                                     value="Editar"
-                                     icon="ui-icon-search" 
-                                     update="panelEditarSede"
-                                     />
-                    
-                    
-                </p:column>
-
-            </p:dataTable>
-           
-
-
-            <h:panelGroup id="panelEditarSede">
-                <p:panelGrid columns="2" rendered="#{sedeJSFManagedBean.editar}">
-                    <f:facet name="header">
-                        Editar Sedes
-                    </f:facet>
-                    <h:outputLabel value="Nombre: *" for="txtNombre"/>
-                    <p:inputText value="#{sedeJSFManagedBean.nombre}" id="txtNombre" required="true" requiredMessage="Ingrese Nombre" />
-               
-                    <f:facet name="footer">
+                            <p:column filterBy="#{pais.nombre}" filterMatchMode="startsWith" headerText="Buscar">
+                                <h:outputText value="#{pais.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                                </h:panelGrid>
+                         
+                                
                         <p:commandButton value="Guardar"
                                          action="#{sedeJSFManagedBean.guardarSede()}"
-                                            update="dtList panelEditarSede msj"
-                                     />
-                        <p:commandButton value="Cerrar" 
-                                         action="#{sedeJSFManagedBean.verEditar(false, -1, null)}"
-                                         update="panelEditarSede"
-                                         immediate="true"
-                                         />
-                                         
-                    </f:facet>
-                </p:panelGrid>
-            </h:panelGroup>
+                                         icon="ui-icon-circle-check"
+                                         update="@([id$=tablaEq)"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{sedeJSFManagedBean.sede}" />                                         
+                        </p:commandButton>
+                    </div>
+                </h:form> 
+            </p:tab>
+               <p:tab title="Ver Equipos">
+                <h:form prependId="false" id="formMod">
+                    <p:dataTable value="#{sedeJSFManagedBean.sede}" 
+                                 var="item"
+                                 id="tablaEq"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Nombre">
+                            #{item.nombre}                     
+                         </p:column>
+                        
+                           <p:column headerText="Pais">
+                            #{item.paisidPais.nombre}                     
+                         </p:column>
+                        
+                      
+                 
+                         
+                    </p:dataTable>
+                   
+              
+                </h:form>
+            </p:tab>
 
-
-        </h:form>
-
-
-  </ui:define>
-
+            
+            
+        </p:tabView>
+    </ui:define>
 </ui:composition>
