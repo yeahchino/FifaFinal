@@ -175,7 +175,7 @@ public class EquipoJSFManagedBean implements Serializable {
     public List<List<Equipo>> getObtenerFix() {
 
         //Pase en duro la zona 1 Uds. deben pasar la zona que deseen en cada caso.
-        List<List<Equipo>> fixs =  this.equipoSessionBean.obtenerfix(1);
+        List<List<Equipo>> fixs =  this.equipoSessionBean.obtenerfix(9);
         
         return fixs;
     }

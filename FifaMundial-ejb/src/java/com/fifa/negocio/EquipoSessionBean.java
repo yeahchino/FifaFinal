@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.fifa.datos.Equipo;
 import static com.fifa.datos.Equipo_.mundialidMundial;
+import com.fifa.datos.Jugador;
 import com.fifa.datos.Zona;
 import com.fifa.datos.Pais;
 import com.fifa.datos.Mundial;
@@ -90,6 +91,8 @@ public class EquipoSessionBean {
             return false;
         }
     }
+ 
+ 
     
     public Boolean Validator(Mundial idMundial, Pais idPais) {
         String p1 = null;
