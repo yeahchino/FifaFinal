@@ -12,6 +12,7 @@ import com.fifa.datos.Mundial;
 import com.fifa.datos.Partido;
 import com.fifa.datos.Ronda;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -43,7 +44,7 @@ public class PartidoSessionBean {
             Ronda idR = em.find(Ronda.class, ronda);
             Estadio idEstadio = em.find(Estadio.class, estadio);
 
-           if (idEqA != null && idEqB != null && idM != null && idR != null) {
+           if (idEqA != null && idEqB != null && idM != null &&idR != null) { 
                 Partido p = new Partido();
                 p.setIdPartido("P" + eqA + eqB + mundial +ronda);
                 p.setFecha(fecha);
@@ -66,6 +67,49 @@ public class PartidoSessionBean {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+    
+    
+    
+     public boolean agregaPartidos( Date fecha, int rdoA, int rdoB,int idMundial, int idRonda, int idEstadio, int equiA, int equiB) {
+        try {
+            Ronda RondaSel = em.find(Ronda.class, idRonda);
+             Estadio Estadioel = em.find(Estadio.class, idEstadio);
+              Mundial MundialSel = em.find(Mundial.class, idMundial);
+              Equipo EquipoA= em.find(Equipo.class, equiA);
+              Equipo EquipoB= em.find(Equipo.class, equiB);
+           
+
+                     
+            if (EquipoA!= null && EquipoB != null) { 
+              Partido p = new Partido();
+              p.setIdPartido("P" + EquipoA + EquipoB + idMundial +idRonda);
+              p.setMundialidMundial(MundialSel);
+              p.setFecha(fecha);
+              p.setEquipoidEquipoA(EquipoA);
+              p.setEquipoidEquipoB(EquipoB);
+              p.setEstadioidEstadio(Estadioel);
+              p.setRdoA(rdoA);
+              p.setRdoB(rdoB);
+              p.setRondaidRonda(RondaSel);
+                        
+                em.persist(p);
+                em.flush();
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+         
+ public List<Partido> obtenerPartidos() {
+        try {
+            javax.persistence.Query q = em.createNamedQuery("Equipo.findAll");
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
         }
     }
 }

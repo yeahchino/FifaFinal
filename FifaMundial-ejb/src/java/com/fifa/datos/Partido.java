@@ -226,5 +226,9 @@ public class Partido implements Serializable {
     public String toString() {
         return "com.fifa.datos.Partido[ idPartido=" + idPartido + " ]";
     }
+
+    public void setIdPartido(int idPartido) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

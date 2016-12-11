@@ -112,6 +112,71 @@ public class EquipoSessionBean {
         return true;
 
     }
+/***
+     * MÃ©todo que genera el fixture por zona
+     * @param idZona La zona cuyo fixture desea generarse
+     * @return Un listado con los cruces de dos equipos en cada posiciÃ³n representada 
+     * a sus vez por una lista.
+     */
+    public List<List<Equipo>> obtenerfix(int idZona) {
+
+        int teams = 4;
+
+        // Generate the schedule using round robin algorithm.
+        int totalRounds = (teams - 1);
+        int matchesPerRound = teams / 2;
+
+        javax.persistence.Query q = em.createNamedQuery("Equipo.findEquipoByIdZona");
+        q.setParameter("idZona", idZona);
+        List<Equipo> equiposEnZona = q.getResultList();
+        
+        //Una lista de listas para poder almacenar los encuentros de equipos que estan en la 
+        //matriz
+        List<List<Equipo>> listaVs = new ArrayList<>();
+        Equipo equi1, equi2;
+        
+        //Esta es la lista que va en cada posiciÃ³n de la listaVs
+        //en la posiciÃ³n 0 va el home y en la posiciÃ³n 1 va away
+        List<Equipo> miniListaVs;
+
+        String[][] rounds = new String[totalRounds][matchesPerRound];
+
+        for (int round = 0; round < totalRounds; round++) {
+            for (int match = 0; match < matchesPerRound; match++) {
+                int home = (round + match) % (teams - 1);
+                int away = (teams - match + round - 1) % (teams - 1);
+
+                if (match == 0) {
+                    away = teams - 1;
+                }
+                
+                //Separo el VS por ; para que sea mÃ¡s simple el
+                //split y poder luego asignarlo a la lista de listas de 
+                //Equipos
+                rounds[round][match] = home + ";" + away;
+
+            }
+        }
+
+        List<String> singleDArray = new ArrayList<>();
+
+        for (String[] array : rounds) {
+            singleDArray.addAll(Arrays.asList(array));
+        }
+        
+        for (String partido : singleDArray) {
+            String[] vecVs = partido.split(";");
+            equi1 = equiposEnZona.get(Integer.parseInt(vecVs[0].trim()));
+            equi2 = equiposEnZona.get(Integer.parseInt(vecVs[1].trim()));
+            miniListaVs = new ArrayList<>();
+            miniListaVs.add(equi1);
+            miniListaVs.add(equi2);
+            listaVs.add(miniListaVs);
+        }
+
+        return listaVs;
+    }
+
 
     public boolean modificarEquipo(int idEquipo, Pais paisidPais, Zona zonaidZona, Mundial mundialidMundial) {
         try {
