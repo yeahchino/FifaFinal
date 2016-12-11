@@ -16,7 +16,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -60,6 +59,7 @@ public class EquipoJSFManagedBean implements Serializable {
     private List<Equipo> equipoOrdenado;
     private List<Equipo> eqXzona;
     private List<Equipo> Zonas;
+    private int idEquipo2 =-1;
 
     //Lista origen que se aplica para el uso del DragandDrop 
     private List<Equipo> equiposSource = new ArrayList<>();
@@ -139,9 +139,16 @@ public class EquipoJSFManagedBean implements Serializable {
         this.idEquipo = idEquipo;
     }
 
-    /**
-     * @return the editar
-     */
+    public void onRowSelect(SelectEvent event) {
+        Equipo e = ((Equipo) event.getObject());
+        this.idEquipo = e.getIdEquipo();
+    }
+     
+ public void onRowSelect2(SelectEvent event) {
+        Equipo e2 = ((Equipo) event.getObject());
+        this.idEquipo2 = e2.getIdEquipo();
+       
+        }
     public boolean isEditar() {
         return editar;
     }
@@ -160,6 +167,17 @@ public class EquipoJSFManagedBean implements Serializable {
         this.mundialidMundial = mundialidMundial;
         this.idEquipo = idEquipo;
         return null;
+    }
+    /**
+     * MÃ©todo que devuelve el fixture generado
+     * @return 
+     */
+    public List<List<Equipo>> getObtenerFix() {
+
+        //Pase en duro la zona 1 Uds. deben pasar la zona que deseen en cada caso.
+        List<List<Equipo>> fixs =  this.equipoSessionBean.obtenerfix(1);
+        
+        return fixs;
     }
 
     public String guardar() {
@@ -355,6 +373,14 @@ public class EquipoJSFManagedBean implements Serializable {
 
     public void setZona(List<Equipo> zona) {
         this.zona = zona;
+    }
+
+    public int getIdEquipo2() {
+        return idEquipo2;
+    }
+
+    public void setIdEquipo2(int idEquipo2) {
+        this.idEquipo2 = idEquipo2;
     }
   
     }

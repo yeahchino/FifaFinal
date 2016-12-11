@@ -5,6 +5,7 @@
  */
 package com.fifa.controlador;
 
+import com.fifa.datos.Pais;
 import com.fifa.datos.Ronda;
 import com.fifa.negocio.RondaSessionBean;
 import javax.inject.Named;
@@ -14,6 +15,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 
 /**
@@ -50,6 +52,14 @@ public class RondaJSFManagedBean implements Serializable {
     }
 
  
+    public void onRowSelect(SelectEvent event) {
+        Ronda r = ((Ronda) event.getObject());
+        this.idRonda = r.getIdRonda();
+        this.nombre = r.getNombre();
+        FacesContext.getCurrentInstance().addMessage(
+                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
+    }
+
  
     /**
      * @param ronda the ronda to set

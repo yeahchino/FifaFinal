@@ -6,6 +6,7 @@
 package com.fifa.controlador;
 
 import com.fifa.datos.Estadio;
+import com.fifa.datos.Pais;
 
 import com.fifa.negocio.EstadioSessionBean;
 import javax.inject.Named;
@@ -17,6 +18,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -53,6 +55,14 @@ public class EstadioJSFManagedBean implements Serializable {
         }return estadio;
     }
 
+    }
+
+    public void onRowSelect(SelectEvent event) {
+        Estadio e = ((Estadio) event.getObject());
+        this.idEstadio = e.getIdEstadio();
+        this.nombre = e.getNombre();
+        FacesContext.getCurrentInstance().addMessage(
+                null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciono " + nombre, ""));
     }
 
     /**

@@ -6,11 +6,13 @@
 package com.fifa.controlador;
 
 import com.fifa.datos.Equipo;
+import com.fifa.datos.Partido;
 import com.fifa.negocio.PartidoSessionBean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.ejb.EJB;
@@ -33,6 +35,25 @@ public class PartidoJSFManagedBean implements Serializable {
     private EquipoJSFManagedBean eqJSF;
     @Inject
     private ZonaJSFManagedBean zonaJSF;
+    private List<Partido> partido;
+     private Date fecha;
+    private String idPartido;
+    private Date hora;
+    private int rdoA;
+    private int rdoB;
+    private int penalesA;
+    private int penalesB;
+
+   @Inject
+    private EquipoJSFManagedBean equipoJSF;
+   @Inject
+    private RondaJSFManagedBean rondaJSF;
+   @Inject
+    private MundialJSFManagedBean mundialJSF;
+   @Inject
+    private EstadioJSFManagedBean estadioJSF;
+     @Inject
+    private JugadorJSFManagedBean jugadorJSF;
 
     /**
      * Creates a new instance of PartidoJSFManagedBean
@@ -113,5 +134,83 @@ public class PartidoJSFManagedBean implements Serializable {
        }
      FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fixture generado con exito", ""));
      
+    }
+
+    
+
+    public List<Partido> getPartido() {
+         if (this.partido == null) {
+            this.partido = this.partidoSessionBean.obtenerPartidos();
+        }
+        return partido;
+    }
+    
+ public String guardar() {
+        this.partidoSessionBean.agregaPartidos(fecha, rdoA, rdoB,mundialJSF.getIdMundial() , rondaJSF.getIdRonda(), estadioJSF.getIdEstadio(),equipoJSF.getIdEquipo(), equipoJSF.getIdEquipo());
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Partido agregado con éxito", ""));
+              this.partido = null;
+                  return null;
+            }
+    
+    
+    public void setPartido(List<Partido> partido) {
+        this.partido = partido;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getIdPartido() {
+        return idPartido;
+    }
+
+    public void setIdPartido(String idPartido) {
+        this.idPartido = idPartido;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
+    public Integer getRdoA() {
+        return rdoA;
+    }
+
+    public void setRdoA(Integer rdoA) {
+        this.rdoA = rdoA;
+    }
+
+    public Integer getRdoB() {
+        return rdoB;
+    }
+
+    public void setRdoB(Integer rdoB) {
+        this.rdoB = rdoB;
+    }
+
+    public Integer getPenalesA() {
+        return penalesA;
+    }
+
+    public void setPenalesA(Integer penalesA) {
+        this.penalesA = penalesA;
+    }
+
+    public Integer getPenalesB() {
+        return penalesB;
+    }
+
+    public void setPenalesB(Integer penalesB) {
+        this.penalesB = penalesB;
     }
 }

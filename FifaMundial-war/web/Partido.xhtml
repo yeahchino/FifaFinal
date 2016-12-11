@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./TemplateBase.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Fecha actual',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+        </script>
+        <p:growl id="msj" autoUpdate="true"/>
+        <p:tabView cache="false"><p:tab title="Nuevo">
+                <h:form prependId="false" id="formNvo">
+                    <div align="center">
+                        <!--Fecha Inicio-->
+                        <h:panelGrid columns="1" cellpadding="5" id="panelDatos">              
+                           
+                            
+                <p:outputLabel for="txtrdoA" value="Resultado equipo A" style="font-size:12px"/>
+                <p:inputText id="txtrdoA" value="#{partidoJSFManagedBean.rdoA}"  required="true" requiredMessage="Ingrese el equipo A"/>
+                            
+                
+                <p:outputLabel for="txtrdoB" value="Resultado equipo B" style="font-size:12px"/>
+                <p:inputText id="txtrdoB" value="#{partidoJSFManagedBean.rdoB}"  required="true" requiredMessage="Ingrese el equipo B"/>
+                                                                        
+                
+                
+                        
+                         <h:outputLabel value="Fecha Partido" for="txtIn" />
+                         <p:calendar id="Fecha_de_inicio" value="#{partidoJSFManagedBean.fecha}" 
+                                        locale="es" navigator="true" pattern="dd/MM/yyyy"
+                                        required="true" onkeypress="return permite(event, 'none')" 
+                                        requiredMessage="Fecha  requerida"
+                                        effect="fadeIn" effectDuration="100">
+                            
+                            </p:calendar>  
+                            <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+                                <h:outputText value="#{partidoJSFManagedBean.fecha}" id="txtIn">
+                                    <f:convertDateTime pattern="MM/dd/yyyy"/>
+                                </h:outputText> 
+                            </p:dialog>
+                        
+                         
+                         
+                            <p:outputLabel value="Seleccionar Estadio"/>
+                         <br/>
+                        <p:dataTable id="tblEstadio" 
+                                     value="#{estadioJSFManagedBean.estadio}"
+                                     var="estadio"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{estadioJSFManagedBean.estadio}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{estadio.idEstadio}"
+                                     >
+                            <p:ajax event="rowSelect" listener="#{estadioJSFManagedBean.onRowSelect}" update="msj"/>
+
+                            <p:column filterBy="#{estadio.nombre}" filterMatchMode="startsWith" headerText="Buscar Esatdio">
+                                <h:outputText value="#{estadio.nombre}"/>
+                       
+                            </p:column>
+                           
+                        
+                        </p:dataTable>
+                         
+                                    <p:dataTable id="tblRonda" 
+                                    value="#{rondaJSFManagedBean.ronda}"
+                                     var="ronda"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{rondaJSFManagedBean.ronda}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{ronda.idRonda}"
+                                     >
+                                        <p:ajax event="rowSelect" listener="#{rondaJSFManagedBean.onRowSelect}" update="msj"/>
+
+                            <p:column filterBy="#{ronda.nombre}" filterMatchMode="startsWith" headerText="Buscar Ronda">
+                                <h:outputText value="#{ronda.nombre}"/>
+                                
+                            </p:column>
+                           
+                        
+                        </p:dataTable>
+                         
+                             <p:dataTable id="tblMundial" 
+                                    value="#{mundialJSFManagedBean.mundial}"
+                                     var="mundial"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{mundialJSFManagedBean.mundial}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{mundial.idMundial}"
+                                     >
+                                 <p:ajax event="rowSelect" listener="#{mundialJSFManagedBean.onRowSelect}" update="msj"/>
+
+                                 <p:column filterBy="#{mundial.paisidPais.nombre}" filterMatchMode="startsWith" headerText="Buscar mundial">
+                                     <h:outputText value="#{mundial.paisidPais.nombre}"/>
+                                
+                            </p:column>
+                           
+                        
+                        </p:dataTable>
+                         
+                              
+                         <p:dataTable id="tbleq1" 
+                                      value="#{equipoJSFManagedBean.equipo}"
+                                     var="equipo1"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{equipoJSFManagedBean.equipo}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{equipo1.idEquipo}"
+                                     >
+                             <p:ajax event="rowSelect" listener="#{equipoJSFManagedBean.onRowSelect}" update="msj"/>
+
+                             <p:column filterBy="#{equipo1.paisidPais.nombre}" filterMatchMode="startsWith" headerText="Buscar Equipo A">
+                                     <h:outputText value="#{equipo1.paisidPais.nombre}"/>
+                                
+                            </p:column>
+                           
+                        
+                        </p:dataTable>
+                         
+                         
+                            <p:dataTable id="tbleq2" 
+                                      value="#{equipoJSFManagedBean.equipo}"
+                                     var="equipo2"
+                                     style="width:400px;"
+                                     emptyMessage="Sin datos" 
+                                     filteredValue="#{equipoJSFManagedBean.equipo}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="5"
+                                     selectionMode="single"
+                                     rowKey="#{equipo2.idEquipo}"
+                                     >
+                             <p:ajax event="rowSelect" listener="#{equipoJSFManagedBean.onRowSelect2}" update="msj"/>
+
+                             <p:column filterBy="#{equipo2.paisidPais.nombre}" filterMatchMode="startsWith" headerText="Buscar mundial">
+                                     <h:outputText value="#{equipo2.paisidPais.nombre}"/>
+                                
+                            </p:column>
+                           
+                        
+                        </p:dataTable>
+                         
+                        </h:panelGrid>
+                                             <br/>
+                        <p:commandButton value="Guardar"
+                                         action="#{partidoJSFManagedBean.guardar()}"
+                                         icon="ui-icon-circle-check"
+                                         update="@([id$=tablaAl)"
+                                         >
+                            <f:setPropertyActionListener value="#{null}" target="#{partidoJSFManagedBean.partido}" />                                         
+                        </p:commandButton>
+                    </div>
+                </h:form> 
+            </p:tab>
+            
+              <p:tab title="Ver Partidos">
+                <h:form prependId="false" id="formMod">
+                    <p:dataTable value="#{partidoJSFManagedBean.partido}" 
+                                 var="item"
+                                 id="tablaAl"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.mundialidMundial.paisidPais.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Nombre">
+                            #{item.mundialidMundial.paisidPais.nombre}
+                              
+                              </p:column>
+                     
+                    </p:dataTable>
+              
+                </h:form>
+            </p:tab>
+           
+                  </p:tabView>
+    </ui:define>
+</ui:composition>
+
