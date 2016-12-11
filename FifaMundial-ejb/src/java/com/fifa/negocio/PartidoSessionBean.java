@@ -11,6 +11,8 @@ import com.fifa.datos.Jugador;
 import com.fifa.datos.Mundial;
 import com.fifa.datos.Partido;
 import com.fifa.datos.Ronda;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -103,7 +105,28 @@ public class PartidoSessionBean {
             return false;
         }
     }
-         
+       
+     
+  
+//
+//    public boolean modificarEquipoZona(int idEquipo, Zona zonaidZona) {
+//        {
+//            try {
+//                Equipo p = em.find(Equipo.class, idEquipo);
+//
+//                p.setZonaidZona(zonaidZona);
+//
+//                em.merge(p);
+//                em.flush();
+//                return true;
+//            } catch (Exception e) {
+//                return false;
+//            }
+//        }
+//    }
+//
+
+     
  public List<Partido> obtenerPartidos() {
         try {
             javax.persistence.Query q = em.createNamedQuery("Equipo.findAll");

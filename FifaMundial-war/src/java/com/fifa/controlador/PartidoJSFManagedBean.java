@@ -209,6 +209,12 @@ public class PartidoJSFManagedBean implements Serializable {
     public Integer getPenalesB() {
         return penalesB;
     }
+    
+    /**
+     * MÃ©todo que devuelve el fixture generado
+     * @return 
+     */
+
 
     public void setPenalesB(Integer penalesB) {
         this.penalesB = penalesB;
