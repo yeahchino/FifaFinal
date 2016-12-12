@@ -6,6 +6,9 @@
             <name>FifaMundial-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <explicit-platform explicit-source-supported="true"/>
+            <included-library dirs="200">file.reference.activation-1.1.jar</included-library>
+            <included-library dirs="200">file.reference.mail-1.4.5.jar</included-library>
+            <included-library dirs="200">file.reference.smtp-1.4.4.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

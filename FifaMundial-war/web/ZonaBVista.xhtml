@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+   template="./menutop2.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                >
+           
+
+    <ui:define name="content">
+          <p:growl id="msj" autoUpdate="true"/>
+
+        <h:form prependId="false">
+          
+            <p:dataTable value="#{equipoJSFManagedBean.getEqXzona(2)}" 
+                                 var="item"
+                                 id="tablaEq"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Sin datos"
+                                 filteredValue="#{item.paisidPais.nombre}"
+                                 rows="5"
+                                 
+                                 >
+                           <p:column headerText="Zona A">
+                            #{item.paisidPais.nombre}                     
+                           </p:column>
+                          
+                    </p:dataTable>
+          
+
+        </h:form>
+
+
+  </ui:define>
+
+</ui:composition>

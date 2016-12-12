@@ -45,8 +45,8 @@ public class UsuarioSessionBean {
     public static final boolean DESBLOQUEADO = false;
 
     //cuent recuperacion de mail
-    public static String Username = "fifa.mundial.web@gmail.com";
-    public static String PassWord = "alexiagallo";
+    public static String Username = "fifamundial0@gmail.com";
+    public static String PassWord = "Dgf112347";
 
     public List<Usuario> obtenerUsuario() {
         try {
@@ -169,10 +169,49 @@ public class UsuarioSessionBean {
     public void persist(Object object) {
         em.persist(object);
     }
+    
+    /*public void SendMailTest (String email, String nombre){
+        {
+        //final String Username = "fifamundial0@gmail.com";
+        //final String PassWord = "Dgf112347";
+        //final String para = "yeahchino@gmail.com";
+       Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Username, PassWord);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);        // email message
+            message.setFrom(new InternetAddress(Username));                    // setting header fields
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.setSubject("Test Mail from Java Program"); // subject line
+
+            // actual mail body
+            message.setText("You can send mail from Java program by using mail API, but you need"
+                    + "couple of more JAR files e.g. smtp.jar and activation.jar");
+
+            // Send message
+            Transport.send(message);
+            System.out.println("Email Sent successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+    }*/
 
     public void SendMail(String email, String nombre) {
 
-        String msj1 = "¡Hola " + nombre+" Lamentablemente tu usuario ha sido bloqueado por demasiados intentos de inicio de sesión.";
+        String msj1 = "¡Hola " + nombre + " Lamentablemente tu usuario ha sido bloqueado por demasiados intentos de inicio de sesión.";
         String msj2= "Su nueva contraseña es: " + enviarNewPass(nombre);
         String para = email;
         String asunto = "Usuario bloqueado";
@@ -182,9 +221,11 @@ public class UsuarioSessionBean {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(Username, PassWord);
             }
@@ -193,9 +234,8 @@ public class UsuarioSessionBean {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(Username));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(para));
-            message.setSubject(asunto);
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(para));;
+            message.setSubject("Bloqueo de cuenta");
 
             Multipart multipart = new MimeMultipart("related");
             BodyPart htmlPart = new MimeBodyPart();

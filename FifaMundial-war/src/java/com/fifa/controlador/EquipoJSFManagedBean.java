@@ -322,11 +322,11 @@ public class EquipoJSFManagedBean implements Serializable {
         switch (zona) {
             //A
             case 1:
-                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(9);
                 break;
             //B
             case 2:
-                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(zona);
+                this.eqXzona = this.equipoSessionBean.obtenerEquipoXzona(10);
                 break;
             //C
             case 3:

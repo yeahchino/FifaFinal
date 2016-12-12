@@ -300,10 +300,11 @@ public class UsuarioJSFManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "El usuario no existe", ""));
         } else if (c < 3) {
-            c++;
+            
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Contraseña incorrecta", ""));
-        }else{
+            c++;
+        }else if (c>=3){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Usuario bloqueado. Se enviara un e-mail a su casilla de correo para restablecer su contraseña", ""));
             String mail = us2.getEmail();
