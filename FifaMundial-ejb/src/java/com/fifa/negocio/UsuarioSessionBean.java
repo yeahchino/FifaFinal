@@ -125,7 +125,7 @@ public class UsuarioSessionBean {
         try {
             int idTipoUsuario=2;
             Tipousuario tipo = em.find(Tipousuario.class, idTipoUsuario);
-            if (tipo != null) {
+            if (nombre != null) {
                 Usuario u = new Usuario();
                 u.setNombre(nombre);
                 u.setContraseña(contraseña);
