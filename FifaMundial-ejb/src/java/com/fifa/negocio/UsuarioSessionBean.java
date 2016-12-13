@@ -169,7 +169,7 @@ public class UsuarioSessionBean {
     public void persist(Object object) {
         em.persist(object);
     }
-    
+
     /*public void SendMailTest (String email, String nombre){
         {
         //final String Username = "fifamundial0@gmail.com";
@@ -208,11 +208,10 @@ public class UsuarioSessionBean {
         }
     }
     }*/
-
     public void SendMail(String email, String nombre) {
 
         String msj1 = "¡Hola " + nombre + " Lamentablemente tu usuario ha sido bloqueado por demasiados intentos de inicio de sesión.";
-        String msj2= "Su nueva contraseña es: " + enviarNewPass(nombre);
+        String msj2 = "Su nueva contraseña es: " + enviarNewPass(nombre);
         String para = email;
         String asunto = "Usuario bloqueado";
 
@@ -237,27 +236,20 @@ public class UsuarioSessionBean {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(para));;
             message.setSubject("Bloqueo de cuenta");
 
-            Multipart multipart = new MimeMultipart("related");
             BodyPart htmlPart = new MimeBodyPart();
             htmlPart.setContent("<img src=\"cid:imagen\"/></body></html>" + "<html><body><h3 align=\"center\">" + msj1 + "</h3><br/>"
                     + "<h3 align=\"center\">" + msj2 + "</h3>"
-                    +"<a href=\"http://localhost:8080/FifaMundial-war/faces/CodigoSeguridad.xhtml\">Cambiar contraseña</a>", "text/html");
+                    +"<a href=\"http://localhost:8080/FifaMundial-war/faces/UsuarioReset.xhtml\">Cambiar contraseña</a>", "text/html");
             //modificar con link real
-              
+
+            Multipart multipart = new MimeMultipart("related");
             multipart.addBodyPart(htmlPart);
-            
-            BodyPart imgPart = new MimeBodyPart();
-            DataSource ds = new FileDataSource("F:\\Ing software\\FifaFinal\\FifaMundial-war\\web\\Imagenes\\Menu-Top.jpg");
-            imgPart.setDataHandler(new DataHandler(ds));
-            imgPart.setHeader("Content-ID", "imagen");
-            multipart.addBodyPart(imgPart);
+
+            // Put parts in message
             message.setContent(multipart);
 
-            //message.setContent("<img src=\"cid:Menu-Top.jpg\" alt=\"\"/> <h1>"+msj+"</h1>", "text/html");
-            Transport transport = session.getTransport();
-            transport.connect();
-            transport.sendMessage(message,message.getRecipients(Message.RecipientType.TO));
-            transport.close();
+// Send the message
+            Transport.send(message);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

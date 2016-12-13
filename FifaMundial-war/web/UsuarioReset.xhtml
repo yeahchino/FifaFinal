@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./menutop2.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+           
+
+    <ui:define name="content">
+          <p:growl id="msj" autoUpdate="true"/>
+
+        <h:form prependId="false">
+          
+            <h3 style="margin-top:0">Usuario</h3>
+            <p:tabView>
+                <p:tab title="Restablecer Password">
+                    <p:panelGrid columns="2" id="panel">
+                        
+                        <h:outputLabel for="pass1" value="Contraseña:" />
+                        <p:password id="pass1" value="#{usuarioJSFManagedBean.contraseña}" 
+                                    match="pass2" 
+                                    label="Contraseña" 
+                                    required="true"
+                                    requiredMessage="Ingrese una contraseña"
+                                    feedback="true" 
+                                    promptLabel="Ingrese su contraseña" 
+                                    weakLabel="Débil"  
+                                    goodLabel="Mediana" 
+                                    strongLabel="Fuerte"
+                                    validatorMessage="LAS CONTRASEÑAS NO COINCIDEN"
+                                    title="Mínimo 5 caracteres. Entre ellos: mínimo 1 caracter especial, 1 minúscula, 1 mayúscula y 1 número. No puede contener espacios, ni más de 3 números consecutivos en orden ascendente o descendente"/>
+                        <h:outputLabel for="pass2" value="Repetir contraseña:" />
+                        <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" 
+                                    requiredMessage="Debe repetir la contraseña" />
+                       
+
+                        <f:facet name="footer">
+                            <div align="center">
+                                <p:commandButton value="Guardar" action="#{usuarioJSFManagedBean.guardarReset()}"
+                                                 update="panel msj"/>
+                            </div>
+                        </f:facet>
+                    </p:panelGrid>
+                </p:tab>
+            </p:tabView>
+          
+
+        </h:form>
+
+
+  </ui:define>
+
+</ui:composition>

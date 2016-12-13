@@ -238,6 +238,16 @@ public class UsuarioJSFManagedBean implements Serializable {
             this.contraseña = "";
         }
     }
+    
+     public void guardarReset() {
+
+        if (validarPass()) {
+            this.usuarioSessionBean.agregarUsuario("admin", contraseña, 1);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
+            this.nombre = "";
+            this.contraseña = "";
+        }
+    }
 
     public void mensaje() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
@@ -299,12 +309,12 @@ public class UsuarioJSFManagedBean implements Serializable {
         } else if (us2 == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "El usuario no existe", ""));
-        } else if (c < 3) {
+        } else if (c < 1) {
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Contraseña incorrecta", ""));
             c++;
-        }else if (c>=3){
+        }else if (c>=1){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Usuario bloqueado. Se enviara un e-mail a su casilla de correo para restablecer su contraseña", ""));
             String mail = us2.getEmail();
