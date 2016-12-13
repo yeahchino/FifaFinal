@@ -38,8 +38,8 @@
                     <p:menuitem value="Partidos" icon="ui-icon-gear"  action="Partido.xhtml"/>
                 </p:submenu>
                 <p:submenu label="Mi Cuenta">
-                    <p:menuitem value="Agregar Usuario" icon="ui-icon-power" rendered="#{usuarioJSFManagedBean.verTipoUsuario()}"/>
-                    <p:menuitem value="Editar" action="Usuario.xhtml"  ajax="false"
+                    <p:menuitem value="Agregar Usuario" icon="ui-icon-power" action="Usuario.xhtml" rendered="#{usuarioJSFManagedBean.verTipoUsuario()}"/>
+                    <p:menuitem value="Editar" action="UsuarioReset.xhtml"  ajax="false"
                                 icon=" ui-icon-gear"/>
                     <p:menuitem value="Cerrar Sesión" action="index.xhtml"  icon="ui-icon-power"/>
                 </p:submenu>

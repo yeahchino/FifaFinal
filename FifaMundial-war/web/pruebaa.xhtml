@@ -13,11 +13,12 @@
 
         <h:form prependId="false">
 
-
+ <p:outputPanel  id="display" style="width:250px;padding-left:5px;margin-top:10px">
             <p:dataTable value="#{equipoJSFManagedBean.obtenerFix}" 
                          var="fix"
                          rows="6"
                          emptyMessage="No hay fixture"
+                         value="Grupo A"
                          >
                 <p:column headerText="Local">
                     #{fix.get(0).paisidPais.nombre}
@@ -28,11 +29,14 @@
                 </p:column>
                 
                 <p:column headerText="Vistante">
-                    #{fix.get(0).paisidPais.nombre}
+                    #{fix.get(1).paisidPais.nombre}
                 </p:column>
 
                 
             </p:dataTable>
+           
+              
+            </p:outputPanel>
 
 
 

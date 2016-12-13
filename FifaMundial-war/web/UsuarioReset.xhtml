@@ -6,18 +6,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-           
 
     <ui:define name="content">
-          <p:growl id="msj" autoUpdate="true"/>
-
-        <h:form prependId="false">
-          
-            <h3 style="margin-top:0">Usuario</h3>
+        <p:growl id="msj" />
+        <h:form prependId="false"> 
+            <h3 style="margin-top:0">Usuarios</h3>
             <p:tabView>
-                <p:tab title="Restablecer Password">
+                <p:tab title="Nuevo">
                     <p:panelGrid columns="2" id="panel">
-                        
                         <h:outputLabel for="pass1" value="Contraseña:" />
                         <p:password id="pass1" value="#{usuarioJSFManagedBean.contraseña}" 
                                     match="pass2" 
@@ -34,22 +30,17 @@
                         <h:outputLabel for="pass2" value="Repetir contraseña:" />
                         <p:password id="pass2" value="#{usuarioJSFManagedBean.contraseña}" label="Repetir contraseña" required="true" 
                                     requiredMessage="Debe repetir la contraseña" />
-                       
-
+                      
                         <f:facet name="footer">
                             <div align="center">
-                                <p:commandButton value="Guardar" action="#{usuarioJSFManagedBean.guardarReset()}"
+                                <p:commandButton value="Guardar" action="#{usuarioJSFManagedBean.guardar()}"
                                                  update="panel msj"/>
                             </div>
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
             </p:tabView>
-          
 
         </h:form>
-
-
-  </ui:define>
-
+    </ui:define>
 </ui:composition>

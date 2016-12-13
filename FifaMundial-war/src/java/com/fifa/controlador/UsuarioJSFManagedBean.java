@@ -114,6 +114,16 @@ public class UsuarioJSFManagedBean implements Serializable {
             return 2;
         }
     }
+    
+    public String ObtMail(){
+        
+        String cuenta="";
+        
+        cuenta= this.getUsuario().getEmail();
+        
+        return cuenta;
+        
+    }
 
     public boolean passContenga() {
         //Contenga
@@ -194,6 +204,7 @@ public class UsuarioJSFManagedBean implements Serializable {
         }
 
         int cantCaracteres = contraseña.trim().length();
+         Usuario us4 = usuarioSessionBean.verEmail(usuario);
 
         if (cantCaracteres < 5) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -207,7 +218,15 @@ public class UsuarioJSFManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un caracter especial", ""));
             return false;
-        } else if (cantLetrasMayus < 1) {
+        } 
+        
+         else if (this.contraseña.equals(us4.getPassVieja())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "La contraseña debe ser distinta a la anterior", ""));
+            return false;
+        } 
+        
+        else if (cantLetrasMayus < 1) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La contraseña debe contener al menos un letra mayúscula", ""));
             return false;
@@ -230,24 +249,33 @@ public class UsuarioJSFManagedBean implements Serializable {
 
     //*val nom usuario
     public void guardar() {
-
+        Usuario us3 = usuarioSessionBean.verEmail(usuario);
         if (validarPass()) {
-            this.usuarioSessionBean.agregarUsuario(nombre, contraseña, idTipo());
+            this.usuarioSessionBean.ConsultaUsuario(contraseña,us3);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
             this.nombre = "";
             this.contraseña = "";
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al guaradar usuario", ""));
         }
+    
     }
     
-     public void guardarReset() {
-
+    
+      public void guardar2() {
+       
         if (validarPass()) {
-            this.usuarioSessionBean.agregarUsuario("admin", contraseña, 1);
+            this.usuarioSessionBean.agregarUsuario(nombre, contraseña);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
             this.nombre = "";
             this.contraseña = "";
+        } else {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al guaradar usuario", ""));
         }
+    
     }
+    
+     
 
     public void mensaje() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario guardado con éxito", ""));
@@ -309,12 +337,12 @@ public class UsuarioJSFManagedBean implements Serializable {
         } else if (us2 == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "El usuario no existe", ""));
-        } else if (c < 1) {
+        } else if (c < 2) {
             
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "Contraseña incorrecta", ""));
             c++;
-        }else if (c>=1){
+        }else if (c>=2){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Usuario bloqueado. Se enviara un e-mail a su casilla de correo para restablecer su contraseña", ""));
             String mail = us2.getEmail();
@@ -349,7 +377,11 @@ public class UsuarioJSFManagedBean implements Serializable {
     }
 
     public void cerrarSesion() {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "Se cerró su Sesión", ""));
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        
+        
     }
 
     /**

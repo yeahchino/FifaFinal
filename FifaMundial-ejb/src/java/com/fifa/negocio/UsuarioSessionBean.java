@@ -121,8 +121,9 @@ public class UsuarioSessionBean {
 
     }
 
-    public boolean agregarUsuario(String nombre, String contraseña, int idTipoUsuario) {
+   public boolean agregarUsuario(String nombre, String contraseña) {
         try {
+            int idTipoUsuario=2;
             Tipousuario tipo = em.find(Tipousuario.class, idTipoUsuario);
             if (tipo != null) {
                 Usuario u = new Usuario();
@@ -137,7 +138,7 @@ public class UsuarioSessionBean {
             return false;
         }
     }
-
+    
     public boolean modificarUsuario(int idUsuario, String nombre, String contraseña, Tipousuario tipoUsuarioidTipo) {
         try {
             Usuario p = em.find(Usuario.class, idUsuario);
@@ -152,12 +153,14 @@ public class UsuarioSessionBean {
         }
     }
 
-    public boolean ConsultaUsuario(int idUsuario, String nombre, String contraseña, Tipousuario tipoUsuarioidTipo) {
+    public boolean ConsultaUsuario(String contraseña, Usuario us3) {
         try {
-            Usuario p = em.find(Usuario.class, idUsuario);
-            p.setNombre(nombre);
+          String nombre = us3.getNombre();
+           Usuario p = em.find(Usuario.class, nombre);
+         
+            String pass = p.getContraseña();
+            p.setPassVieja(pass);
             p.setContraseña(contraseña);
-            p.setTipoUsuarioidTipo(tipoUsuarioidTipo);
             em.merge(p);
             em.flush();
             return true;
