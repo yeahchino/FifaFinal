@@ -361,7 +361,8 @@ public class UsuarioJSFManagedBean implements Serializable {
     public boolean verTipoUsuario() {
         if (tipo.compareTo("1") == 0) {
             return true;
-        } else {
+        } 
+        else {
             return false;
         }
     }
